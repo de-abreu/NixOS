@@ -1,5 +1,9 @@
 # INFO: Astronvim, an aesthetically pleasing and feature-rich neovim config that is extensible and easy to use with a great set of plugins
-{ pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   programs.neovim = {
     enable = true;
     extraPackages =
@@ -8,7 +12,6 @@
         git # required to fetch plugins
         ripgrep # required for search and replace
         tree-sitter # required to parse text (hence a bunch of stuff)
-        neovim-remote # Prevents the recursive creation of Neovim sessions
 
         # Requirements to fetch and uncompress files
         curl
@@ -18,13 +21,15 @@
 
         wl-clipboard # Clipboard support in Wayland
 
-        lua # Lua support
         cargo # Rust support
-        tinyxxd # Binary support
+        gcc # C support
+        gnumake # Make support
+        lua # Lua support
+        nodejs # Javascript support
         python3 # Python support
         python312Packages.wheel
-        nodejs # Javascript support
         swi-prolog # Prolog compiler and interpreter
+        tinyxxd # Binary support
         vhdl-ls # VHDL language server
 
         # Nix support
@@ -46,20 +51,19 @@
       ]);
   };
 
-  home.sessionVariables."EDITOR" = "nvr";
+  # neovim-remote, prevents the creation of recursive nvim sessions
+  home = {
+    packages = [pkgs.neovim-remote];
+    sessionVariables."EDITOR" = "nvr";
+  };
 
   xdg = {
     configFile = {
-      "nvim/init.lua" = {
-        source = ./init.lua;
-        force = true;
-      };
-      "nvim/lua" = {
-        source = ./lua;
-        force = true;
-      };
+      "nvim/init.lua".source = ./init.lua;
+      "nvim/lua".source = ./lua;
+
+      # NOTE: More languages can be found at https://ftp.nluug.nl/pub/vim/runtime/spell/
+      "nvim/spell".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/NixOS/nixos/home-manager/modules/astronvim/spell";
     };
   };
-
-  # NOTE: dictionaries are found under nvim/spell. More languages can be found at https://ftp.nluug.nl/pub/vim/runtime/spell/
 }

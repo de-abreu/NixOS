@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs = {
     fish = {
       enable = true;
@@ -10,17 +10,24 @@
         nvim = "nvr";
         snv = "sudoedit";
       };
-      plugins =
-        let
-          fromRepo = plugins:
-            map
-              (plugin: {
-                name = "${plugin}";
-                src = pkgs.fishPlugins."${plugin}".src;
-              })
-              plugins;
-        in
-        (fromRepo [ "autopair" "bang-bang" "bass" "colored-man-pages" "done" "fzf-fish" "z" ])
+      plugins = let
+        fromRepo = plugins:
+          map
+          (plugin: {
+            name = "${plugin}";
+            src = pkgs.fishPlugins."${plugin}".src;
+          })
+          plugins;
+      in
+        (fromRepo [
+          "autopair"
+          "bang-bang"
+          "colored-man-pages"
+          "done"
+          "fzf-fish"
+          "pure"
+          "z"
+        ])
         ++ [
           {
             name = "fish-ssh-agent";
@@ -35,7 +42,6 @@
       shellInit =
         # fish
         ''
-          bass source ~/.profile
           set --universal pure_color_success green
           fish_config theme choose "ayu Mirage"
         '';

@@ -15,10 +15,17 @@
     ++ modules;
 
   # Bootloader.
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/sda";
-    useOSProber = true;
+  boot = {
+    loader.grub = {
+      enable = true;
+      device = "/dev/sda";
+      useOSProber = true;
+      enableCryptodisk = true;
+    };
+    initrd = {
+      secrets."/boot/crypto_keyfile.bin" = null;
+      luks.devices."luks-f9f39611-cda8-43a3-bf67-d2266ecfd5d5".keyFile = "/boot/crypto_keyfile.bin";
+    };
   };
 
   networking = {

@@ -7,36 +7,35 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs =
-    inputs @ { nixpkgs
-    , home-manager
-    , ...
-    }:
-    let
-      filter = with nixpkgs.lib;
-        folder:
+  outputs = inputs @ {
+    nixpkgs,
+    home-manager,
+    ...
+  }: let
+    filter = with nixpkgs.lib;
+      folder:
         fileset.toList (fileset.fileFilter
           (file:
             hasSuffix "nix"
-              file.name)
+            file.name)
           folder);
-    in
-    {
-      nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./nixos/system/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.user = import ./nixos/home-manager/home.nix;
-              home-manager.extraSpecialArgs = { inherit inputs filter; };
-            }
-          ];
-          specialArgs = { inherit inputs filter; };
-        };
+  in {
+    nixosConfigurations = {
+      nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./nixos/system/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.verbose = true;
+            home-manager.users.user = import ./nixos/home-manager/home.nix;
+            home-manager.extraSpecialArgs = {inherit inputs filter;};
+          }
+        ];
+        specialArgs = {inherit inputs filter;};
       };
     };
+  };
 }
