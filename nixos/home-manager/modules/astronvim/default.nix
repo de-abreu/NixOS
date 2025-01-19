@@ -4,22 +4,15 @@
   pkgs,
   ...
 }: {
-  programs.neovim = {
-    enable = true;
-    extraPackages =
+  programs.neovim.enable = true;
+
+  home = {
+    packages =
       (with pkgs; [
         # Core functionality
         git # required to fetch plugins
         ripgrep # required for search and replace
         tree-sitter # required to parse text (hence a bunch of stuff)
-
-        # Requirements to fetch and uncompress files
-        curl
-        gnutar
-        gzip
-        unzip
-
-        wl-clipboard # Clipboard support in Wayland
 
         cargo # Rust support
         gcc # C support
@@ -49,21 +42,9 @@
         ghci-dap
         haskell-dap
       ]);
+    sessionVariables."EDITOR" = "nvr -s";
   };
 
-  # neovim-remote, prevents the creation of recursive nvim sessions
-  home = {
-    packages = [pkgs.neovim-remote];
-    sessionVariables."EDITOR" = "nvr";
-  };
-
-  xdg = {
-    configFile = {
-      "nvim/init.lua".source = ./init.lua;
-      "nvim/lua".source = ./lua;
-
-      # NOTE: More languages can be found at https://ftp.nluug.nl/pub/vim/runtime/spell/
-      "nvim/spell".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/NixOS/nixos/home-manager/modules/astronvim/spell";
-    };
-  };
+  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/NixOS/nixos/home-manager/modules/astronvim/nvim";
+  # NOTE: More languages for spellcheck can be found at https://ftp.nluug.nl/pub/vim/runtime/spell/
 }

@@ -1,18 +1,20 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ pkgs
-, filter
-, ...
+{
+  pkgs,
+  filter,
+  ...
 }: {
-  imports =
-    let
-      modules = filter ./modules;
-    in
+  imports = let
+    modules = filter ./modules;
+  in
     [
       ./hardware-configuration.nix # Include the results of the hardware scan.
     ]
     ++ modules;
+
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Bootloader.
   boot = {
@@ -24,19 +26,21 @@
     };
     initrd = {
       secrets."/boot/crypto_keyfile.bin" = null;
-      luks.devices."luks-f9f39611-cda8-43a3-bf67-d2266ecfd5d5".keyFile = "/boot/crypto_keyfile.bin";
+      luks.devices = {
+        "luks-2140c066-cb88-40da-8450-c8b1cb77dad3".device = "/dev/disk/by-uuid/2140c066-cb88-40da-8450-c8b1cb77dad3";
+        "luks-5f2bed1d-73c9-4cd0-a0f4-6a976a19add6".keyFile = "/boot/crypto_keyfile.bin";
+        "luks-2140c066-cb88-40da-8450-c8b1cb77dad3".keyFile = "/boot/crypto_keyfile.bin";
+      };
     };
   };
 
   networking = {
-    hostName = "nixos"; # Define the hostname.
-    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    hostName = "nixos"; # Define your hostname.
     networkmanager.enable = true; # Enable networking
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  system.autoUpgrade.channel = "https://channels.nixos.org/nixos-24.11";
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -63,22 +67,24 @@
   services = {
     xserver = {
       enable = true; # Enable the X11 windowing system.
-
-      # Enable the GNOME Desktop Environment.
       displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      desktopManager.gnome.enable = true; # Enable the GNOME Desktop Environment.
       xkb = {
-        # Configure keymap in X11
         layout = "br";
         variant = "";
       };
     };
-    # Enable automatic login for the user.
+    printing.enable = true;
     displayManager.autoLogin = {
       enable = true;
       user = "user";
     };
-    printing.enable = true; # Enable CUPS to print documents.
+  };
+
+  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  systemd.services = {
+    "getty@tty1".enable = false;
+    "autovt@tty1".enable = false;
   };
 
   # Configure console keymap
@@ -107,41 +113,10 @@
   users.users.user = {
     isNormalUser = true;
     description = "user";
-    extraGroups = [ "networkmanager" "wheel" ]; # "wheel adds the user to the sudoers group"
+    extraGroups = ["networkmanager" "wheel"]; # By being a member of "wheel" this user has sudo privileges
   };
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
 
   # Install firefox.
   programs.firefox.enable = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment = {
-    systemPackages = with pkgs; [
-      keepassxc # password manager
-
-      # Terminal related applications
-      bat
-      bottom # Process monitor
-      curl
-      fira-code-nerdfont
-      fish
-      kitty
-      tmux
-      tree
-      wget
-
-      # Watch series
-      celluloid
-      fragments
-    ];
-    variables = {
-      TERM = "kitty";
-    };
-  };
-
   system.stateVersion = "24.11";
 }

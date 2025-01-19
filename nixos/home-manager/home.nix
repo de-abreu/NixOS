@@ -1,4 +1,4 @@
-{ filter, ... }: {
+{filter, ...}: {
   home = rec {
     username = "user";
     homeDirectory = "/home/${username}";
