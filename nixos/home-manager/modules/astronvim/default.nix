@@ -1,13 +1,12 @@
-# INFO: Astronvim, an aesthetically pleasing and feature-rich neovim config that is extensible and easy to use with a great set of plugins
+# INFO: Astronvim, an aesthetically pleasing and feature-rich neovim config that is extensible and easy to use with a great set of plugins. More languages for spellcheck can be found at https://ftp.nluug.nl/pub/vim/runtime/spell/
 {
   config,
   pkgs,
   ...
 }: {
-  programs.neovim.enable = true;
-
-  home = {
-    packages =
+  programs.neovim = {
+    enable = true;
+    extraPackages =
       (with pkgs; [
         # Core functionality
         git # required to fetch plugins
@@ -42,9 +41,7 @@
         ghci-dap
         haskell-dap
       ]);
-    sessionVariables."EDITOR" = "nvr -s";
   };
-
-  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/NixOS/nixos/home-manager/modules/astronvim/nvim";
-  # NOTE: More languages for spellcheck can be found at https://ftp.nluug.nl/pub/vim/runtime/spell/
+  home.sessionVariables."EDITOR" = "nvr -s";
+  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.pathToModules}/astronvim/nvim";
 }

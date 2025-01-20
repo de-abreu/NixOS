@@ -1,15 +1,18 @@
 {pkgs, ...}: {
   programs = {
     # INFO: Retain Bash as the default shell, but switch to fish when in an interactive shell session. See: https://nixos.wiki/wiki/Fish
-    bash.initExtra =
-      # bash
-      ''
-        if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-        then
-          shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-          exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-        fi
-      '';
+    bash = {
+      enable = true;
+      initExtra =
+        # bash
+        ''
+          if [[ $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+          then
+            shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+            exec fish $LOGIN_OPTION
+          fi
+        '';
+    };
     fish = {
       enable = true;
       shellAbbrs = {

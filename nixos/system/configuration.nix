@@ -10,85 +10,76 @@
     modules = filter ./modules;
   in
     [
-      ./hardware-configuration.nix # Include the results of the hardware scan.
+      # Include the results of the hardware scan.
+      ./hardware-configuration.nix
     ]
     ++ modules;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  # And everything bellow was automatically generated
+
   # Bootloader.
-  boot = {
-    loader.grub = {
-      enable = true;
-      device = "/dev/sda";
-      useOSProber = true;
-      enableCryptodisk = true;
-    };
-    initrd = {
-      secrets."/boot/crypto_keyfile.bin" = null;
-      luks.devices = {
-        "luks-2140c066-cb88-40da-8450-c8b1cb77dad3".device = "/dev/disk/by-uuid/2140c066-cb88-40da-8450-c8b1cb77dad3";
-        "luks-5f2bed1d-73c9-4cd0-a0f4-6a976a19add6".keyFile = "/boot/crypto_keyfile.bin";
-        "luks-2140c066-cb88-40da-8450-c8b1cb77dad3".keyFile = "/boot/crypto_keyfile.bin";
-      };
-    };
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.useOSProber = true;
+
+  boot.initrd.luks.devices."luks-d06ffa56-c8dd-4030-8baf-b022b9bb52fb".device = "/dev/disk/by-uuid/d06ffa56-c8dd-4030-8baf-b022b9bb52fb";
+  # Setup keyfile
+  boot.initrd.secrets = {
+    "/boot/crypto_keyfile.bin" = null;
   };
 
-  networking = {
-    hostName = "nixos"; # Define your hostname.
-    networkmanager.enable = true; # Enable networking
-  };
+  boot.loader.grub.enableCryptodisk = true;
 
+  boot.initrd.luks.devices."luks-86916c40-a42e-441d-90da-aab571ea8694".keyFile = "/boot/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-d06ffa56-c8dd-4030-8baf-b022b9bb52fb".keyFile = "/boot/crypto_keyfile.bin";
+  networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  # Enable networking
+  networking.networkmanager.enable = true;
+
   # Set your time zone.
   time.timeZone = "America/Sao_Paulo";
 
   # Select internationalisation properties.
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "pt_BR.UTF-8";
-      LC_IDENTIFICATION = "pt_BR.UTF-8";
-      LC_MEASUREMENT = "pt_BR.UTF-8";
-      LC_MONETARY = "pt_BR.UTF-8";
-      LC_NAME = "pt_BR.UTF-8";
-      LC_NUMERIC = "pt_BR.UTF-8";
-      LC_PAPER = "pt_BR.UTF-8";
-      LC_TELEPHONE = "pt_BR.UTF-8";
-      LC_TIME = "pt_BR.UTF-8";
-    };
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "pt_BR.UTF-8";
+    LC_IDENTIFICATION = "pt_BR.UTF-8";
+    LC_MEASUREMENT = "pt_BR.UTF-8";
+    LC_MONETARY = "pt_BR.UTF-8";
+    LC_NAME = "pt_BR.UTF-8";
+    LC_NUMERIC = "pt_BR.UTF-8";
+    LC_PAPER = "pt_BR.UTF-8";
+    LC_TELEPHONE = "pt_BR.UTF-8";
+    LC_TIME = "pt_BR.UTF-8";
   };
 
-  services = {
-    xserver = {
-      enable = true; # Enable the X11 windowing system.
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true; # Enable the GNOME Desktop Environment.
-      xkb = {
-        layout = "br";
-        variant = "";
-      };
-    };
-    printing.enable = true;
-    displayManager.autoLogin = {
-      enable = true;
-      user = "user";
-    };
-  };
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
 
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services = {
-    "getty@tty1".enable = false;
-    "autovt@tty1".enable = false;
+  # Enable the GNOME Desktop Environment.
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "br";
+    variant = "";
   };
 
   # Configure console keymap
   console.keyMap = "br-abnt2";
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
@@ -113,10 +104,54 @@
   users.users.user = {
     isNormalUser = true;
     description = "user";
-    extraGroups = ["networkmanager" "wheel"]; # By being a member of "wheel" this user has sudo privileges
+    extraGroups = ["networkmanager" "wheel"];
+    packages = with pkgs; [
+      #  thunderbird
+    ];
   };
+
+  # Enable automatic login for the user.
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "user";
+
+  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
 
   # Install firefox.
   programs.firefox.enable = true;
-  system.stateVersion = "24.11";
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+  ];
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+
+  # List services that you want to enable:
+
+  # Enable the OpenSSH daemon.
+  # services.openssh.enable = true;
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "24.11"; # Did you read the comment?
 }
