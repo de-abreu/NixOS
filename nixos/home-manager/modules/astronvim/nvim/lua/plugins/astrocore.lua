@@ -1,17 +1,15 @@
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
--- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
---       as this provides autocomplete and documentation while editing
 
 local opts = {
 	-- Configure core features of AstroNvim
 	features = {
 		large_buf = { size = 1024 * 256, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
-		autopairs = true,                           -- enable autopairs at start
-		cmp = true,                                 -- enable completion at start
-		diagnostics_mode = 3,                       -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
-		highlighturl = true,                        -- highlight URLs at start
-		notifications = true,                       -- enable notifications at start
+		autopairs = true, -- enable autopairs at start
+		cmp = true, -- enable completion at start
+		diagnostics_mode = 3, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
+		highlighturl = true, -- highlight URLs at start
+		notifications = true, -- enable notifications at start
 	},
 	-- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
 	diagnostics = {
@@ -20,20 +18,20 @@ local opts = {
 	},
 	-- vim options can be configured here
 	options = {
-		opt = {           -- vim.opt.<key>
+		opt = { -- vim.opt.<key>
 			relativenumber = true, -- sets vim.opt.relativenumber
 			number = true, -- sets vim.opt.number
 			signcolumn = "yes", -- sets vim.opt.signcolumn to yes
-			mouse = "",   -- Disable the mouse
+			mouse = "", -- Disable the mouse
 
 			-- Localization and spell check options
 			langmap = "jklç;hjkl,JKLÇ;HJKL", -- Remappping of the right hand home row to that of the ABNT2 keyboard
-			spell = true,            -- sets vim.opt.spell
+			spell = true, -- sets vim.opt.spell
 			spelllang = { "en_us", "pt_br" }, -- TODO: later add "pt_br" and have the dictionary installed locally
 			-- rtp:append("~/.config/nvim/")
 
 			-- Softwrap options
-			wrap = true,  -- Enable line wrapping
+			wrap = true, -- Enable line wrapping
 			linebreak = true, -- Break lines at "breakat" characters, thus not splitting words
 			breakindent = true, -- Preserve indentation when breaking lines
 			whichwrap = "b,s,h,l", -- Set keys which can make the cursor wrap lines
@@ -52,6 +50,11 @@ local opts = {
 }
 
 -- Custom mappings
+-- vim.keymap.set("n", "<C-j>", "<C-h>", { remap = true })
+-- vim.keymap.set("n", "<C-k>", "<C-j>", { remap = true })
+-- vim.keymap.set("n", "<C-l>", "<C-k>", { remap = true })
+-- vim.keymap.set("n", "<C-ç>", "<C-l>", { remap = true })
+
 local nop = { "<nop>", desc = "No operation" }
 local no_operation = {
 	["<Down>"] = nop,
@@ -71,13 +74,13 @@ local vertical_movement = {
 }
 
 local buffer_controls = {
-	["H"] = {
+	["J"] = {
 		function()
 			require("astrocore.buffer").nav(-vim.v.count1)
 		end,
 		desc = "Previous buffer",
 	},
-	["Ç"] = {
+	["K"] = {
 		function()
 			require("astrocore.buffer").nav(vim.v.count1)
 		end,
@@ -90,17 +93,13 @@ local window_controls = {
 	["<C-W>i"] = { "<C-w>t<C-w>H", desc = "Rearrange windows vertically" },
 	["\\"] = { ":vsplit ", desc = "Split window vertically" },
 	["-"] = { ":split ", desc = "Split window horizontally" },
-	["<C-J>"] = { "<C-\\><C-n><C-w>h", desc = "Move cursor to left split" },
-	["<C-K>"] = { "<C-\\><C-n><C-w>j", desc = "Move cursor to split below" },
-	["<C-L>"] = { "<C-\\><C-n><C-w>k", desc = "Move cursor to split above" },
-	["<C-ç>"] = { "<C-\\><C-n><C-w>l", desc = "Move cursor to right split" },
 }
 
 -- Define the mappings and modes
 local custom_mappings = {
 	{ modes = { "n", "v", "i", "o" }, mappings = { no_operation } },
-	{ modes = { "n", "v" },           mappings = { vertical_movement } },
-	{ modes = { "n" },                mappings = { window_controls, buffer_controls } },
+	{ modes = { "n", "v" }, mappings = { vertical_movement } },
+	{ modes = { "n" }, mappings = { window_controls, buffer_controls } },
 }
 
 -- Assign mappings
