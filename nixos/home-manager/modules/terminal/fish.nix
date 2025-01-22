@@ -19,8 +19,7 @@
         c = "wl-copy";
         cl = "clear";
         co = "wl-paste";
-        nv = "nvr -s";
-        nvim = "nvr -s";
+        nv = "nvim";
         snv = "sudoedit";
       };
       plugins = let
@@ -28,7 +27,7 @@
           map
           (plugin: {
             name = "${plugin}";
-            src = pkgs.fishPlugins."${plugin}".src;
+            inherit (pkgs.fishPlugins."${plugin}") src;
           })
           plugins;
       in

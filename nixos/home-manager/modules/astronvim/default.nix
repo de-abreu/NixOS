@@ -42,6 +42,6 @@
         haskell-dap
       ]);
   };
-  home.sessionVariables."EDITOR" = "nvr -s";
+  home.sessionVariables."EDITOR" = "nvim";
   xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.pathToModules}/astronvim/nvim";
 }

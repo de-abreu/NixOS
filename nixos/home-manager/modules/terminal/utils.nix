@@ -6,7 +6,6 @@
     bottom # Process monitor
     curl
     wl-clipboard # Clipboard access
-    neovim-remote # Prevent the recursive creation of nvim sessions
 
     # Requirements to fetch and uncompress files
     curl
