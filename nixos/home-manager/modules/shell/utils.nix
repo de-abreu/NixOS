@@ -2,7 +2,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     tree
-    trashy
     bottom # Process monitor
     curl
 
