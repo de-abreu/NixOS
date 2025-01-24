@@ -23,6 +23,8 @@ return {
   { import = "astrocommunity.search.grug-far-nvim" },
   -- Conduct tests from within Neovim. TODO: Learn how to conduct tests and use this tool
   { import = "astrocommunity.test.neotest" },
+  -- Prevent the recursive creation of nvim instances
+  { import = "astrocommunity.terminal-integration.flatten-nvim" },
 
   -- Plugins for language support
   { import = "astrocommunity.pack.bash" },
