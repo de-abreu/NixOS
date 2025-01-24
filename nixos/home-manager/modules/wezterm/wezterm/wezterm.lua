@@ -9,7 +9,6 @@ require("appearance").apply_to_config(config)
 require("overrides").apply_to_config(config)
 require("rendering").apply_to_config(config)
 require("scrollback-nvim").apply_to_config(config)
--- require("session-permanence").apply_to_config(config)
 require("tab-bar").apply_to_config(config)
 
 return config
