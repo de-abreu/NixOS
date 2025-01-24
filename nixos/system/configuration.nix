@@ -4,6 +4,7 @@
 {
   pkgs,
   filter,
+  username,
   ...
 }: {
   imports = let
@@ -17,7 +18,14 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # And everything bellow was automatically generated
+  users.users."${username}" = {
+    isNormalUser = true;
+    uid = 1000;
+    description = "${username}";
+    extraGroups = ["networkmanager" "wheel"];
+  };
+
+  # And everything bellow is as automatically generated
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -101,15 +109,6 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.user = {
-    isNormalUser = true;
-    description = "user";
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [
-      #  thunderbird
-    ];
-  };
-
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "user";
@@ -120,13 +119,6 @@
 
   # Install firefox.
   programs.firefox.enable = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -12,6 +12,7 @@
     home-manager,
     ...
   }: let
+    username = "Abreu";
     filter = with nixpkgs.lib;
       folder:
         fileset.toList (fileset.fileFilter
@@ -31,10 +32,10 @@
             home-manager.useUserPackages = true;
             home-manager.verbose = true;
             home-manager.users.user = import ./nixos/home-manager/home.nix;
-            home-manager.extraSpecialArgs = {inherit inputs filter;};
+            home-manager.extraSpecialArgs = {inherit inputs filter username;};
           }
         ];
-        specialArgs = {inherit inputs filter;};
+        specialArgs = {inherit inputs filter username;};
       };
     };
   };

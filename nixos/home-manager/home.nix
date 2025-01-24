@@ -2,6 +2,7 @@
   config,
   lib,
   filter,
+  username,
   ...
 }: {
   imports = filter ./modules;
@@ -11,8 +12,8 @@
   };
 
   config = {
-    home = rec {
-      username = "user";
+    home = {
+      username = "${username}";
       homeDirectory = "/home/${username}";
       stateVersion = "24.11";
     };
