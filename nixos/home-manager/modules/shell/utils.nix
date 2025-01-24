@@ -5,7 +5,6 @@
     trashy
     bottom # Process monitor
     curl
-    wl-clipboard # Clipboard access
 
     # Requirements to fetch and uncompress files
     curl
