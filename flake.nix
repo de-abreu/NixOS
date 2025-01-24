@@ -12,7 +12,7 @@
     home-manager,
     ...
   }: let
-    username = "Abreu";
+    username = "user";
     filter = with nixpkgs.lib;
       folder:
         fileset.toList (fileset.fileFilter

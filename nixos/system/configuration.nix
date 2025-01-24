@@ -2,7 +2,6 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  pkgs,
   filter,
   username,
   ...
@@ -25,7 +24,7 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
-  # And everything bellow is as automatically generated
+  # WARN: And everything bellow is as automatically generated
 
   # Bootloader.
   boot.loader.grub.enable = true;

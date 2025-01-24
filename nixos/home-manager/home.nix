@@ -13,7 +13,7 @@
 
   config = {
     home = {
-      username = "${username}";
+      username = username;
       homeDirectory = "/home/${username}";
       stateVersion = "24.11";
     };
