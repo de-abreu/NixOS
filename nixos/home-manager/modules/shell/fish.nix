@@ -17,9 +17,7 @@
     fish = {
       enable = true;
       shellAbbrs = {
-        c = "wl-copy";
         cl = "clear";
-        co = "wl-paste";
       };
       plugins = let
         fromRepo = plugins:
