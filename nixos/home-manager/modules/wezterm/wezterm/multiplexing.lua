@@ -5,6 +5,16 @@ local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smar
 local act = wezterm.action
 local module = {}
 
+local function swap_buffers(dir)
+	return function(window)
+		local tab = window:active_tab()
+		local next_pane = tab:get_pane_direction(dir)
+		if next_pane then
+			tab.swap_active_with_index(next_pane, true)
+		end
+	end
+end
+
 -- INFO: Configuring integration with neovim
 function module.apply_to_config(config)
 	smart_splits.apply_to_config(config, {
@@ -23,17 +33,18 @@ function module.apply_to_config(config)
 	local mappings = {
 
 		-- Tabs
-		{ mods = "LEADER", key = "n", action = act.SpawnTab("CurrentPaneDomain") },
-		{ mods = "LEADER", key = "k", action = act.ActivateTabRelative(-1) },
-		{ mods = "LEADER", key = "l", action = act.ActivateTabRelative(1) },
+		{ mods = "LEADER", key = "n",  action = act.SpawnTab("CurrentPaneDomain") },
+		{ mods = "LEADER", key = "a",  action = act.ActivateTabRelative(-1) },
+		{ mods = "LEADER", key = "ç",  action = act.ActivateTabRelative(1) },
 
 		-- Panes
-		{ mods = "LEADER", key = "-", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+		{ mods = "LEADER", key = "-",  action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 		{ mods = "LEADER", key = "\\", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-		{ mods = "LEADER", key = "q", action = act.CloseCurrentPane({ confirm = true }) },
-		{ mods = "LEADER", key = "]", action = act.RotatePanes("Clockwise") },
-		{ mods = "LEADER", key = "[", action = act.RotatePanes("CounterClockwise") },
-		{ mods = "LEADER", key = "z", action = act.TogglePaneZoomState },
+		{ mods = "LEADER", key = "q",  action = act.CloseCurrentPane({ confirm = true }) },
+		{ mods = "LEADER", key = "]",  action = act.RotatePanes("Clockwise") },
+		{ mods = "LEADER", key = "[",  action = act.RotatePanes("CounterClockwise") },
+		{ mods = "LEADER", key = "z",  action = act.TogglePaneZoomState },
+		-- { mods = "LEADER" },
 	}
 
 	if not config.keys then

@@ -74,13 +74,13 @@ local vertical_movement = {
 }
 
 local buffer_controls = {
-	["J"] = {
+	["<Leader>a"] = {
 		function()
 			require("astrocore.buffer").nav(-vim.v.count1)
 		end,
 		desc = "Previous buffer",
 	},
-	["K"] = {
+	["<Leader>ç"] = {
 		function()
 			require("astrocore.buffer").nav(vim.v.count1)
 		end,
