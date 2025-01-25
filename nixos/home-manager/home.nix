@@ -1,8 +1,8 @@
 {
-  config,
   lib,
   filter,
   username,
+  flakePath,
   ...
 }: {
   imports = filter ./modules;
@@ -17,7 +17,7 @@
       homeDirectory = "/home/${username}";
       stateVersion = "24.11";
     };
-    pathToModules = "${config.home.homeDirectory}/.config/NixOS/nixos/home-manager/modules/";
+    pathToModules = "${flakePath}/nixos/home-manager/modules/";
     programs.home-manager.enable = true;
   };
 }

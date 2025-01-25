@@ -15,6 +15,7 @@
     ...
   }: let
     username = "user";
+    flakePath = "/home/${username}/.config/NixOS";
     filter = with nixpkgs.lib;
       folder:
         fileset.toList (fileset.fileFilter
@@ -26,7 +27,7 @@
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = {inherit inputs filter username;};
+        specialArgs = {inherit inputs filter username flakePath;};
         modules = [
           ./nixos/system/configuration.nix
           stylix.nixosModules.stylix
