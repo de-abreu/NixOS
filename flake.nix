@@ -24,8 +24,9 @@
           folder);
   in {
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
+      nixos = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
+        specialArgs = {inherit inputs filter username;};
         modules = [
           ./nixos/system/configuration.nix
           stylix.nixosModules.stylix
@@ -35,10 +36,9 @@
             home-manager.useUserPackages = true;
             home-manager.verbose = true;
             home-manager.users.user = import ./nixos/home-manager/home.nix;
-            home-manager.extraSpecialArgs = {inherit inputs filter username;};
+            home-manager.extraSpecialArgs = specialArgs;
           }
         ];
-        specialArgs = {inherit inputs filter username;};
       };
     };
   };

@@ -24,11 +24,12 @@ function module.apply_to_config(config)
 
 		-- Tabs
 		{ mods = "LEADER", key = "n", action = act.SpawnTab("CurrentPaneDomain") },
-		{ mods = "CTRL|SHIFT", key = "k", action = act.ActivateTabRelative(-1) },
-		{ mods = "CTRL|SHIFT", key = "l", action = act.ActivateTabRelative(1) },
+		{ mods = "LEADER", key = "k", action = act.ActivateTabRelative(-1) },
+		{ mods = "LEADER", key = "l", action = act.ActivateTabRelative(1) },
 
 		-- Panes
 		{ mods = "LEADER", key = "-", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+		{ mods = "LEADER", key = "\\", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 		{ mods = "LEADER", key = "q", action = act.CloseCurrentPane({ confirm = true }) },
 		{ mods = "LEADER", key = "]", action = act.RotatePanes("Clockwise") },
 		{ mods = "LEADER", key = "[", action = act.RotatePanes("CounterClockwise") },
