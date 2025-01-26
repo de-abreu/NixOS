@@ -2,6 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
+  pkgs,
   filter,
   username,
   ...
@@ -22,6 +23,12 @@
     uid = 1000;
     description = "${username}";
     extraGroups = ["networkmanager" "wheel"];
+  };
+
+  # INFO: Substitute Firefox for the privacy enchanced Librewolf
+  environment = {
+    systemPackages = [pkgs.librewolf];
+    sessionVariables.BROWSER = "librewolf";
   };
 
   # WARN: And everything bellow is as automatically generated
@@ -115,9 +122,6 @@
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
-
-  # Install firefox.
-  programs.firefox.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

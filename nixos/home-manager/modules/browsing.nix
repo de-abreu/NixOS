@@ -1,4 +1,5 @@
+# INFO: Enable privacy enchanced Firefox forks
 {pkgs, ...}: {
-  # TODO: Install the Mullvad browser as well, to replace Firefox
+  programs.librewolf.enable = true;
   home.packages = [pkgs.tor-browser];
 }
