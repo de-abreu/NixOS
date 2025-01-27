@@ -7,11 +7,6 @@
     # cd result
     # eza --tree --level 3
 
-    cursorTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
-    };
-
     theme = {
       package = pkgs.matcha-gtk-theme.override {
         colorVariants = ["dark"];
