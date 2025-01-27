@@ -7,13 +7,13 @@
     # cd result
     # eza --tree --level 3
 
-    theme = {
-      package = pkgs.matcha-gtk-theme.override {
-        colorVariants = ["dark"];
-        themeVariants = ["azul"];
-      };
-      name = "Matcha-dark-azul";
-    };
+    # theme = {
+    #   package = pkgs.matcha-gtk-theme.override {
+    #     colorVariants = ["dark"];
+    #     themeVariants = ["azul"];
+    #   };
+    #   name = "Matcha-dark-azul";
+    # };
 
     iconTheme = {
       package = pkgs.flat-remix-icon-theme;
