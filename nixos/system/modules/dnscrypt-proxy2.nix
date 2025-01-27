@@ -1,3 +1,10 @@
+# INFO: from https://nixos.wiki/wiki/Encrypted_DNS
+#
+# By default, DNS traffic is sent in plain text over the internet; it can be monitored or spoofed by any party along the path, including your ISP. DNSSEC authenticates the DNS records themselves, but can't stop your ISP monitoring domains or dropping queries.
+#
+# Encrypted DNS protocols aim to address this hole by encrypting queries and responses in transit between DNS resolvers and clients; the most widely deployed ones are DNS over HTTPS (DoH), DNS over TLS (DoT), and DNSCrypt.
+#
+# services.dnscrypt-proxy2 is generally recommended, as it has the widest protocol and feature support, and is written in a memory-safe language.
 {...}: {
   services.dnscrypt-proxy2 = {
     enable = true;
