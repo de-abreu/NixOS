@@ -25,12 +25,6 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
-  # INFO: Substitute Firefox for the privacy enchanced Librewolf
-  environment = {
-    systemPackages = [pkgs.librewolf];
-    sessionVariables.BROWSER = "librewolf";
-  };
-
   # WARN: And everything bellow is as automatically generated
 
   # Bootloader.

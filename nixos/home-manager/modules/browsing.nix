@@ -1,5 +1,9 @@
-# INFO: Enable privacy enchanced Firefox forks
-{pkgs, ...}: {
-  programs.librewolf.enable = true;
-  home.packages = [pkgs.tor-browser];
+{pkgs, ...}:
+with pkgs; {
+  programs.chromium = {
+    enable = true;
+    dictionaries = [hunspellDictsChromium.en_US];
+  };
+  home.sessionVariables."BROWSER" = "mullvad-browser";
+  home.packages = [tor-browser mullvad-browser];
 }
