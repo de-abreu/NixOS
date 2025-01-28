@@ -68,7 +68,7 @@ local vertical_movement = {
 }
 
 local buffer_controls = {
-	["<Leader>a"] = {
+	["<Leader>h"] = {
 		function()
 			require("astrocore.buffer").nav(-vim.v.count1)
 		end,
@@ -93,7 +93,10 @@ local window_controls = {
 local custom_mappings = {
 	{ modes = { "n", "v", "i", "o" }, mappings = { no_operation } },
 	{ modes = { "n", "v" },           mappings = { vertical_movement } },
-	{ modes = { "n" },                mappings = { window_controls, buffer_controls } },
+	{
+		modes = { "n" },
+		mappings = { window_controls, buffer_controls, { gx = { desc = "Open URL" } } },
+	},
 }
 
 -- Assign mappings

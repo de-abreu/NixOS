@@ -1,14 +1,14 @@
 local module = {}
 
 function module.apply_to_config(config)
-	-- config.color_scheme = "One Dark (Gogh)" -- TODO: Use stylix to rice the whole desktop into a single theme
-
 	-- Font settings
 	config.font_size = 10
 	config.line_height = 1.2
 
-	-- Appearence
+	-- Windows and tabs
 	config.window_decorations = "NONE"
+	config.tab_bar_at_bottom = true
+	config.use_fancy_tab_bar = false
 end
 
 return module

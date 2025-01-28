@@ -11,6 +11,9 @@ in {
         -- Set leader key
         config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 2000 }
 
+        -- Set the kitty image protocol to render images
+        config.enable_kitty_graphics = true
+
         -- Import modules
         require("modules.multiplexing").apply_to_config(config)
         require("modules.appearance").apply_to_config(config)
@@ -19,10 +22,7 @@ in {
         require("modules.scrollback-nvim").apply_to_config(config)
 
         -- Configure tab bar
-
         config.hide_tab_bar_if_only_one_tab = false
-        config.tab_bar_at_bottom = true
-        config.use_fancy_tab_bar = false
         config.tab_and_split_indices_are_zero_based = true
 
          -- Display an indicator (🌊) whenever the Leader key is active

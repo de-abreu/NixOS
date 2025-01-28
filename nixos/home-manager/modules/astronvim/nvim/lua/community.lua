@@ -4,38 +4,47 @@
 
 ---@type LazySpec
 return {
-  "AstroNvim/astrocommunity",
-  -- Highlight other uses of the word under the cursor
-  { import = "astrocommunity.bars-and-lines.vim-illuminate" },
-  -- Context aware commenting for embedded languages
-  { import = "astrocommunity.comment.ts-comments-nvim" },
-  -- Add syntax highlighting to the Debug Adapter's REPL terminal
-  { import = "astrocommunity.debugging.nvim-dap-repl-highlights" },
-  -- Display a list of diagnostics and TODOs of the current file
-  { import = "astrocommunity.diagnostics.trouble-nvim" },
-  -- Preview markdown documents locally, using the browser
-  { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
-  -- Styling for markdown markers
-  { import = "astrocommunity.markdown-and-latex.markview-nvim" },
-  -- Similar to CamelCaseMotion, but also with some considerations for punctuation
-  { import = "astrocommunity.motion.nvim-spider" },
-  -- Search and replace
-  { import = "astrocommunity.search.grug-far-nvim" },
-  -- Conduct tests from within Neovim. TODO: Learn how to conduct tests and use this tool
-  { import = "astrocommunity.test.neotest" },
-  -- Prevent the recursive creation of nvim instances
-  { import = "astrocommunity.terminal-integration.flatten-nvim" },
+	"AstroNvim/astrocommunity",
+	{ import = "astrocommunity.bars-and-lines.vim-illuminate" },
+	-- Highlight other uses of the word under the cursor
+	{ import = "astrocommunity.comment.ts-comments-nvim" },
+	-- Context aware commenting for embedded languages
+	{ import = "astrocommunity.diagnostics.trouble-nvim" },
+	-- Display a list of diagnostics and TODOs of the current file
+	{ import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
+	-- Preview markdown documents locally, using the browser
+	{ import = "astrocommunity.markdown-and-latex.markview-nvim" },
+	-- Styling for markdown markers
+	{ import = "astrocommunity.motion.nvim-spider" },
+	-- Similar to CamelCaseMotion, but also with some considerations for punctuation
+	{ import = "astrocommunity.search.grug-far-nvim" },
+	-- Search and replace
+	{ import = "astrocommunity.test.neotest" },
+	-- Conduct tests from within Neovim. TODO: Learn how to conduct tests and use this tool
+	{ import = "astrocommunity.terminal-integration.flatten-nvim" },
+	-- Prevent the recursive creation of nvim instances
+	{ import = "astrocommunity.editing-support.neogen" },
+	-- An automated annotation generator
+	{ import = "astrocommunity.media.image-nvim" },
+	-- Enable the display of images
 
-  -- Plugins for language support
-  { import = "astrocommunity.pack.bash" },
-  { import = "astrocommunity.pack.cpp" },
-  { import = "astrocommunity.pack.fish" },
-  { import = "astrocommunity.pack.json" },
-  { import = "astrocommunity.pack.lua" },
-  { import = "astrocommunity.pack.mdx" },
-  { import = "astrocommunity.pack.nix" }, -- Requires nixd, alejandra, deadnix and statix
-  { import = "astrocommunity.pack.python-ruff" },
-  { import = "astrocommunity.pack.rainbow-delimiter-indent-blankline" },
-  { import = "astrocommunity.pack.typescript" },
-  { import = "astrocommunity.pack.yaml" },
+	-- Debugging
+	{ import = "astrocommunity.debugging.nvim-dap-repl-highlights" },
+	-- Add syntax highlighting to the REPL terminal
+	{ import = "astrocommunity.debugging.nvim-dap-virtual-text" },
+	-- Adds virtual text support
+
+	-- Plugins for language support
+	{ import = "astrocommunity.pack.bash" },
+	{ import = "astrocommunity.pack.cpp" },
+	{ import = "astrocommunity.pack.fish" },
+	{ import = "astrocommunity.pack.json" },
+	{ import = "astrocommunity.pack.lua" },
+	{ import = "astrocommunity.pack.mdx" },
+	{ import = "astrocommunity.pack.nix" }, -- Requires nixd, alejandra, deadnix and statix
+	{ import = "astrocommunity.pack.python-ruff" },
+	{ import = "astrocommunity.pack.quarto" },
+	{ import = "astrocommunity.pack.rainbow-delimiter-indent-blankline" },
+	{ import = "astrocommunity.pack.typescript" },
+	{ import = "astrocommunity.pack.yaml" },
 }

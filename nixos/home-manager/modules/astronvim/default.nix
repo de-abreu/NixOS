@@ -15,6 +15,7 @@
           ripgrep # required for search and replace
           tree-sitter # required to parse text (hence a bunch of stuff)
 
+          R # R support
           cargo # Rust support
           gcc # C support
           gnumake # Make support
@@ -42,6 +43,13 @@
           haskell-debug-adapter # Debug adapter
           ghci-dap
           haskell-dap
+        ])
+        ++ (with pkgs.rPackages; [
+          languageserversetup
+          languageserver
+        ])
+        ++ (with pkgs.lua54Packages; [
+          magick # In order to enable the display of images
         ]);
     };
     fish.shellAbbrs = {
