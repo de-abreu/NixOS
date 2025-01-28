@@ -38,15 +38,6 @@
             home-manager.verbose = true;
             home-manager.users.user = import ./nixos/home-manager/home.nix;
             home-manager.extraSpecialArgs = specialArgs;
-            home-manager.sharedModules = [
-              {
-                stylix.targets = {
-                  # WARN:
-                  neovim.enable = false; # Managed with AstroUI
-                  fish.enable = false; # Managed with fish_theme
-                };
-              }
-            ];
           }
         ];
       };
