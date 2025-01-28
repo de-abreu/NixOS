@@ -33,6 +33,7 @@
           "bang-bang"
           "colored-man-pages"
           "done"
+          "fzf-fish" # TODO: List fzf keybindings into a cheatsheet solution for the terminal
           "pure"
           "z"
         ])
