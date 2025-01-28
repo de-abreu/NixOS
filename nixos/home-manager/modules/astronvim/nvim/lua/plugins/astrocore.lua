@@ -5,11 +5,11 @@ local opts = {
 	-- Configure core features of AstroNvim
 	features = {
 		large_buf = { size = 1024 * 256, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
-		autopairs = true, -- enable autopairs at start
-		cmp = true, -- enable completion at start
-		diagnostics_mode = 3, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
-		highlighturl = true, -- highlight URLs at start
-		notifications = true, -- enable notifications at start
+		autopairs = true,                           -- enable autopairs at start
+		cmp = true,                                 -- enable completion at start
+		diagnostics_mode = 3,                       -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
+		highlighturl = true,                        -- highlight URLs at start
+		notifications = true,                       -- enable notifications at start
 	},
 	-- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
 	diagnostics = {
@@ -18,20 +18,21 @@ local opts = {
 	},
 	-- vim options can be configured here
 	options = {
-		opt = { -- vim.opt.<key>
+		opt = {               -- vim.opt.<key>
 			relativenumber = true, -- sets vim.opt.relativenumber
-			number = true, -- sets vim.opt.number
+			number = true,    -- sets vim.opt.number
 			signcolumn = "yes", -- sets vim.opt.signcolumn to yes
-			mouse = "", -- Disable the mouse
+			mouse = "",       -- Disable the mouse
+			clipboard = "unnamedplus", -- Enable clipboard access
 
 			-- Localization and spell check options
 			langmap = "jklç;hjkl,JKLÇ;HJKL", -- Remappping of the right hand home row to that of the ABNT2 keyboard
-			spell = true, -- sets vim.opt.spell
-			spelllang = { "en_us", "pt_br" }, -- TODO: later add "pt_br" and have the dictionary installed locally
+			spell = true,           -- sets vim.opt.spell
+			spelllang = { "en_us", "pt_br" },
 			-- rtp:append("~/.config/nvim/")
 
 			-- Softwrap options
-			wrap = true, -- Enable line wrapping
+			wrap = true,  -- Enable line wrapping
 			linebreak = true, -- Break lines at "breakat" characters, thus not splitting words
 			breakindent = true, -- Preserve indentation when breaking lines
 			whichwrap = "b,s,h,l", -- Set keys which can make the cursor wrap lines
@@ -39,7 +40,6 @@ local opts = {
 			-- Set tab length
 			shiftwidth = 0, -- Set to zero to return the same value as tabstop
 			tabstop = 4,
-			clipboard = "unnamedplus",
 		},
 		g = { -- vim.g.<key>
 			-- configure global vim variables (vim.g)
@@ -48,12 +48,6 @@ local opts = {
 		},
 	},
 }
-
--- Custom mappings
--- vim.keymap.set("n", "<C-j>", "<C-h>", { remap = true })
--- vim.keymap.set("n", "<C-k>", "<C-j>", { remap = true })
--- vim.keymap.set("n", "<C-l>", "<C-k>", { remap = true })
--- vim.keymap.set("n", "<C-ç>", "<C-l>", { remap = true })
 
 local nop = { "<nop>", desc = "No operation" }
 local no_operation = {
@@ -98,8 +92,8 @@ local window_controls = {
 -- Define the mappings and modes
 local custom_mappings = {
 	{ modes = { "n", "v", "i", "o" }, mappings = { no_operation } },
-	{ modes = { "n", "v" }, mappings = { vertical_movement } },
-	{ modes = { "n" }, mappings = { window_controls, buffer_controls } },
+	{ modes = { "n", "v" },           mappings = { vertical_movement } },
+	{ modes = { "n" },                mappings = { window_controls, buffer_controls } },
 }
 
 -- Assign mappings
