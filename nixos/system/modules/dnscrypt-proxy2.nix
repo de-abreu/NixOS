@@ -22,7 +22,10 @@
   #     server_anmes = ["mullvad-extend-doh"];
   #   };
   # };
-  # systemd.services.dnscrypt-proxy2.serviceConfig = {
-  #   StateDirectory = "dnscrypt-proxy";
+  # systemd.services.dnscrypt-proxy2 = {
+  #   serviceConfig.StateDirectory = "dnscrypt-proxy";
+  #   restartTriggers = ["on-failure"];
+  #   startLimitBurst = 2;
+  #   startLimitIntervalSec = 30;
   # };
 }
