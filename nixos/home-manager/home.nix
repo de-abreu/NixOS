@@ -18,11 +18,11 @@
       stateVersion = "24.11";
     };
     pathToModules = "${flakePath}/nixos/home-manager/modules/";
-    stylix.targets = {
-      # WARN:
-      neovim.enable = false; # Managed with AstroUI
-      fish.enable = false; # Managed with fish_theme
-    };
+    # stylix.targets = {
+    #   # WARN:
+    #   neovim.enable = false; # Managed with AstroUI
+    #   fish.enable = false; # Managed with fish_theme
+    # };
     programs.home-manager.enable = true;
   };
 }

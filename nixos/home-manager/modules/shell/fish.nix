@@ -78,4 +78,5 @@
       fzf.enable = true;
     };
   };
+  stylix.targets.fish.enable = false; # WARN: Managed with fish_theme
 }

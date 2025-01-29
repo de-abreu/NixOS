@@ -19,10 +19,6 @@
           cargo # Rust support
           gcc # C support
           gnumake # Make support
-          lua # Lua support
-          nodejs # Javascript support
-          python3 # Python support
-          python312Packages.wheel
           swi-prolog # Prolog compiler and interpreter
           tinyxxd # Binary support
           vhdl-ls # VHDL language server
@@ -47,10 +43,27 @@
         ++ (with pkgs.rPackages; [
           languageserversetup
           languageserver
-        ])
-        ++ (with pkgs.lua54Packages; [
-          magick # In order to enable the display of images
         ]);
+
+      withNodeJs = true;
+
+      # NOTE: Dependencies to enable the image-nvim plugin
+      extraLuaPackages = ps: with ps; [luarocks magick];
+
+      # NOTE: If not for `wheel`, these are dependencies to use the "Molten" plugin
+      extraPython3Packages = ps:
+        with ps; [
+          wheel
+          pynvim
+          jupyter-client
+          cairosvg
+          pnglatex
+          plotly
+          kaleido
+          pyperclip
+          nbformat
+          pillow
+        ];
     };
     fish.shellAbbrs = {
       nv = "nvim";
@@ -58,5 +71,6 @@
     };
   };
 
+  stylix.targets.neovim.enable = false; #WARN: Managed by AstroUI
   xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.pathToModules}/astronvim/nvim";
 }
