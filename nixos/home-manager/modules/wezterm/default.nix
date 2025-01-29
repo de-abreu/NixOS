@@ -11,9 +11,6 @@ in {
         -- Set leader key
         config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 2000 }
 
-        -- Set the kitty image protocol to render images
-        config.enable_kitty_graphics = true
-
         -- Import modules
         require("modules.multiplexing").apply_to_config(config)
         require("modules.appearance").apply_to_config(config)
@@ -47,7 +44,6 @@ in {
             { Text = SOLID_LEFT_ARROW },
           }))
         end)
-
         return config
       '';
   };
