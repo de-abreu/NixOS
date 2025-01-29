@@ -4,7 +4,7 @@ local is_available = function(plugin)
 end
 local haskell_ft = { "haskell", "lhaskell", "cabal", "cabalproject" }
 
----@type LazySpec
+--- @type LazySpec
 return {
     "luc-tielen/telescope_hoogle",
     enabled = function()

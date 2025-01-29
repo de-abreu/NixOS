@@ -25,10 +25,20 @@ return {
 	-- Prevent the recursive creation of nvim instances
 	{ import = "astrocommunity.editing-support.neogen" },
 	-- An automated annotation generator
+
+	-- NOTE: Image support
 	{ import = "astrocommunity.media.image-nvim" },
 	-- Enable the display of images
+	{ import = "astrocommunity.media.img-clip-nvim" },
+	-- Embed images, either from the clipboard or drag-and-dropped,  into files written in a markup language
 
-	-- Debugging
+	-- NOTE: Code runners
+	{ import = "astrocommunity.code-runner.vim-slime" },
+	-- Send code from python/r/qmd documents to a terminal or REPL
+	{ import = "astrocommunity.code-runner.molten-nvim" },
+	-- WARN: After the installation of this plugin, it *might be* necessary to run the command `:UpdateRemotePlugins` to generate the folder `~/.local/share/nvim/lazy/molten-nvim/rplugin/` with the python plugins specification. See https://github.com/AstroNvim/astrocommunity/issues/1331
+
+	-- NOTE: Debugging
 	{ import = "astrocommunity.debugging.nvim-dap-repl-highlights" },
 	-- Add syntax highlighting to the REPL terminal
 	{ import = "astrocommunity.debugging.nvim-dap-virtual-text" },
