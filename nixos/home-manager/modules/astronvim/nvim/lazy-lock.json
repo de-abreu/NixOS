@@ -1,5 +1,6 @@
 {
   "AstroNvim": { "branch": "main", "commit": "e2c4d250730da01a94177f94fcc2797036cdb051" },
+  "Astrocore": { "branch": "main", "commit": "dda036f6b609ab4cbbd4f59f5727f263b6dd54b6" },
   "LuaSnip": { "branch": "master", "commit": "03c8e67eb7293c404845b3982db895d59c0d1538" },
   "SchemaStore.nvim": { "branch": "main", "commit": "e6ccd0c81e3454777c35a64314a997b6d1bfe543" },
   "aerial.nvim": { "branch": "master", "commit": "1160fb7a15a34b03b7381d95d45560712b5f19d0" },
@@ -97,8 +98,10 @@
   "rainbow_csv.nvim": { "branch": "main", "commit": "7f3fddfe813641035fac2cdf94c2ff69bb0bf0b9" },
   "resession.nvim": { "branch": "master", "commit": "cc819b0489938d03e4f3532a583354f0287c015b" },
   "smart-splits.nvim": { "branch": "master", "commit": "4a231987665d3c6e02ca88833d050e918afe3e1e" },
+  "sqlite.lua": { "branch": "master", "commit": "b487fcc8937b683942a1f7d9662fcf50ca5acd58" },
   "tabular": { "branch": "master", "commit": "12437cd1b53488e24936ec4b091c9324cafee311" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "dae2eac9d91464448b584c7949a31df8faefec56" },
+  "telescope-zotero.nvim": { "branch": "main", "commit": "feb453f5d10d42faab9963524c89944c54fa6c9a" },
   "telescope.nvim": { "branch": "0.1.x", "commit": "415af52339215926d705cccc08145f3782c4d132" },
   "telescope_hoogle": { "branch": "master", "commit": "5c2ae51bcf905a7101134a597e6f7be2dc05f975" },
   "todo-comments.nvim": { "branch": "main", "commit": "ae0a2afb47cf7395dc400e5dc4e05274bf4fb9e0" },

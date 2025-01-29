@@ -1,12 +1,12 @@
 ---@type LazySpec
 return {
 	"nvim-telescope/telescope.nvim",
-	-- dependencies = {
-	--   'jmbuhr/telescope-zotero.nvim',
-	--   enabled = true,
-	--   dev = false,
-	--   dependencies =
-	-- }
+	dependencies = {
+		"jmbuhr/telescope-zotero.nvim",
+		enabled = true,
+		dev = false,
+		dependencies = { { "kkharji/sqlite.lua" } },
+	},
 	opts = function(_, opts)
 		local actions = require("telescope.actions")
 		opts.defaults = {
@@ -25,5 +25,6 @@ return {
 	end,
 	keys = {
 		{ "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy search" },
+		{ "<leader>fz", "<cmd>Telescope zotero<cr>",                    desc = "Zotero" },
 	},
 }
