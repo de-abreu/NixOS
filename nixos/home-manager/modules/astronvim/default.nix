@@ -19,6 +19,7 @@
           cargo # Rust support
           gcc # C support
           gnumake # Make support
+          hyprls # Hypr support
           swi-prolog # Prolog compiler and interpreter
           tinyxxd # Binary support
           vhdl-ls # VHDL language server
@@ -63,6 +64,9 @@
           pyperclip
           nbformat
           pillow
+          pandas
+          numpy
+          matplotlib
         ];
     };
     fish.shellAbbrs = {
@@ -71,6 +75,12 @@
     };
   };
 
-  stylix.targets.neovim.enable = false; #WARN: Managed by AstroUI
-  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.pathToModules}/astronvim/nvim";
+  stylix.targets.neovim.enable = false; # WARN: Managed by AstroUI
+  xdg = {
+    configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.pathToModules}/astronvim/nvim";
+    mimeApps = {
+      enable = true;
+      defaultApplications."text/plain" = ["nvim.desktop"];
+    };
+  };
 }

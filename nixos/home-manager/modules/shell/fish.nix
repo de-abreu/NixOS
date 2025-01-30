@@ -77,6 +77,16 @@
       enableFishIntegration = true;
       fzf.enable = true;
     };
+
+    # nix-index, somewhat similar to apt search
+    nix-index = {
+      enable = true;
+      enableFishIntegration = true;
+    };
   };
+
+  # Run commands without having them installed, by prefixing it with a comma. A wrapper for nix shell -c and nix-index
+  home.packages = [pkgs.comma];
+
   stylix.targets.fish.enable = false; # WARN: Managed with fish_theme
 }

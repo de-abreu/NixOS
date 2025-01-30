@@ -27,5 +27,6 @@ with pkgs; {
       package = pkgs.adwaita-icon-theme;
       size = 12;
     };
+    targets.grub.useImage = true;
   };
 }

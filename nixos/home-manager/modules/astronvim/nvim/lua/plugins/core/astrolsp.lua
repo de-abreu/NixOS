@@ -9,9 +9,10 @@ return {
 		opts.servers = opts.servers or {}
 		vim.list_extend(opts.servers, {
 			"hls",
+			"hyprls",
 			"prolog_ls",
-			"vhdl_ls",
 			"r_language_server",
+			"vhdl_ls",
 		})
 	end,
 }

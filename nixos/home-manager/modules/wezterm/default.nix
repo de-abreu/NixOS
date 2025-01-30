@@ -48,5 +48,11 @@ in {
       '';
   };
   home.sessionVariables."TERM" = "wezterm";
-  xdg.configFile."wezterm/modules".source = config.lib.file.mkOutOfStoreSymlink "${config.pathToModules}/wezterm/modules";
+  xdg = {
+    configFile."wezterm/modules".source = config.lib.file.mkOutOfStoreSymlink "${config.pathToModules}/wezterm/modules";
+    mimeApps = {
+      enable = true;
+      defaultApplications."application/x-terminal-emulator" = ["wezterm.desktop"];
+    };
+  };
 }

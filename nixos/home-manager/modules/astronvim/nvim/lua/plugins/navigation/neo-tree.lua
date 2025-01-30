@@ -43,7 +43,8 @@ return {
         H = "prev_source",
         ["Ç"] = "next_source",
         ["ç"] = "open_with_window_picker",
-        h = "toggle_hidden",
+        h = "close_node",
+        u = "toggle_hidden",
       },
     },
     buffers = {
