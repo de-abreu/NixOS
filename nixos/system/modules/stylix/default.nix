@@ -14,7 +14,7 @@ with pkgs; {
         name = "Inter";
       };
       monospace = {
-        package = jetbrains-mono;
+        package = nerdfonts.override {fonts = ["JetBrainsMono"];};
         name = "JetBrainsMono-Regular";
       };
       emoji = {
@@ -25,7 +25,7 @@ with pkgs; {
     cursor = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
-      size = 12;
+      size = 20;
     };
     targets.grub.useImage = true;
   };
