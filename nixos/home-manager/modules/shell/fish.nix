@@ -78,7 +78,7 @@
       fzf.enable = true;
     };
 
-    # nix-index, somewhat similar to apt search
+    # nix-index, somewhat similar to apt search. INFO: the index needs to be initially built by running "nix-index" with no arguments.
     nix-index = {
       enable = true;
       enableFishIntegration = true;
