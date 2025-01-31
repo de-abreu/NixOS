@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
@@ -8,21 +9,9 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;
-    sourceFirst = false;
-    extraConfig = ''
-      # █▀ █▀█ █░█ █▀█ █▀▀ █▀▀
-      # ▄█ █▄█ █▄█ █▀▄ █▄▄ ██▄
-    '';
     settings = {
       "$modules" = "~/.config/hypr/modules";
-      "source" = [
-        "$modules/inputs.conf"
-        "$modules/keybindings.conf"
-        "$modules/launch.conf"
-        "$modules/monitors.conf"
-        "$modules/userprefs.conf"
-        "$modules/windowrules.conf"
-      ];
+      "source" = with lib; map (p: "$modules/" + p) (map (p: baseNameOf (toString p)) (fileset.toList ./modules));
     };
   };
 
@@ -34,7 +23,5 @@ in {
     libnotify # Send desktop notifications to the notification daemon
   ];
 
-  xdg.configFile = {
-    "hypr/modules" = config.lib.file.mkOutOfStoreSymlink "${hyprPath}/modules";
-  };
+  xdg.configFile."hypr/modules".source = config.lib.file.mkOutOfStoreSymlink "${hyprPath}/modules";
 }
