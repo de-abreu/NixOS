@@ -15,6 +15,6 @@
       unzip
       zip
     ];
-    programs.fish.shellAbbrs.bottom = "btm";
   };
+  programs.fish.shellAbbrs.bottom = "btm";
 }
