@@ -1,3 +1,3 @@
 {...}: {
-  programs.hyprpaper.enable = true;
+  services.hyprpaper.enable = true;
 }
