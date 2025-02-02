@@ -2,9 +2,9 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  pkgs,
   filter,
   username,
+  keyboard,
   ...
 }: {
   imports = let
@@ -24,6 +24,9 @@
     description = "${username}";
     extraGroups = ["networkmanager" "wheel"];
   };
+
+  # Configure keymap in X11
+  services.xserver.xkb = keyboard;
 
   # WARN: And everything bellow is as automatically generated
 
@@ -76,12 +79,6 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "br";
-    variant = "";
-  };
 
   # Configure console keymap
   console.keyMap = "br-abnt2";

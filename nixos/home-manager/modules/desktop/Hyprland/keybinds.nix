@@ -3,23 +3,30 @@
   config,
   lib,
   ...
-}: with lib config.lib.stylix.colors; let
-  moveWindows = (concatStringSep "\n" (map (n: replaceStrings ["N"] [(toString n)] ''
-      bind =, N, movetoworkspace, N
-      bind =, N, exec, hyprctl keyword general:col.active_border "rgb(${base08})"
-      bind =, N, submap, hyprmode
-  ''))) + ''
-    bind =, 0, movetoworkspace, 10
-    bind =, 0, exec, hyprctl keyword general:col.active_border "rgb(${base08})"
-    bind =, 0, submap, hyprmode
-  ''
+}:
+with lib;
+with config.lib.stylix.colors; let
+  moveWindows =
+    (concatStringsSep "\n" (map (n:
+      replaceStrings ["N"] [(toString n)] ''
+        bind =, N, movetoworkspace, N
+        bind =, N, exec, hyprctl keyword general:col.active_border "rgb(${base08})"
+        bind =, N, submap, hyprmode
+      '') (range 1 9)))
+    + ''
+
+      bind =, 0, movetoworkspace, 10
+      bind =, 0, exec, hyprctl keyword general:col.active_border "rgb(${base08})"
+      bind =, 0, submap, hyprmode
+    '';
 in {
   wayland.windowManager.hyprland.extraConfig =
     ''
+
       # █▄▀ █▀▀ █▄█ █▄▄ █ █▄░█ █▀▄ █ █▄░█ █▀▀ █▀
       # █░█ ██▄ ░█░ █▄█ █ █░▀█ █▄▀ █ █░▀█ █▄█ ▄█
 
-      
+
       $ccedilla = code:47 # Map c cedilla for ABNT2 keyboards
 
       # Default mode keybindings
@@ -32,12 +39,6 @@ in {
       binddl = , XF86AudioPrev, Previous media, exec, playerctl previous
       bindedl = , XF86AudioLowerVolume, Lower volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
       bindedl = , XF86AudioRaiseVolume, Raise volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-
-      # TODO: Enable notifications
-
-      ## TODO: Brightness controls
-
-      ## TODO: Screenshot/Screencapture
 
       # Hyprmode keybindings
       bind = SUPER, Super_L, exec, hyprctl keyword general:col.active_border "rgb(${base08})"
@@ -52,7 +53,7 @@ in {
 
       ## Window/Session controls
       bindd = , c, Close Window, killactive
-      bindd = , y, Toogle floating window, togglefloating 
+      bindd = , y, Toogle floating window, togglefloating
       bindd = , z, Toggle maximize window, fullscreen
       bind = , z, submap, reset
       bindd = , q, Lock Screen, exec, swaylock
@@ -73,15 +74,17 @@ in {
       binded = SHIFT, l, Swap with window above, swapwindow, u
       binded = SHIFT, $ccedilla, Swap with right window, swapwindow, r
 
-      ## Switch workspaces''
-      + (concatStringSep "\n" (map (n: replaceStrings ["N"] [(toString n)] "bind = , N, workspace, N") (range 1 9)))
-      + ''
+      ## Switch workspaces
+    ''
+    + (concatStringsSep "\n" (map (n: replaceStrings ["N"] [(toString n)] "bind = , N, workspace, N") (range 1 9)))
+    + ''
+
       bind = , 0, workspace, 10
 
       bindd = CTRL, j, Go one workspace left, workspace, -1
       bindd = CTRL, $ccedilla, Go one workspace right, workspace, +1
 
-      ## Exit Hyprmode 
+      ## Exit Hyprmode
       bind = , m, exec, hyprctl keyword general:col.active_border "rgb(${base0B})"
       bindd = , m, Move focused window to a workspace, submap, MoveWindowToWorkspace
       bind = SUPER, Super_L, exec, hyprctl keyword general:col.active_border "rgb(${base0D})"
@@ -89,22 +92,23 @@ in {
       bind = ,catchall, exec,
 
       submap =  MoveWindowToWorkspace
-      ''
-      + moveWindows
-      + ''
+    ''
+    + moveWindows
+    + ''
+
       ## Move focused window to a relative workspace
       binded = , j , Move window to previous workspace, movetoworkspace, -1
       binded = , $ccedilla , Move window to next workspace, movetoworkspace, +1
 
       bindd = , s, Silently Move focused window to a workspace, submap, SilentlyMoveWindowToWorkspace
-      bind = , catchall, exec, hyprctl keyword general:col.active_border "rgb(${base0D})"; hyprctl dispatch submap reset
-      # bindd = , catchall, Cancel and return to default mode, submap, reset
+      bindd = , catchall, Cancel and return to default mode, exec, hyprctl keyword general:col.active_border "rgb(${base0D})"; hyprctl dispatch submap reset
 
       ### Move focused window to another workspace, silently
       submap = SilentlyMoveWindowToWorkspace
-      ''
-      + moveWindows
-      + ''
+    ''
+    + (replaceStrings [" movetoworkspace"] [" movetoworkspacesilent"] moveWindows)
+    + ''
+
       bind = , catchall, exec, hyprctl keyword general:col.active_border "rgb(${base0D})"; hyprctl dispatch submap reset
       submap = reset
     '';

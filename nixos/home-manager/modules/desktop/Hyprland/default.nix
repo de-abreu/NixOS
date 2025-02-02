@@ -37,7 +37,7 @@
 
       # Aesthetics
       decoration = {
-        blur = 0.8;
+        blur.enable = true;
         rounding = 10;
       };
       bezier = "easeInSine, 0.12, 0, 0.39, 0";
