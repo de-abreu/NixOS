@@ -1,8 +1,7 @@
 {
   lib,
   filter,
-  username,
-  flakePath,
+  userPrefs,
   ...
 }: {
   imports = filter ./modules;
@@ -11,18 +10,13 @@
     type = lib.types.str;
   };
 
-  config = {
+  config = with userPrefs; {
     home = {
       username = username;
       homeDirectory = "/home/${username}";
       stateVersion = "24.11";
     };
     pathToModules = "${flakePath}/nixos/home-manager/modules/";
-    # stylix.targets = {
-    #   # WARN:
-    #   neovim.enable = false; # Managed with AstroUI
-    #   fish.enable = false; # Managed with fish_theme
-    # };
     programs.home-manager.enable = true;
   };
 }

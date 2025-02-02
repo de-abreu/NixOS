@@ -1,9 +1,9 @@
 # INFO: Nix Helper, a reimplementation of some of Nix most used commands.
-{flakePath, ...}: {
+{userPrefs, ...}: {
   programs = {
     nh = {
       enable = true;
-      flake = flakePath;
+      flake = userPrefs.flakePath;
     };
     fish.shellAbbrs.nos = "nh os switch";
   };

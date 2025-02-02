@@ -15,11 +15,11 @@
     ...
   }: let
     userPrefs = {
-      username = "user";
+      username = "user"; # As seen in the path "/home/<user>"
       git = {
         userName = "Abreu";
         userEmail = "87032834+de-abreu@users.noreply.github.com";
-        singingkey = "0xB655CB8F410F55B6";
+        signingkey = "0xB655CB8F410F55B6";
       };
       keyboard = {
         layout = "br";
@@ -38,17 +38,19 @@
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = userPrefs // {inherit inputs filter;};
+        specialArgs = {inherit inputs userPrefs filter;};
         modules = [
           ./nixos/system/configuration.nix
           stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.verbose = true;
-            home-manager.users.user = import ./nixos/home-manager/home.nix;
-            home-manager.extraSpecialArgs = specialArgs;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              verbose = true;
+              users.user = import ./nixos/home-manager/home.nix;
+              extraSpecialArgs = specialArgs;
+            };
           }
         ];
       };

@@ -7,12 +7,13 @@
     enable = true;
     systemd.enable = false;
     settings = with pkgs; {
-      exec-once = [
-        "dunst"
-        "systemctl --user enable --now hyprpolkitagent.service"
-        "waybar"
-        (map (type: "wl-paste --type ${type} --watch cliphist store") ["text" "image"])
-      ];
+      exec-once =
+        [
+          "dunst"
+          "systemctl --user enable --now hyprpolkitagent.service"
+          "waybar"
+        ]
+        ++ (map (type: "wl-paste --type ${type} --watch cliphist store") ["text" "image"]);
       input = with userPrefs.keyboard; {
         kb_layout = layout;
         kb_variant = variant;
@@ -40,7 +41,7 @@
 
       # Aesthetics
       decoration = {
-        blur.enable = true;
+        blur.enabled = true;
         rounding = 10;
       };
       bezier = "easeInSine, 0.12, 0, 0.39, 0";
