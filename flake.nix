@@ -14,26 +14,31 @@
     stylix,
     ...
   }: let
-    configArgs = rec {
+    userPrefs = {
       username = "user";
+      git = {
+        userName = "Abreu";
+        userEmail = "87032834+de-abreu@users.noreply.github.com";
+        singingkey = "0xB655CB8F410F55B6";
+      };
       keyboard = {
         layout = "br";
         variant = "";
       };
-      flakePath = "/home/${username}/.config/NixOS";
-      filter = with nixpkgs.lib;
-        folder:
-          fileset.toList (fileset.fileFilter
-            (file:
-              hasSuffix "nix"
-              file.name)
-            folder);
+      flakePath = "/home/user/.config/NixOS";
     };
+    filter = with nixpkgs.lib;
+      folder:
+        fileset.toList (fileset.fileFilter
+          (file:
+            hasSuffix "nix"
+            file.name)
+          folder);
   in {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = configArgs // {inherit inputs;};
+        specialArgs = userPrefs // {inherit inputs filter;};
         modules = [
           ./nixos/system/configuration.nix
           stylix.nixosModules.stylix

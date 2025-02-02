@@ -1,5 +1,8 @@
-# TODO: Move the symlinked configuration to nix files once config is finished
-{pkgs, ...}: {
+{
+  userPrefs,
+  pkgs,
+  ...
+}: {
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;
@@ -8,11 +11,11 @@
         "dunst"
         "systemctl --user enable --now hyprpolkitagent.service"
         "waybar"
-        "wl-paste --type text --watch cliphist store"
-        "wl-paste --type image --watch cliphist store"
+        (map (type: "wl-paste --type ${type} --watch cliphist store") ["text" "image"])
       ];
-      input = {
-        kb_layout = "br";
+      input = with userPrefs.keyboard; {
+        kb_layout = layout;
+        kb_variant = variant;
         touchpad.natural_scroll = true;
         sensitivity = 1;
       };
@@ -30,10 +33,10 @@
       windowrulev2 = "float, class:^(xdg-desktop-portal-gtk)$$";
 
       # Default applications
-      "$term" = "${wezterm}";
-      "$editor" = "${neovim}";
-      "$file" = "${nautilus}";
-      "$browser" = "${mullvad-browser}";
+      "$term" = "wezterm";
+      "$editor" = "nvim";
+      "$file" = "nautilus";
+      "$browser" = "mullvad-browser";
 
       # Aesthetics
       decoration = {
