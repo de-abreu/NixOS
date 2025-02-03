@@ -38,7 +38,7 @@ in {
           end
 
           window:set_left_status(wezterm.format({
-            { Background = { Color = "${base0E}" } },
+            { Background = { Color = "${base0D}" } },
             { Text = prefix },
             ARROW_FOREGROUND,
             { Text = SOLID_LEFT_ARROW },

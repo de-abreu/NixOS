@@ -23,21 +23,27 @@ function module.apply_to_config(config)
 	local mappings = {
 
 		-- Tabs
-		{ mods = "LEADER", key = "n",  action = act.SpawnTab("CurrentPaneDomain") },
-		{ mods = "LEADER", key = "j",  action = act.ActivateTabRelative(-1) },
-		{ mods = "LEADER", key = "ç",  action = act.ActivateTabRelative(1) },
+		{
+			key = "m",
+			action = wezterm.action_callback(function(_, pane)
+				pane:move_to_new_tab()
+			end),
+		},
+		{ key = "n",  action = act.SpawnTab("CurrentPaneDomain") },
+		{ key = "j",  action = act.ActivateTabRelative(-1) },
+		{ key = "ç",  action = act.ActivateTabRelative(1) },
 
 		-- Split panes
-		{ mods = "LEADER", key = "-",  action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-		{ mods = "LEADER", key = "\\", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+		{ key = "-",  action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+		{ key = "\\", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 
 		-- Close or maximize panes
-		{ mods = "LEADER", key = "q",  action = act.CloseCurrentPane({ confirm = true }) },
-		{ mods = "LEADER", key = "z",  action = act.TogglePaneZoomState },
+		{ key = "q",  action = act.CloseCurrentPane({ confirm = true }) },
+		{ key = "z",  action = act.TogglePaneZoomState },
 
 		-- Swap panes
-		{ mods = "LEADER", key = "]",  action = act.RotatePanes("Clockwise") },
-		{ mods = "LEADER", key = "[",  action = act.RotatePanes("CounterClockwise") },
+		{ key = "]",  action = act.RotatePanes("Clockwise") },
+		{ key = "[",  action = act.RotatePanes("CounterClockwise") },
 	}
 
 	-- Switch active tab by its index
@@ -52,8 +58,8 @@ function module.apply_to_config(config)
 	if not config.keys then
 		config.keys = {}
 	end
-	for _, mapping in ipairs(mappings) do
-		table.insert(config.keys, mapping)
+	for _, m in ipairs(mappings) do
+		table.insert(config.keys, { mods = "LEADER", key = m.key, action = m.action })
 	end
 end
 
