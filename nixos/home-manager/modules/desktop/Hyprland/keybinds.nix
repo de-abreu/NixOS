@@ -2,6 +2,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib;
@@ -25,6 +26,7 @@ with config.lib.stylix.colors; let
 
     '';
 in {
+  home.packages = [pkgs.playerctl]; # Command-line utility to control media players
   wayland.windowManager.hyprland.extraConfig =
     ''
 

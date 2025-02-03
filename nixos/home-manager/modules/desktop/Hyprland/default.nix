@@ -26,10 +26,11 @@
           "opacity 0.8, wezterm"
         ]
         ++ (map (pattern: "float, title:^${pattern}$$") [
+          "Calculator"
           "Choose Files"
-          "Save as"
           "Confirm to replace files"
           "File Operation Progress"
+          "Save as"
         ]);
       windowrulev2 = "float, class:^(xdg-desktop-portal-gtk)$$";
 
