@@ -5,8 +5,8 @@ local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smar
 local act = wezterm.action
 local module = {}
 
--- INFO: Configuring integration with neovim
 function module.apply_to_config(config)
+	-- INFO: Configuring integration with neovim
 	smart_splits.apply_to_config(config, {
 		-- directional keys to use in order of: left, down, up, right
 		-- NOTE: When combined with modifier keys, "ç" is read as ";"
@@ -19,7 +19,9 @@ function module.apply_to_config(config)
 		log_level = "info",
 	})
 
-	-- TODO: Add keybind to send a pane to another tab
+	config.unix_domains = { { name = "unix" } } -- Setup a multiplexer via a unix socket, if it wasn't already
+	config.default_gui_startup_args = { "connect", "unix" } -- Connect to the unix domain on startup
+
 	local mappings = {
 
 		-- Tabs
@@ -29,21 +31,21 @@ function module.apply_to_config(config)
 				pane:move_to_new_tab()
 			end),
 		},
-		{ key = "n",  action = act.SpawnTab("CurrentPaneDomain") },
-		{ key = "j",  action = act.ActivateTabRelative(-1) },
-		{ key = "ç",  action = act.ActivateTabRelative(1) },
+		{ key = "n", action = act.SpawnTab("CurrentPaneDomain") },
+		{ key = "j", action = act.ActivateTabRelative(-1) },
+		{ key = "ç", action = act.ActivateTabRelative(1) },
 
 		-- Split panes
-		{ key = "-",  action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+		{ key = "-", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 		{ key = "\\", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 
 		-- Close or maximize panes
-		{ key = "q",  action = act.CloseCurrentPane({ confirm = true }) },
-		{ key = "z",  action = act.TogglePaneZoomState },
+		{ key = "q", action = act.CloseCurrentPane({ confirm = true }) },
+		{ key = "z", action = act.TogglePaneZoomState },
 
 		-- Swap panes
-		{ key = "]",  action = act.RotatePanes("Clockwise") },
-		{ key = "[",  action = act.RotatePanes("CounterClockwise") },
+		{ key = "]", action = act.RotatePanes("Clockwise") },
+		{ key = "[", action = act.RotatePanes("CounterClockwise") },
 	}
 
 	-- Switch active tab by its index
