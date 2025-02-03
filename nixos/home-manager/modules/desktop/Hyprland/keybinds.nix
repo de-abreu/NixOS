@@ -18,6 +18,11 @@ with config.lib.stylix.colors; let
       bind =, 0, movetoworkspace, 10
       bind =, 0, exec, hyprctl keyword general:col.active_border "rgb(${base08})"
       bind =, 0, submap, hyprmode
+
+      ## Move focused window to a relative workspace
+      binded = , j , Move window to previous workspace, movetoworkspace, -1
+      binded = , $ccedilla , Move window to next workspace, movetoworkspace, +1
+
     '';
 in {
   wayland.windowManager.hyprland.extraConfig =
@@ -25,7 +30,6 @@ in {
 
       # █▄▀ █▀▀ █▄█ █▄▄ █ █▄░█ █▀▄ █ █▄░█ █▀▀ █▀
       # █░█ ██▄ ░█░ █▄█ █ █░▀█ █▄▀ █ █░▀█ █▄█ ▄█
-
 
       $ccedilla = code:47 # Map c cedilla for ABNT2 keyboards
 
@@ -95,10 +99,6 @@ in {
     ''
     + moveWindows
     + ''
-
-      ## Move focused window to a relative workspace
-      binded = , j , Move window to previous workspace, movetoworkspace, -1
-      binded = , $ccedilla , Move window to next workspace, movetoworkspace, +1
 
       bindd = , s, Silently Move focused window to a workspace, submap, SilentlyMoveWindowToWorkspace
       bindd = , catchall, Cancel and return to default mode, exec, hyprctl keyword general:col.active_border "rgb(${base0D})"; hyprctl dispatch submap reset
