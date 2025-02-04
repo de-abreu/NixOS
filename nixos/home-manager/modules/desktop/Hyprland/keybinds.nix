@@ -7,18 +7,18 @@
 }:
 with lib;
 with config.lib.stylix.colors; let
+  enterHyprmode = "exec, hyprctl keyword general:col.active_border \"rgb(${base08})\"; hyprctl dispatch submap hyprmode";
+  resetMode = "exec, hyprctl keyword general:col.active_border \"rgb(${base0D})\"; hyprctl dispatch submap reset";
   moveWindows =
     (concatStringsSep "\n" (map (n:
       replaceStrings ["N"] [(toString n)] ''
         bind =, N, movetoworkspace, N
-        bind =, N, exec, hyprctl keyword general:col.active_border "rgb(${base08})"
-        bind =, N, submap, hyprmode
+        bind =, N, exec, ${enterHyprmode}
       '') (range 1 9)))
     + ''
 
       bind =, 0, movetoworkspace, 10
-      bind =, 0, exec, hyprctl keyword general:col.active_border "rgb(${base08})"
-      bind =, 0, submap, hyprmode
+      bind =, 0, exec, ${enterHyprmode}
 
       ## Move focused window to a relative workspace
       binded = , j , Move window to previous workspace, movetoworkspace, -1
@@ -34,21 +34,29 @@ in {
       # █░█ ██▄ ░█░ █▄█ █ █░▀█ █▄▀ █ █░▀█ █▄█ ▄█
 
       $ccedilla = code:47 # Map c cedilla for ABNT2 keyboards
-
       # Default mode keybindings
       submap = reset
 
       ## Media controls
-      binddl = , XF86AudioMute, Toggle audio mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-      binddl = , XF86AudioNext, Next media, exec, playerctl next
-      binddl = , XF86AudioPlay, Play media, exec, playerctl play-pause
-      binddl = , XF86AudioPrev, Previous media, exec, playerctl previous
-      bindedl = , XF86AudioLowerVolume, Lower volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-      bindedl = , XF86AudioRaiseVolume, Raise volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+      binddlt = , XF86AudioMute, Toggle audio mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+      binddlt = , XF86AudioNext, Next media, exec, playerctl next
+      binddlt = , XF86AudioPlay, Play media, exec, playerctl play-pause
+      binddlt = , XF86AudioPrev, Previous media, exec, playerctl previous
+      bindedlt = , XF86AudioLowerVolume, Lower volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+      bindedlt = , XF86AudioRaiseVolume, Raise volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+
+      ## Lid open/close event
+      bindlt = , switch:on:[Lid Switch], exec, ${resetMode}; loginctl lock-session
+      # trigger when the switch is turning on
+      bindlt = , switch:on:[Lid Switch], exec, hyprctl keyword monitor "eDP-1, disable"
+      # trigger when the switch is turning off
+      bindlt = , switch:off:[Lid Switch], exec, hyprctl keyword monitor "eDP-1, 2560x1600, 0x0, 1"
+
+      ## Power button
+      bindt = , XF86PowerOff, exec, ${resetMode}; systemctl suspend
 
       # Hyprmode keybindings
-      bind = SUPER, Super_L, exec, hyprctl keyword general:col.active_border "rgb(${base08})"
-      bindd = SUPER, Super_L, Enter Hyprmode, submap, hyprmode
+      bindd = SUPER, Super_L, Enter Hyprmode, ${enterHyprmode}
       submap = hyprmode
 
       ## Application shortcuts
@@ -61,9 +69,7 @@ in {
       bindd = , c, Close Window, killactive
       bindd = , y, Toogle floating window, togglefloating
       bindd = , z, Toggle maximize window, fullscreen
-      bind = , z, submap, reset
-      bindd = , q, Lock Screen, exec, swaylock
-      bind = , q, submap, reset
+      bindd = , q, Lock Screen, exec, ${resetMode}; loginctl lock-session
 
       binded = , j, Focus left window, movefocus, l
       binded = , k, Focus window below, movefocus, d
@@ -93,8 +99,7 @@ in {
       ## Exit Hyprmode
       bind = , m, exec, hyprctl keyword general:col.active_border "rgb(${base0B})"
       bindd = , m, Move focused window to a workspace, submap, MoveWindowToWorkspace
-      bind = SUPER, Super_L, exec, hyprctl keyword general:col.active_border "rgb(${base0D})"
-      bindd = SUPER, Super_L, Exit Hyprmode, submap, reset
+      bindd = SUPER, Super_L, Exit Hyprmode, ${resetMode}
       bind = ,catchall, exec,
 
       submap =  MoveWindowToWorkspace
@@ -103,7 +108,7 @@ in {
     + ''
 
       bindd = , s, Silently Move focused window to a workspace, submap, SilentlyMoveWindowToWorkspace
-      bindd = , catchall, Cancel and return to default mode, exec, hyprctl keyword general:col.active_border "rgb(${base0D})"; hyprctl dispatch submap reset
+      bindd = , catchall, Cancel and return to default mode, exec, ${resetMode}
 
       ### Move focused window to another workspace, silently
       submap = SilentlyMoveWindowToWorkspace
@@ -111,7 +116,7 @@ in {
     + (replaceStrings [" movetoworkspace"] [" movetoworkspacesilent"] moveWindows)
     + ''
 
-      bind = , catchall, exec, hyprctl keyword general:col.active_border "rgb(${base0D})"; hyprctl dispatch submap reset
+      bindd = , catchall, Cancel and return to default mode, exec, ${resetMode}
       submap = reset
     '';
 }

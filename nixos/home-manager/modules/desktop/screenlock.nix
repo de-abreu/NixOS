@@ -2,15 +2,32 @@
   config,
   pkgs,
   ...
-}:
-with config.lib.stylix; {
+}: {
   # TODO: Configure lock screen to be less lame.
   # For that, disable stylix's default styling: `stylix.targets.hyprlock.enable = false;`
   # Documentation: https://github.com/danth/stylix/blob/master/modules/hyprlock/hm.nix
 
-  home.packages = [pkgs.brightnessctl];
+  home.packages = [pkgs.brightnessctl pkgs.material-icons];
   wayland.windowManager.hyprland.settings.exec-once = ["hypridle" "hyprlock"];
-  programs.hyprlock.enable = true;
+
+  stylix.targets.hyprlock.enable = false;
+  programs.hyprlock = {
+    enable = true;
+    settings = with config.lib.stylix; {
+      "$font_color" = "rgb(${colors.base01})";
+      "$fail_color" = "rgb(${colors.base08})";
+      "$check_color" = "rgb(${colors.base0A})";
+      "$inner_color" = "rgb(${colors.base07})";
+      "$outer_color" = "rgb(${colors.base03})";
+      "$font" = "${config.stylix.fonts.sansSerif}";
+      "$material_icons" = "Material symbols Rounded";
+
+      background = {
+        path = "${config.stylix.image}";
+      };
+    };
+  };
+
   services.hypridle = {
     enable = true;
     settings = {

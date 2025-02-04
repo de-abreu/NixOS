@@ -7,6 +7,14 @@
     enable = true;
     systemd.enable = false;
     settings = with pkgs; {
+      # Default applications
+      "$term" = "wezterm";
+      "$editor" = "nvim";
+      "$file" = "nautilus";
+      "$browser" = "mullvad-browser";
+      "$monitor1" = "eDP-1";
+      "$monitor1specs" = "$monitor1, preferred, auto, 1";
+
       exec-once =
         [
           "dunst"
@@ -20,7 +28,7 @@
         touchpad.natural_scroll = true;
         sensitivity = 1;
       };
-      monitor = ["eDP-1,preferred, auto, 1" ",prefered, auto, 1, mirror, eDP-1"];
+      monitor = ["monitor1specs" ",prefered, auto, 1, mirror, $monitor1"];
       windowrule =
         [
           "opacity 0.8, wezterm"
@@ -34,15 +42,12 @@
         ]);
       windowrulev2 = "float, class:^(xdg-desktop-portal-gtk)$$";
 
-      # Default applications
-      "$term" = "wezterm";
-      "$editor" = "nvim";
-      "$file" = "nautilus";
-      "$browser" = "mullvad-browser";
-
       # Aesthetics
       decoration = {
-        blur.enabled = true;
+        blur = {
+          enabled = true;
+          passes = 2;
+        };
         rounding = 10;
       };
       bezier = "easeInSine, 0.12, 0, 0.39, 0";
