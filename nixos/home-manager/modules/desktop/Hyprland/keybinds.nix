@@ -96,7 +96,6 @@ in {
         ++ [
           [", m" "Move focused window to a workspace, ${toMWTW}" "d"]
           ["SUPER, Super_L" "Exit Hyprmode, ${toDefault}" "d"]
-          [", catchall" "Cancel and return to default mode, ${toDefault}" "d"]
         ];
     })
     # Move window keybindings
