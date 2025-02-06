@@ -42,7 +42,7 @@
       flakePath = "/home/user/.config/NixOS";
     };
     filter = with nixpkgs.lib;
-        folder: fileset.fileFilter (file: hasSuffix "nix" file.name) folder |> filset.toList;
+        folder: fileset.fileFilter (file: hasSuffix "nix" file.name) folder |> fileset.toList;
   in {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem rec {

@@ -11,17 +11,35 @@ with config.lib.stylix.colors; let
   submap = {
     mode ? "reset",
     binds,
-  }:
-    concatStrings ["submap = ${mode}\n"] ++ (map (set: bind set) binds) ++ ["submap = reset\n"];
+  }: ["submap = ${mode}\n"] ++ (map (set: bind set) binds) ++ ["submap = reset\n"] |> ( a: concatStrings a );
   changeMode = mode: indicator: "exec, hyprctl keyword general:col.active_border \"rgb(${indicator})\"; hyprctl dispatch submap ${mode}";
   toDefault = changeMode "reset" base0D;
-  toHypermode = changeMode "hyprmode" base08;
+  toHyprmode = changeMode "hyprmode" base08;
   toMWTW = changeMode "MoveWindowToWorkspace" base0B;
-  moveWindows = range 1 9 |> fold (n: acc:  [[", ${n}" "movetoworkspace, ${n}" ""] [", ${n}" toHypermode ""]] ++ acc) [
+  moveWindows = range 1 9
+    |> map (elem: toString elem)
+    |> fold (n: acc:  [[", ${n}" "movetoworkspace, ${n}" ""] [", ${n}" toHyprmode ""]] ++ acc) [
     [", 0" "movetoworkspace, 10" ""]
-    [", 0" toHypermode ""]
+    [", 0" toHyprmode ""]
     [", j" "Move window to previous workspace, movetoworkspace, -1" "ed"]
-    [", $ccedilla" " , Move window to next workspace, movetoworkspace, +1" "ed"]
+    [", $ccedilla" "Move window to next workspace, movetoworkspace, +1" "ed"]
+  ];
+  shared = [
+        # Media controls
+        [", XF86AudioMute" "Toggle audio mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" "dlt"]
+        [", XF86AudioNext" "Next media, exec, playerctl next" "dlt"]
+        [", XF86AudioPlay" "Toggle play media, exec, playerctl play-pause" "dlt"]
+        [", XF86AudioPrev" "Previous media, exec, playerctl previous" "dlt"]
+        [", XF86AudioLowerVolume" "Lower volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" "edlt"]
+        [", XF86AudioRaiseVolume" "Raise volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+" "edlt"]
+
+        # Lid open/close
+        [", switch:on:[Lid Switch]" "exec, ${toDefault}; loginctl lock-session" "lt"]
+        [", switch:on:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, disable\"" "lt"]
+        [", switch:off:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, 2560x1600, 0x0, 1\"" "lt"]
+
+        # Power button
+        [", XF86PowerOff" "exec, ${toDefault}; systemctl suspend" "lt"]    
   ];
 in {
   home.packages = [pkgs.playerctl]; # Command-line utility to control media players
@@ -35,37 +53,17 @@ in {
 
     ''
     # Default mode keybindings
-    + (submap {
-      binds = [
-        ["SUPER, Super_L" "Enter Hyprmode, ${enterHyprmode}" "d"]
-
-        # Media controls
-        [", XF86AudioMute" "Toggle audio mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" "lt"]
-        [", XF86AudioNext" "Next media, exec, playerctl next" "lt"]
-        [", XF86AudioPlay" "Toggle play media, exec, playerctl play-pause" "lt"]
-        [", XF86AudioPrev" "Previous media, exec, playerctl previous" "lt"]
-        [", XF86AudioLowerVolume" "Lower volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"]
-        [", XF86AudioRaiseVolume" "Raise volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"]
-
-        # Lid open/close
-        [", switch:on:[Lid Switch]" "exec, ${toDefault}; loginctl lock-session" "lt"]
-        ["switch:on:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, disable\"" "lt"]
-        [", switch:off:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, 2560x1600, 0x0, 1\"" "lt"]
-
-        # Power button
-        [", XF86PowerOff" "exec, ${toDefault}; systemctl suspend" "lt"]
-      ];
-    })
+    + (submap { binds = shared ++ [ ["SUPER, Super_L" "Enter Hyprmode, ${toHyprmode}" "d"] ]; })
     # Hyprmode keybindings
     + (submap {
       mode = "hyprmode";
-      binds =
-        [
+      binds = shared
+        ++ [
           # Application shortcuts
           [", t" "Open Terminal, exec, $term" "d"]
           [", f" "Open File Manager, exec, $file" "d"]
           [", ENTER" "Open Editor, exec, $editor" "d"]
-          [", b," "Open Clearnet Broswer, exec, $browser"]
+          [", b" "Open Clearnet Broswer, exec, $browser" "d"]
 
           # Window/ Session controls
           [", c" "Close Window, killactive" "d"]
@@ -89,33 +87,35 @@ in {
           ["SHIFT, $ccedilla" "Swap with right window, swapwindow, r" "d"]
         ]
         # Switch workspaces
-        ++ (range 1 9 |> fold (elem: acc: [", ${elem}" "workspace, ${elem}" ""] ++ acc) [
+        ++ (range 1 9 |> map (elem: toString elem) |> fold (elem: acc: [[", ${elem}" "workspace, ${elem}" ""]] ++ acc) [
           ["CTRL, j" "Go one workspace left, workspace, -1" "d"]
           ["CTRL, $ccedilla" "Go one workspace right, workspace, +1" "d"]
-          [", 0" "workspace, 10"]
+          [", 0" "workspace, 10" ""]
         ])
         # Exit Hyprmode
         ++ [
           [", m" "Move focused window to a workspace, ${toMWTW}" "d"]
           ["SUPER, Super_L" "Exit Hyprmode, ${toDefault}" "d"]
-          [", catchall" "exec," ""]
+          [", catchall" "Cancel and return to default mode, ${toDefault}" "d"]
         ];
     })
     # Move window keybindings
     + (submap {
       mode = "Move WindowToWorkspace";
-      binds =
-        moveWindows
+      binds = shared
+        ++ moveWindows
         ++ [
           [", s" "Silently Move focused window to a workspace, submap, SilentlyMoveWindowToWorkspace" "d"]
-          [", catchall" "Cancel and return to default mode, exec, ${toDefault}" "d"]
+          [", catchall" "Cancel and return to default mode, ${toDefault}" "d"]
         ];
     })
-    # Silently move window keybindings
+    # Move window silently keybindings
     + (submap {
       mode = "SilentlyMoveWindowToWorkspace";
-      binds = (map (bind: [(elemAt bind 0) (elemAt bind 1 |> replaceStrings ["movetoworkspace"] ["movetoworkspacesilent"]) (elemAt bind 2)]) move windows) ++ [  
-      [ ", catchall" "Cancel and return to default mode, exec, ${toDefault}" "d" ]
-      ];
+      binds = shared ++ (map (bind: [
+        (elemAt bind 0)
+        (elemAt bind 1 |> replaceStrings ["movetoworkspace" "Move window"] ["movetoworkspacesilent" "Move window silently"])
+        (elemAt bind 2)]) moveWindows)
+      ++ [ [ ", catchall" "Cancel and return to default mode, ${toDefault}" "d" ] ];
     });
 }
