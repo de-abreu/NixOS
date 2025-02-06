@@ -28,7 +28,7 @@
         touchpad.natural_scroll = true;
         sensitivity = 1;
       };
-      monitor = ["monitor1specs" ",prefered, auto, 1, mirror, $monitor1"];
+      monitor = ["$monitor1specs" ",prefered, auto, 1, mirror, $monitor1"];
       windowrule =
         [
           "opacity 0.8, wezterm"

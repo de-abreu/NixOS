@@ -13,18 +13,65 @@
   stylix.targets.hyprlock.enable = false;
   programs.hyprlock = {
     enable = true;
-    settings = with config.lib.stylix; {
-      "$font_color" = "rgb(${colors.base01})";
+    settings = with config.lib.stylix; let
+      shared = {
+        color = "$text_color";
+        monitor = "eDP-1";
+        font_family = "${config.stylix.fonts.sansSerif.name}";
+        halign = "center";
+        valign = "center";
+      };
+    in {
+      "$check_color" = "rgb(${colors.base0B})";
       "$fail_color" = "rgb(${colors.base08})";
-      "$check_color" = "rgb(${colors.base0A})";
-      "$inner_color" = "rgb(${colors.base07})";
+      "$label_color" = "rgb(${colors.base07})";
       "$outer_color" = "rgb(${colors.base03})";
-      "$font" = "${config.stylix.fonts.sansSerif}";
+      "$text_color" = "rgb(${colors.base01})";
       "$material_icons" = "Material symbols Rounded";
 
       background = {
         path = "${config.stylix.image}";
       };
+
+      # Password input field
+      input-field =
+        {
+          size = "250, 50";
+          dots_size = 0.1;
+          dots_spacing = 0.3;
+          dots_center = true;
+          outer_color = "$outer_color";
+          inner_color = "$label_color";
+          font_color = "$text_color";
+          fade_on_empty = true;
+          position = "0, -225";
+        }
+        // shared;
+
+      label = [
+        # Clock
+        (
+          {
+            text = "cmd[update:1000] echo -e \"$(date + \"%H:%M\")\"";
+            color = "$label_color";
+            shadow_passes = 1;
+            shadow_boost = 0.5;
+            font_size = 120;
+            position = "0, 300";
+          }
+          // shared
+        )
+        # Day-Month-Date
+        (
+          {
+            text = "cmd[update:1000] echo -e \"$(date +\"%A, %d %B\")\"";
+            color = "$label_color";
+            font_size = 36;
+            position = "0, 105";
+          }
+          // shared
+        )
+      ];
     };
   };
 

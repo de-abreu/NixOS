@@ -7,24 +7,22 @@
 }:
 with lib;
 with config.lib.stylix.colors; let
-  enterHyprmode = "exec, hyprctl keyword general:col.active_border \"rgb(${base08})\"; hyprctl dispatch submap hyprmode";
-  resetMode = "exec, hyprctl keyword general:col.active_border \"rgb(${base0D})\"; hyprctl dispatch submap reset";
-  moveWindows =
-    (concatStringsSep "\n" (map (n:
-      replaceStrings ["N"] [(toString n)] ''
-        bind =, N, movetoworkspace, N
-        bind =, N, exec, ${enterHyprmode}
-      '') (range 1 9)))
-    + ''
-
-      bind =, 0, movetoworkspace, 10
-      bind =, 0, exec, ${enterHyprmode}
-
-      ## Move focused window to a relative workspace
-      binded = , j , Move window to previous workspace, movetoworkspace, -1
-      binded = , $ccedilla , Move window to next workspace, movetoworkspace, +1
-
-    '';
+  bind = set: "bind${elemAt set 2} = ${elemAt set 0}, ${elemAt set 1}\n";
+  submap = {
+    mode ? "reset",
+    binds,
+  }:
+    concatStrings ["submap = ${mode}\n"] ++ (map (set: bind set) binds) ++ ["submap = reset\n"];
+  changeMode = mode: indicator: "exec, hyprctl keyword general:col.active_border \"rgb(${indicator})\"; hyprctl dispatch submap ${mode}";
+  toDefault = changeMode "reset" base0D;
+  toHypermode = changeMode "hyprmode" base08;
+  toMWTW = changeMode "MoveWindowToWorkspace" base0B;
+  moveWindows = range 1 9 |> fold (n: acc:  [[", ${n}" "movetoworkspace, ${n}" ""] [", ${n}" toHypermode ""]] ++ acc) [
+    [", 0" "movetoworkspace, 10" ""]
+    [", 0" toHypermode ""]
+    [", j" "Move window to previous workspace, movetoworkspace, -1" "ed"]
+    [", $ccedilla" " , Move window to next workspace, movetoworkspace, +1" "ed"]
+  ];
 in {
   home.packages = [pkgs.playerctl]; # Command-line utility to control media players
   wayland.windowManager.hyprland.extraConfig =
@@ -34,89 +32,90 @@ in {
       # █░█ ██▄ ░█░ █▄█ █ █░▀█ █▄▀ █ █░▀█ █▄█ ▄█
 
       $ccedilla = code:47 # Map c cedilla for ABNT2 keyboards
-      # Default mode keybindings
-      submap = reset
 
-      ## Media controls
-      binddlt = , XF86AudioMute, Toggle audio mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-      binddlt = , XF86AudioNext, Next media, exec, playerctl next
-      binddlt = , XF86AudioPlay, Play media, exec, playerctl play-pause
-      binddlt = , XF86AudioPrev, Previous media, exec, playerctl previous
-      bindedlt = , XF86AudioLowerVolume, Lower volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-      bindedlt = , XF86AudioRaiseVolume, Raise volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-
-      ## Lid open/close event
-      bindlt = , switch:on:[Lid Switch], exec, ${resetMode}; loginctl lock-session
-      # trigger when the switch is turning on
-      bindlt = , switch:on:[Lid Switch], exec, hyprctl keyword monitor "eDP-1, disable"
-      # trigger when the switch is turning off
-      bindlt = , switch:off:[Lid Switch], exec, hyprctl keyword monitor "eDP-1, 2560x1600, 0x0, 1"
-
-      ## Power button
-      bindt = , XF86PowerOff, exec, ${resetMode}; systemctl suspend
-
-      # Hyprmode keybindings
-      bindd = SUPER, Super_L, Enter Hyprmode, ${enterHyprmode}
-      submap = hyprmode
-
-      ## Application shortcuts
-      bindd = , t, Open Terminal, exec, $term
-      bindd = , f, Open File Manager, exec, $file
-      bindd = , ENTER, Open Editor, exec, $editor
-      bindd = , b, Open Clearnet Broswer, exec, $browser
-
-      ## Window/Session controls
-      bindd = , c, Close Window, killactive
-      bindd = , y, Toogle floating window, togglefloating
-      bindd = , z, Toggle maximize window, fullscreen
-      bindd = , q, Lock Screen, exec, ${resetMode}; loginctl lock-session
-
-      binded = , j, Focus left window, movefocus, l
-      binded = , k, Focus window below, movefocus, d
-      binded = , l, Focus window above, movefocus, u
-      binded = , $ccedilla, Focus right window, movefocus, r
-
-      binded = ALT, j, Resize left, resizeactive, -30 0
-      binded = ALT, k, Resize down, resizeactive, 0 30
-      binded = ALT, l, Resize up, resizeactive, 0 -30
-      binded = ALT, $ccedilla, Resize right, resizeactive, 30 0
-
-      binded = SHIFT, j, Swap with left window, swapwindow, l
-      binded = SHIFT, k, Swap with window below, swapwindow, k
-      binded = SHIFT, l, Swap with window above, swapwindow, u
-      binded = SHIFT, $ccedilla, Swap with right window, swapwindow, r
-
-      ## Switch workspaces
     ''
-    + (concatStringsSep "\n" (map (n: replaceStrings ["N"] [(toString n)] "bind = , N, workspace, N") (range 1 9)))
-    + ''
+    # Default mode keybindings
+    + (submap {
+      binds = [
+        ["SUPER, Super_L" "Enter Hyprmode, ${enterHyprmode}" "d"]
 
-      bind = , 0, workspace, 10
+        # Media controls
+        [", XF86AudioMute" "Toggle audio mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" "lt"]
+        [", XF86AudioNext" "Next media, exec, playerctl next" "lt"]
+        [", XF86AudioPlay" "Toggle play media, exec, playerctl play-pause" "lt"]
+        [", XF86AudioPrev" "Previous media, exec, playerctl previous" "lt"]
+        [", XF86AudioLowerVolume" "Lower volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"]
+        [", XF86AudioRaiseVolume" "Raise volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"]
 
-      bindd = CTRL, j, Go one workspace left, workspace, -1
-      bindd = CTRL, $ccedilla, Go one workspace right, workspace, +1
+        # Lid open/close
+        [", switch:on:[Lid Switch]" "exec, ${toDefault}; loginctl lock-session" "lt"]
+        ["switch:on:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, disable\"" "lt"]
+        [", switch:off:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, 2560x1600, 0x0, 1\"" "lt"]
 
-      ## Exit Hyprmode
-      bind = , m, exec, hyprctl keyword general:col.active_border "rgb(${base0B})"
-      bindd = , m, Move focused window to a workspace, submap, MoveWindowToWorkspace
-      bindd = SUPER, Super_L, Exit Hyprmode, ${resetMode}
-      bind = ,catchall, exec,
+        # Power button
+        [", XF86PowerOff" "exec, ${toDefault}; systemctl suspend" "lt"]
+      ];
+    })
+    # Hyprmode keybindings
+    + (submap {
+      mode = "hyprmode";
+      binds =
+        [
+          # Application shortcuts
+          [", t" "Open Terminal, exec, $term" "d"]
+          [", f" "Open File Manager, exec, $file" "d"]
+          [", ENTER" "Open Editor, exec, $editor" "d"]
+          [", b," "Open Clearnet Broswer, exec, $browser"]
 
-      submap =  MoveWindowToWorkspace
-    ''
-    + moveWindows
-    + ''
+          # Window/ Session controls
+          [", c" "Close Window, killactive" "d"]
+          [", y" "Toogle floating window, togglefloating" "d"]
+          [", z" "Toggle maximize window, fullscreen" "d"]
+          [", q" "Lock Screen, exec, ${toDefault}; loginctl lock-session" "d"]
 
-      bindd = , s, Silently Move focused window to a workspace, submap, SilentlyMoveWindowToWorkspace
-      bindd = , catchall, Cancel and return to default mode, exec, ${resetMode}
+          [", j" "Focus left window, movefocus, l" "d"]
+          [", k" "Focus window below, movefocus, d" "d"]
+          [", l" "Focus window above, movefocus, u" "d"]
+          [", $ccedilla" "Focus right window, movefocus, r" "d"]
 
-      ### Move focused window to another workspace, silently
-      submap = SilentlyMoveWindowToWorkspace
-    ''
-    + (replaceStrings [" movetoworkspace"] [" movetoworkspacesilent"] moveWindows)
-    + ''
+          ["ALT, j" "Resize left, resizeactive, -30 0" "d"]
+          ["ALT, k" "Resize down, resizeactive, 0 30" "d"]
+          ["ALT, l" "Resize up, resizeactive, 0 -30" "d"]
+          ["ALT, $ccedilla" "Resize right, resizeactive, 30 0" "d"]
 
-      bindd = , catchall, Cancel and return to default mode, exec, ${resetMode}
-      submap = reset
-    '';
+          ["SHIFT, j" "Swap with left window, swapwindow, l" "d"]
+          ["SHIFT, k" "Swap with window below, swapwindow, k" "d"]
+          ["SHIFT, l" "Swap with window above, swapwindow, u" "d"]
+          ["SHIFT, $ccedilla" "Swap with right window, swapwindow, r" "d"]
+        ]
+        # Switch workspaces
+        ++ (range 1 9 |> fold (elem: acc: [", ${elem}" "workspace, ${elem}" ""] ++ acc) [
+          ["CTRL, j" "Go one workspace left, workspace, -1" "d"]
+          ["CTRL, $ccedilla" "Go one workspace right, workspace, +1" "d"]
+          [", 0" "workspace, 10"]
+        ])
+        # Exit Hyprmode
+        ++ [
+          [", m" "Move focused window to a workspace, ${toMWTW}" "d"]
+          ["SUPER, Super_L" "Exit Hyprmode, ${toDefault}" "d"]
+          [", catchall" "exec," ""]
+        ];
+    })
+    # Move window keybindings
+    + (submap {
+      mode = "Move WindowToWorkspace";
+      binds =
+        moveWindows
+        ++ [
+          [", s" "Silently Move focused window to a workspace, submap, SilentlyMoveWindowToWorkspace" "d"]
+          [", catchall" "Cancel and return to default mode, exec, ${toDefault}" "d"]
+        ];
+    })
+    # Silently move window keybindings
+    + (submap {
+      mode = "SilentlyMoveWindowToWorkspace";
+      binds = (map (bind: [(elemAt bind 0) (elemAt bind 1 |> replaceStrings ["movetoworkspace"] ["movetoworkspacesilent"]) (elemAt bind 2)]) move windows) ++ [  
+      [ ", catchall" "Cancel and return to default mode, exec, ${toDefault}" "d" ]
+      ];
+    });
 }
