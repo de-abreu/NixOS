@@ -2,6 +2,7 @@ local module = {}
 
 function module.apply_to_config(config)
 	-- Font settings
+	config.warn_about_missing_glyphs = false
 	config.font_size = 10
 	config.line_height = 1.2
 

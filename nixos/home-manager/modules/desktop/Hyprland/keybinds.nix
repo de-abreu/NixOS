@@ -9,13 +9,13 @@ with lib;
 with config.lib.stylix.colors; let
   bind = set: "bind${elemAt set 2} = ${elemAt set 0}, ${elemAt set 1}\n";
   submap = {
-    mode ? "reset",
+    name ? "reset",
     binds,
-  }: ["submap = ${mode}\n"] ++ (map (set: bind set) binds) ++ ["submap = reset\n"] |> ( a: concatStrings a );
-  changeMode = mode: indicator: "exec, hyprctl keyword general:col.active_border \"rgb(${indicator})\"; hyprctl dispatch submap ${mode}";
-  toDefault = changeMode "reset" base0D;
-  toHyprmode = changeMode "hyprmode" base08;
-  toMWTW = changeMode "MoveWindowToWorkspace" base0B;
+  }: ["submap = ${name}\n"] ++ (map (set: bind set) binds) ++ ["submap = reset\n"] |> ( a: concatStrings a );
+  changeSubmap = name: indicator: "exec, hyprctl keyword general:col.active_border \"rgb(${indicator})\"; hyprctl dispatch submap ${name}";
+  toDefault = changeSubmap "reset" base0D;
+  toHyprmode = changeSubmap "hyprmode" base08;
+  toMWTW = changeSubmap "MoveWindowToWorkspace" base0B;
   moveWindows = range 1 9
     |> map (elem: toString elem)
     |> fold (n: acc:  [[", ${n}" "movetoworkspace, ${n}" ""] [", ${n}" toHyprmode ""]] ++ acc) [
@@ -56,7 +56,7 @@ in {
     + (submap { binds = shared ++ [ ["SUPER, Super_L" "Enter Hyprmode, ${toHyprmode}" "d"] ]; })
     # Hyprmode keybindings
     + (submap {
-      mode = "hyprmode";
+      name = "hyprmode";
       binds = shared
         ++ [
           # Application shortcuts
@@ -100,7 +100,7 @@ in {
     })
     # Move window keybindings
     + (submap {
-      mode = "Move WindowToWorkspace";
+      name = "MoveWindowToWorkspace";
       binds = shared
         ++ moveWindows
         ++ [
@@ -110,7 +110,7 @@ in {
     })
     # Move window silently keybindings
     + (submap {
-      mode = "SilentlyMoveWindowToWorkspace";
+      name = "SilentlyMoveWindowToWorkspace";
       binds = shared ++ (map (bind: [
         (elemAt bind 0)
         (elemAt bind 1 |> replaceStrings ["movetoworkspace" "Move window"] ["movetoworkspacesilent" "Move window silently"])

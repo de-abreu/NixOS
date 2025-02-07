@@ -52,7 +52,7 @@
         # Clock
         (
           {
-            text = "cmd[update:1000] echo -e \"$(date + \"%H:%M\")\"";
+            text = "cmd[update:1000] echo -e \"$(date +\"%H:%M\")\"";
             color = "$label_color";
             shadow_passes = 1;
             shadow_boost = 0.5;
