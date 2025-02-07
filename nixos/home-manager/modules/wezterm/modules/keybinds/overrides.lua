@@ -71,6 +71,9 @@ function module.apply_to_config(config)
 			},
 		}
 
+		if not config.keys then
+			config.keys = {}
+		end
 		for _, override in ipairs(overrides) do
 			table.insert(config.keys, override)
 		end
