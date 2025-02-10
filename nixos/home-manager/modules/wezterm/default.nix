@@ -2,35 +2,26 @@
   config,
   lib,
   ...
-}: let
-  colors = config.lib.stylix.colors.withHashtag;
-in {
+}: {
+  stylix.targets.wezterm.enable = false; # WARN: Managed by AstroUI
   programs.wezterm = {
     enable = true;
-    extraConfig = with colors; let
-      imports = with lib; map (module: "require(\"modules.${elemAt module 0}\").apply_to_config(${elemAt module 1})") [
-        ["keybinds.overrides" "config"]
-        ["keybinds.panes-and-tabs" "config"]
-        ["appearance" "config, colortheme"]
-        ["multiplexing" "config"]
-        ["rendering" "config"]
-        ["scrollback-nvim" "config"]
+    extraConfig = let
+      imports = with lib; map (module: "require(\"modules.${module}\").apply_to_config(config)") [
+        "appearance"
+        "keybinds.overrides"
+        "keybinds.panes-and-tabs"
+        "multiplexing"
+        "rendering"
+        "scrollback-nvim"
+        "tab-bar"
       ]
-      |> (a: a ++ ["require(\"modules.tab-bar\").draw()"])
       |> concatStringsSep "\n";
     in
       # lua
       ''
         local config = require("wezterm").config_builder() -- [[@as Wezterm]]
-        local colortheme = {
-          background = "${base0D}",
-          cursor = "${base07}",
-          tab = {
-            active = "${base01}",
-            inactive = "${base03}"
-          },
-        }
-
+        
         ${imports}
 
         return config

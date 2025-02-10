@@ -9,10 +9,10 @@ local function leader(window)
 	return window:leader_is_active() and string.format(" %s  ", wezterm.nerdfonts.md_trello) or " "
 end
 
-function module.draw()
+function module.apply_to_config(config)
 	tabline.setup({
 		options = {
-			theme = "Ayu Mirage",
+			theme = config.color_scheme,
 			section_separators = "",
 			component_separators = {
 				left = wezterm.nerdfonts.ple_backslash_separator,
