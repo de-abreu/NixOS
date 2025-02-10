@@ -6,12 +6,12 @@
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;
-    settings = with pkgs; {
+    settings = with userPrefs.defaultApplications; {
       # Default applications
-      "$term" = "wezterm";
-      "$editor" = "nvim";
-      "$file" = "nautilus";
-      "$browser" = "mullvad-browser";
+      "$term" = term;
+      "$editor" = editor;
+      "$file" = file_browser;
+      "$browser" = browser;
       "$monitor1" = "eDP-1";
       "$monitor1specs" = "$monitor1, preferred, auto, 1";
       "$screenlock" = "pidof hyprlock || hyprlock";

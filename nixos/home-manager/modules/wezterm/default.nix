@@ -3,7 +3,6 @@
   lib,
   ...
 }: {
-  stylix.targets.wezterm.enable = false; # WARN: Managed by AstroUI
   programs.wezterm = {
     enable = true;
     extraConfig = let
@@ -28,11 +27,5 @@
       '';
   };
   home.sessionVariables."TERM" = "wezterm";
-  xdg = {
-    configFile."wezterm/modules".source = config.lib.file.mkOutOfStoreSymlink "${config.pathToModules}/wezterm/modules";
-    mimeApps = {
-      enable = true;
-      defaultApplications."application/x-terminal-emulator" = ["wezterm.desktop"];
-    };
-  };
+  xdg.configFile."wezterm/modules".source = config.lib.file.mkOutOfStoreSymlink "${config.pathToModules}/wezterm/modules";
 }

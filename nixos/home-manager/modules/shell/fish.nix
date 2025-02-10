@@ -16,9 +16,7 @@
     };
     fish = {
       enable = true;
-      shellAbbrs = {
-        cl = "clear";
-      };
+      shellAbbrs.cl = "clear";
       plugins = let
         fromRepo = plugins:
           map
@@ -84,9 +82,4 @@
       enableFishIntegration = true;
     };
   };
-
-  # Run commands without having them installed, by prefixing it with a comma. A wrapper for nix shell -c and nix-index
-  home.packages = [pkgs.comma];
-
-  stylix.targets.fish.enable = false; # WARN: Managed with fish_theme
 }

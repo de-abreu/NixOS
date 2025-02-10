@@ -10,9 +10,6 @@
       defaultEditor = true;
       extraPackages =
         (with pkgs; [
-          # Core functionality
-          git # required to fetch plugins
-          ripgrep # required for search and replace
           tree-sitter # required to parse text (hence a bunch of stuff)
 
           R # R support
@@ -75,12 +72,5 @@
     };
   };
 
-  stylix.targets.neovim.enable = false; # WARN: Managed by AstroUI
-  xdg = {
-    configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.pathToModules}/astronvim/nvim";
-    mimeApps = {
-      enable = true;
-      defaultApplications."text/plain" = ["nvim.desktop"];
-    };
-  };
+  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.pathToModules}/astronvim/nvim";
 }

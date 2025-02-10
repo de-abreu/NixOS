@@ -2,6 +2,7 @@
 {pkgs, ...}: {
   home = {
     packages = with pkgs; [
+      comma # Run commands without having them installed, by prefixing it with a comma. A wrapper for nix shell -c and nix-index
       imagemagick # Image manipulation
       bottom # Process monitor
       tig # Visual interface for git

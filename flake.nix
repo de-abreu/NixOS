@@ -39,6 +39,12 @@
           LC_TIME = "en_US.UTF-8";
         };
       };
+      defaultApplications = {
+          term = "wezterm";
+          browser = "mullvad-browser";
+          file_browser = "nautilus";
+          editor = "nvim";          
+      };
       flakePath = "/home/user/.config/NixOS";
     };
     filter = with nixpkgs.lib;
