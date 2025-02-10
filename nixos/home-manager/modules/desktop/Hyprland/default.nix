@@ -14,6 +14,7 @@
       "$browser" = "mullvad-browser";
       "$monitor1" = "eDP-1";
       "$monitor1specs" = "$monitor1, preferred, auto, 1";
+      "$screenlock" = "pidof hyprlock || hyprlock";
 
       exec-once =
         [

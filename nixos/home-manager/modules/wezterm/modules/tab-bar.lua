@@ -2,33 +2,33 @@
 ---@diagnostic disable: undefined-global
 
 local wezterm = require("wezterm")
+local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
 local module = {}
 
-function module.apply_to_config(config, color)
-    -- Configure tab bar
-    config.hide_tab_bar_if_only_one_tab = false
-    config.tab_and_split_indices_are_zero_based = true
+local function leader(window)
+	return window:leader_is_active() and string.format(" %s  ", wezterm.nerdfonts.md_trello) or " "
+end
 
-    wezterm.on("update-right-status", function(window, _)
-        local indicator = " "
-        local arrow = ""
-
-        if window:leader_is_active() then
-            indicator = " " .. utf8.char(0x1f30a) -- Ocean wave
-            arrow = utf8.char(0xe0b2)
-        end
-
-        window:set_left_status(wezterm.format({
-            { Background = { Color = color.background } },
-            { Text = indicator },
-            {
-                Foreground = {
-                    Color = window:active_tab():tab_id() == 0 and color.active_tab or color.inactive_tab,
-                },
-            },
-            { Text = arrow },
-        }))
-    end)
+function module.draw()
+	tabline.setup({
+		options = {
+			theme = "Ayu Mirage",
+			section_separators = "",
+			component_separators = {
+				left = wezterm.nerdfonts.ple_backslash_separator,
+				right = wezterm.nerdfonts.ple_forwardslash_separator,
+			},
+			tab_separators = {
+				left = "",
+				right = " ",
+			},
+		},
+		sections = {
+			tabline_a = { leader },
+			tabline_x = { "" },
+			tabline_y = { "" },
+		},
+	})
 end
 
 return module

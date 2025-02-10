@@ -69,7 +69,7 @@ in {
           [", c" "Close Window, killactive" "d"]
           [", y" "Toogle floating window, togglefloating" "d"]
           [", z" "Toggle maximize window, fullscreen" "d"]
-          [", q" "Lock Screen, exec, ${toDefault}; loginctl lock-session" "d"]
+          [", q" "Lock Screen, exec, ${toDefault}; $screenlock" "d"]
 
           [", j" "Focus left window, movefocus, l" "d"]
           [", k" "Focus window below, movefocus, d" "d"]
@@ -85,6 +85,9 @@ in {
           ["SHIFT, k" "Swap with window below, swapwindow, k" "d"]
           ["SHIFT, l" "Swap with window above, swapwindow, u" "d"]
           ["SHIFT, $ccedilla" "Swap with right window, swapwindow, r" "d"]
+
+          # Power off
+          [", End" "Power off, exec, poweroff" "d"]
         ]
         # Switch workspaces
         ++ (range 1 9 |> map (elem: toString elem) |> fold (elem: acc: [[", ${elem}" "workspace, ${elem}" ""]] ++ acc) [
@@ -96,6 +99,7 @@ in {
         ++ [
           [", m" "Move focused window to a workspace, ${toMWTW}" "d"]
           ["SUPER, Super_L" "Exit Hyprmode, ${toDefault}" "d"]
+          [", catchall" "exec," ""]
         ];
     })
     # Move window keybindings

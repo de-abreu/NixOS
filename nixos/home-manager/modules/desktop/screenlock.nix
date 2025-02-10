@@ -80,9 +80,9 @@
     settings = {
       general = {
         # Avoid the creation of multiple hyprlock instances
-        lock_cmd = "pidof hyprlock || hyprlock";
+        lock_cmd = "$screenlock";
         # Lock session before suspending
-        before_sleep_cmd = "loginctl lock-session";
+        before_sleep_cmd = "$screenlock";
         # Avoid having t press a key twice to turn on the display
         after_sleep_cmd = "hyprctl dispatch dpms on";
       };
@@ -103,7 +103,7 @@
         # Lock screen
         {
           timeout = 300;
-          on-timeout = "loginctl lock-session";
+          on-timeout = "$screenlock";
         }
         # Turn screen off after it has been locked
         {

@@ -31,31 +31,34 @@ function module.apply_to_config(config)
 				pane:move_to_new_tab()
 			end),
 		},
-		{ key = "n", action = act.SpawnTab("CurrentPaneDomain") },
-		{ key = "j", action = act.ActivateTabRelative(-1) },
-		{ key = "ç", action = act.ActivateTabRelative(1) },
+		{ key = "n",  action = act.SpawnTab("CurrentPaneDomain") },
+		{ key = "j",  action = act.ActivateTabRelative(-1) },
+		{ key = "ç",  action = act.ActivateTabRelative(1) },
 
 		-- Split panes
-		{ key = "-", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+		{ key = "-",  action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 		{ key = "\\", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 
 		-- Close or maximize panes
-		{ key = "q", action = act.CloseCurrentPane({ confirm = true }) },
-		{ key = "z", action = act.TogglePaneZoomState },
+		{ key = "q",  action = act.CloseCurrentPane({ confirm = true }) },
+		{ key = "z",  action = act.TogglePaneZoomState },
 
 		-- Swap panes
-		{ key = "]", action = act.RotatePanes("Clockwise") },
-		{ key = "[", action = act.RotatePanes("CounterClockwise") },
+		{ key = "]",  action = act.RotatePanes("Clockwise") },
+		{ key = "[",  action = act.RotatePanes("CounterClockwise") },
 	}
 
 	-- Switch active tab by its index
-	for i = 0, 9 do
+	for i = 1, 9 do
 		table.insert(mappings, {
 			key = tostring(i),
-			mods = "LEADER",
-			action = wezterm.action.ActivateTab(i),
+			action = wezterm.action.ActivateTab(i - 1),
 		})
 	end
+	table.insert(mappings, {
+		key = "0",
+		action = wezterm.action.ActivateTab(9),
+	})
 
 	if not config.keys then
 		config.keys = {}
