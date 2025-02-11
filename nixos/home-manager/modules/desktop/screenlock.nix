@@ -6,26 +6,23 @@
   # TODO: Configure lock screen to be less lame.
   # Documentation: https://github.com/danth/stylix/blob/master/modules/hyprlock/hm.nix
 
-  home.packages = [pkgs.brightnessctl pkgs.material-icons];
+  home.packages = [pkgs.brightnessctl];
   wayland.windowManager.hyprland.settings.exec-once = ["hypridle" "hyprlock"];
 
-  programs.hyprlock = {
+  programs.hyprlock = let
+    shared = {
+      monitor = "eDP-1";
+      halign = "right";
+      valign = "bottom";
+      color = "$label_color";
+      shadow_passes = 1;
+      shadow_boost = 0.5;
+    };
+  in {
     enable = true;
-    settings = with config.lib.stylix; let
-      shared = {
-        color = "$text_color";
-        monitor = "eDP-1";
-        font_family = "${config.stylix.fonts.sansSerif.name}";
-        halign = "center";
-        valign = "center";
-      };
-    in {
-      "$check_color" = "rgb(${colors.base0B})";
-      "$fail_color" = "rgb(${colors.base08})";
-      "$label_color" = "rgb(${colors.base07})";
-      "$outer_color" = "rgb(${colors.base03})";
-      "$text_color" = "rgb(${colors.base01})";
-      "$material_icons" = "Material symbols Rounded";
+    settings = with config.lib.stylix.colors; {
+      "$label_color" = "rgb(${base06})";
+      "$font" = "JetBrainsMono Nerd Font";
 
       background = {
         path = "${config.stylix.image}";
@@ -34,38 +31,39 @@
       # Password input field
       input-field =
         {
+          monitor = "eDP-1";
           size = "250, 50";
           dots_size = 0.1;
           dots_spacing = 0.3;
           dots_center = true;
-          outer_color = "$outer_color";
+          outer_color = "rgb(${base03})";
           inner_color = "$label_color";
-          font_color = "$text_color";
+          font_color = "rgb(${base02})";
+          check_color = "rgb(${base0B})";
+          fail_color = "rgb(${base08})";
+          outline_thickness = 2;
           fade_on_empty = true;
-          position = "0, -225";
+          halign = "center";
+          valign = "center";
         }
         // shared;
 
       label = [
-        # Clock
-        (
+        ( # Clock
           {
-            text = "cmd[update:1000] echo -e \"$(date +\"%H:%M\")\"";
-            color = "$label_color";
-            shadow_passes = 1;
-            shadow_boost = 0.5;
-            font_size = 120;
-            position = "0, 300";
+            text = "cmd[update:1000] date +\"%H:%M\"";
+            font_size = 192;
+            font_family = "$font ExtraBold";
+            position = "-50, 0";
           }
           // shared
         )
-        # Day-Month-Date
-        (
+        ( # Day-Month-Date
           {
-            text = "cmd[update:1000] echo -e \"$(date +\"%A, %d %B\")\"";
-            color = "$label_color";
+            text = "cmd[update:1000] date +\"%A, %d %B\"";
             font_size = 36;
-            position = "0, 105";
+            font_family = "$font Bold";
+            position = "70, 300";
           }
           // shared
         )
@@ -76,6 +74,7 @@
   services.hypridle = {
     enable = true;
     settings = {
+      "$screenlock" = "pidof hyprlock || hyprlock";
       general = {
         # Avoid the creation of multiple hyprlock instances
         lock_cmd = "$screenlock";
