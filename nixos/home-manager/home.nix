@@ -29,6 +29,7 @@
       fish.enable = false; # Set with fish_theme
       neovim.enable = false; # Managed in astroui.lua
       wezterm.enable = false; # Managed in appearance.lua
+      hyprlock.enable = false;
     };
 
     xdg = {

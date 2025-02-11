@@ -7,7 +7,7 @@ with pkgs; {
     fonts = {
       serif = {
         package = libre-baskerville;
-        name = "LibreBaskerville-Regular";
+        name = "LibreBaskerville";
       };
       sansSerif = {
         package = inter;
@@ -15,12 +15,13 @@ with pkgs; {
       };
       monospace = {
         package = nerdfonts.override {fonts = ["JetBrainsMono"];};
-        name = "JetBrainsMono-Regular";
+        name = "JetBrainsMono";
       };
       emoji = {
         package = noto-fonts-emoji;
         name = "Noto Color Emoji";
       };
+      sizes.terminal = 10;
     };
     cursor = {
       name = "Adwaita";

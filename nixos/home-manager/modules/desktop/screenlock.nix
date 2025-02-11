@@ -4,13 +4,11 @@
   ...
 }: {
   # TODO: Configure lock screen to be less lame.
-  # For that, disable stylix's default styling: `stylix.targets.hyprlock.enable = false;`
   # Documentation: https://github.com/danth/stylix/blob/master/modules/hyprlock/hm.nix
 
   home.packages = [pkgs.brightnessctl pkgs.material-icons];
   wayland.windowManager.hyprland.settings.exec-once = ["hypridle" "hyprlock"];
 
-  stylix.targets.hyprlock.enable = false;
   programs.hyprlock = {
     enable = true;
     settings = with config.lib.stylix; let
