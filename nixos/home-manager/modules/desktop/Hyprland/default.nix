@@ -7,6 +7,11 @@
     enable = true;
     systemd.enable = false;
     settings = with userPrefs.defaultApplications; {
+      # Default applications
+      "$term" = term;
+      "$editor" = editor;
+      "$file" = file_browser;
+      "$browser" = browser;
       "$monitor1" = "eDP-1";
       "$monitor1specs" = "$monitor1, preferred, auto, 1";
 
