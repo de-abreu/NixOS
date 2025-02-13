@@ -8,11 +8,11 @@
   home.packages = [pkgs.playerctl]; # Command-line utility to control media players
   wayland.windowManager.hyprland = {  
     settings = with config.lib.stylix.colors; let
-      changeSubmap = name: indicator: "exec, hyprctl keyword general:col.active_border \"rgb(${indicator})\"; hyprctl dispatch submap ${name}";
+      changeSubmap = name: indicator: "hyprctl keyword general:col.active_border \"rgb(${indicator})\"; hyprctl dispatch submap ${name}";
       in {
       "$ccedilla" = "code:47"; # Map c cedilla for ABNT2 keyboards
       "$mute" = "wpctl set-mute @DEFAULT_AUDIO_SINK@";
-      "$screenlock" = "pidof hyprlock || hyprlock";
+      "$screenlock" = "pidof hyprlock || hyperlock";
       "$toDefault" = changeSubmap "reset" base0D;
       "$toHyprmode" = changeSubmap "hyprmode" base08;
       "$toMWTW" = changeSubmap "MoveWindowToWorkspace" base0B;
@@ -32,21 +32,20 @@
         |> map (elem: toString elem)
         |> fold (n: acc:  [["" "${n}" "movetoworkspace, ${n}" ""] ["" "${n}" "$toHyprmode" ""]] ++ acc) [
         ["" "0" "movetoworkspace, 10" ""]
-        ["" "0" "$toHyprmode" ""]
+        ["" "0" "exec, $toHyprmode" ""]
         ["" "j" "Move window to previous workspace, movetoworkspace, -1" "ed"]
         ["" "$ccedilla" "Move window to next workspace, movetoworkspace, +1" "ed"]
       ];
       application_shortcuts = [
         [ "t" "Open Terminal, exec, $term" "d"]
         [ "f" "Open File Manager, exec, $file" "d"]
-        [ "ENTER" "Open Editor, exec, $editor" "d"]
         [ "b" "Open Clearnet Broswer, exec, $browser" "d"]
       ];
       window_session_shortcuts = [
-        [ "c" "Close Window, killactive" "d"]
+        [ "q" "Close Window, killactive" "d"]
         [ "y" "Toogle floating window, togglefloating" "d"]
         [ "z" "Toggle maximize window, fullscreen" "d"]
-        [ "q" "Lock Screen, exec, $toDefault; $screenlock" "d"]
+        [ "c" "Lock session, exec, $mute 1; $screenlock; $mute 0, $toDefault" "d"]
 
         [ "j" "Focus left window, movefocus, l" "d"]
         [ "k" "Focus window below, movefocus, d" "d"]
