@@ -37,6 +37,7 @@
       mimeApps = {
         enable = true;
         defaultApplications = with defaultApplications; {
+          "application/pdf" = "evince.desktop";
           "application/x-terminal-emulator" = term + ".desktop"; 
           "text/plain" = editor + ".desktop";
         } // (map (mime: {name = mime; value = browser + ".desktop";}) [

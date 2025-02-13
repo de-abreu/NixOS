@@ -7,7 +7,7 @@
     enable = true;
     extraConfig = let
       imports = with lib;
-        foldl (acc: elem: acc + "require(\"${elem}\").apply_to_config(config)\n")
+        foldl (acc: elem: acc + "require(\"modules.${elem}\").apply_to_config(config)\n")
         "require(\"appearance\").apply_to_config(config)\n"
         [
           "keybinds.overrides"

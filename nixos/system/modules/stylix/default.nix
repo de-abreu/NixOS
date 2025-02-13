@@ -15,7 +15,7 @@ with pkgs; {
       };
       monospace = {
         package = nerdfonts.override {fonts = ["JetBrainsMono"];};
-        name = "JetBrains Mono";
+        name = "JetBrainsMono Nerd Font";
       };
       emoji = {
         package = noto-fonts-emoji;

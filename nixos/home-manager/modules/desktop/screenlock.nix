@@ -7,7 +7,7 @@
   # Documentation: https://github.com/danth/stylix/blob/master/modules/hyprlock/hm.nix
 
   home.packages = [pkgs.brightnessctl];
-  wayland.windowManager.hyprland.settings.exec-once = ["hypridle" "hyprlock"];
+  wayland.windowManager.hyprland.settings.exec-once = ["systemctl --user enable --now hypridle.service"];
 
   programs.hyprlock = let
     shared = {
@@ -29,44 +29,39 @@
       };
 
       # Password input field
-      input-field =
-        {
-          monitor = "eDP-1";
-          size = "250, 50";
-          dots_size = 0.1;
-          dots_spacing = 0.3;
-          dots_center = true;
-          outer_color = "rgb(${base03})";
-          inner_color = "$label_color";
-          font_color = "rgb(${base02})";
-          check_color = "rgb(${base0B})";
-          fail_color = "rgb(${base08})";
-          outline_thickness = 2;
-          fade_on_empty = true;
-          halign = "center";
-          valign = "center";
-        }
-        // shared;
+      input-field = {
+        monitor = "eDP-1";
+        size = "250, 50";
+        dots_size = 0.1;
+        dots_spacing = 0.3;
+        dots_center = true;
+        outer_color = "rgb(${base03})";
+        inner_color = "$label_color";
+        font_color = "rgb(${base03})";
+        check_color = "rgb(${base0B})";
+        fail_color = "rgb(${base08})";
+        outline_thickness = 2;
+        fade_on_empty = true;
+        halign = "center";
+        valign = "center";
+      };
 
-      label = [
-        ( # Clock
-          {
-            text = "cmd[update:1000] date +\"%H:%M\"";
-            font_size = 192;
-            font_family = "$font ExtraBold";
-            position = "-50, 0";
-          }
-          // shared
-        )
-        ( # Day-Month-Date
-          {
-            text = "cmd[update:1000] date +\"%A, %d %B\"";
-            font_size = 36;
-            font_family = "$font Bold";
-            position = "70, 300";
-          }
-          // shared
-        )
+      label = map (set: set // shared) [
+        # Clock
+        {
+          text = "cmd[update:1000] date +\"%H:%M\"";
+          font_size = 192;
+          font_family = "$font ExtraBold";
+          position = "-50, 0";
+        }
+
+        # Day-Month-Date
+        {
+          text = "cmd[update:1000] date +\"%A, %d %B\"";
+          font_size = 40;
+          font_family = "$font Bold";
+          position = "-70, 300";
+        }
       ];
     };
   };
