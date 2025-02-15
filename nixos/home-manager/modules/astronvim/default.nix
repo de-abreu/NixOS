@@ -1,4 +1,7 @@
-# INFO: Astronvim, an aesthetically pleasing and feature-rich neovim config that is extensible and easy to use with a great set of plugins. More languages for spellcheck can be found at https://ftp.nluug.nl/pub/vim/runtime/spell/
+# INFO: Astronvim, an aesthetically pleasing and feature-rich neovim config that
+# is extensible and easy to use with a great set of plugins. More languages for
+# spellcheck can be found at https://ftp.nluug.nl/pub/vim/runtime/spell/
+
 {
   config,
   pkgs,
@@ -48,7 +51,7 @@
       # NOTE: Dependencies to enable the image-nvim plugin
       extraLuaPackages = ps: with ps; [luarocks magick];
 
-      # NOTE: If not for `wheel`, these are dependencies to use the "Molten" plugin
+      # NOTE: If not for `wheel`, these are dependencies of the "Molten" plugin
       extraPython3Packages = ps:
         with ps; [
           wheel
@@ -72,5 +75,6 @@
     };
   };
 
-  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.pathToModules}/astronvim/nvim";
+  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink
+    "${config.pathToModules}/astronvim/nvim";
 }

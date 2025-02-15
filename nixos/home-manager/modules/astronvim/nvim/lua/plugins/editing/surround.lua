@@ -7,15 +7,16 @@ return {
 		"AstroNvim/astrocore",
 		opts = function(_, opts)
 			local map = opts.mappings.n
+			local word_under_cursor = vim.fn.expand("<cword>")
 			map["zc"] = {
 				function()
-					vim.cmd("spellgood " .. vim.fn.expand("<cword>"))
+					vim.cmd("spellgood " .. word_under_cursor)
 				end,
 				desc = "Add word under cursor to dictionary",
 			}
 			map["zr"] = {
 				function()
-					vim.cmd("spellwrong " .. vim.fn.expand("<cword>"))
+					vim.cmd("spellwrong " .. word_under_cursor)
 				end,
 				desc = "Remove word under cursor from dictionary",
 			}
