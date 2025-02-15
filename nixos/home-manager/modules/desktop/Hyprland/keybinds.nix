@@ -11,8 +11,7 @@
       changeSubmap = name: indicator: "hyprctl keyword general:col.active_border \"rgb(${indicator})\"; hyprctl dispatch submap ${name}";
       in {
       "$ccedilla" = "code:47"; # Map c cedilla for ABNT2 keyboards
-      "$mute" = "wpctl set-mute @DEFAULT_AUDIO_SINK@";
-      "$screenlock" = "pidof hyprlock || hyperlock";
+      "$screenlock" = "playerctl pause; loginctl lock-session";
       "$toDefault" = changeSubmap "reset" base0D;
       "$toHyprmode" = changeSubmap "hyprmode" base08;
       "$toMWTW" = changeSubmap "MoveWindowToWorkspace" base0B;
@@ -30,12 +29,15 @@
         |> concatStrings;
       moveWindows = range 1 9
         |> map (elem: toString elem)
-        |> fold (n: acc:  [["" "${n}" "movetoworkspace, ${n}" ""] ["" "${n}" "$toHyprmode" ""]] ++ acc) [
-        ["" "0" "movetoworkspace, 10" ""]
-        ["" "0" "exec, $toHyprmode" ""]
-        ["" "j" "Move window to previous workspace, movetoworkspace, -1" "ed"]
-        ["" "$ccedilla" "Move window to next workspace, movetoworkspace, +1" "ed"]
-      ];
+        |> fold (n: acc:  [
+          ["" "${n}" "movetoworkspace, ${n}" ""]
+          ["" "${n}" "exec, $toHyprmode" ""]
+        ] ++ acc) [
+          ["" "0" "movetoworkspace, 10" ""]
+          ["" "0" "exec, $toHyprmode" ""]
+          ["" "j" "Move window to previous workspace, movetoworkspace, -1" "ed"]
+          ["" "$ccedilla" "Move window to next workspace, movetoworkspace, +1" "ed"]
+        ];
       application_shortcuts = [
         [ "t" "Open Terminal, exec, $term" "d"]
         [ "f" "Open File Manager, exec, $file" "d"]
@@ -45,12 +47,14 @@
         [ "q" "Close Window, killactive" "d"]
         [ "y" "Toogle floating window, togglefloating" "d"]
         [ "z" "Toggle maximize window, fullscreen" "d"]
-        [ "c" "Lock session, exec, $mute 1; $screenlock; $mute 0, $toDefault" "d"]
+        [ "c" "Lock session, exec, $screenlock; $toDefault" "d"]
 
         [ "j" "Focus left window, movefocus, l" "d"]
         [ "k" "Focus window below, movefocus, d" "d"]
         [ "l" "Focus window above, movefocus, u" "d"]
         [ "$ccedilla" "Focus right window, movefocus, r" "d"]
+        [ "[" "Focus previous window, cyclenext, prev" "d"]
+        [ "]" "Focus previous window, cyclenext" "d"]
       ];
       shared = [
         # Media controls
@@ -61,16 +65,15 @@
         ["" "XF86AudioLowerVolume" "Lower volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" "edlt"]
         ["" "XF86AudioRaiseVolume" "Raise volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+" "edlt"]
         # Lid open/close
-        ["" "switch:on:[Lid Switch]" "exec, $toDefault; loginctl lock-session" "lt"]
-        ["" "switch:on:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, disable\"" "lt"]
+        ["" "switch:on:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, disable\"; $screenlock; $toDefault" "lt"]
         ["" "switch:off:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, 2560x1600, 0x0, 1\"" "lt"]
         # Power button
-        ["" "XF86PowerOff" "exec, $toDefault; systemctl suspend" "lt"]    
+        ["" "XF86PowerOff" "exec, $toDefault; $screenlock; systemctl suspend" "lt"]    
       ];
     in
       # Default mode keybindings
       (submap {
-        binds = application_shortcuts ++ window_session_shortcuts ++ [ ["Super_L" "Enter Hyprmode, $toHyprmode" "d"] ]
+        binds = application_shortcuts ++ window_session_shortcuts ++ [ ["Super_L" "Enter Hyprmode, exec,  $toHyprmode" "d"] ]
           |> map (bind: ["SUPER"] ++ bind)
           |> (binds : binds ++ shared);
       })
@@ -98,8 +101,8 @@
           ])
           # Exit Hyprmode
           ++ [
-            ["" "m" "Move focused window to a workspace, $toMWTW" "d"]
-            ["SUPER" "Super_L" "Exit Hyprmode, $toDefault" "d"]
+            ["" "m" "Move focused window to a workspace, exec, $toMWTW" "d"]
+            ["SUPER" "Super_L" "Exit Hyprmode, exec, $toDefault" "d"]
             ["" "catchall" "exec" ""]
           ]);
         })
@@ -110,7 +113,7 @@
           ++ moveWindows
           ++ [
             ["" "s" "Silently Move focused window to a workspace, submap, SilentlyMoveWindowToWorkspace" "d"]
-            ["" "catchall" "Cancel and return to default mode, $toDefault" "d"]
+            ["" "catchall" "Cancel and return to default mode, exec, $toDefault" "d"]
           ];
       })
       # Move window silently keybindings
@@ -122,7 +125,7 @@
           (elemAt bind 2 |> replaceStrings ["movetoworkspace" "Move window"] ["movetoworkspacesilent" "Move window silently"])
           (elemAt bind 3)
         ]) moveWindows
-        |> (binds: binds ++ shared ++ [[ "" "catchall" "Cancel and return to default mode, $toDefault" "d" ]]);
+        |> (binds: binds ++ shared ++ [[ "" "catchall" "Cancel and return to default mode, exec, $toDefault" "d" ]]);
       });
   };
 }
