@@ -6,7 +6,7 @@
 return {
 	"AstroNvim/astrocommunity",
 	{ import = "astrocommunity.bars-and-lines.vim-illuminate" },
-	-- Highlight other uses of the word under the cursor
+	-- Highlight other instances of the word under the cursor
 	{ import = "astrocommunity.comment.ts-comments-nvim" },
 	-- Context aware commenting for embedded languages
 	{ import = "astrocommunity.diagnostics.trouble-nvim" },
@@ -25,6 +25,8 @@ return {
 	-- Prevent the recursive creation of nvim instances
 	{ import = "astrocommunity.editing-support.neogen" },
 	-- An automated annotation generator
+	{ import = "astrocommunity.file-explorer.oil-nvim" },
+	-- Edit a filesystem like a buffer
 
 	-- NOTE: Image support
 	{ import = "astrocommunity.media.image-nvim" },
