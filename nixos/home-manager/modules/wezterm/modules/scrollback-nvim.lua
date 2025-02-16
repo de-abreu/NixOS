@@ -1,10 +1,7 @@
 ---@diagnostic disable: undefined-field
 
-local wezterm = require("wezterm")
-local io = require("io")
-local os = require("os")
-local act = wezterm.action
-local module = {}
+local wezterm, io, os = require("wezterm"), require("io"), require("os")
+local act, module = wezterm.action, {}
 
 wezterm.on("scrollback-nvim", function(window, pane)
 	-- Retrieve the text from the pane
@@ -13,6 +10,7 @@ wezterm.on("scrollback-nvim", function(window, pane)
 	-- Create a temporary file to pass to nvim
 	local name = os.tmpname()
 	local f = io.open(name, "w+")
+
 	-- local escape_sequence = "\r\27[K"
 	f:write(text)
 	f:flush()

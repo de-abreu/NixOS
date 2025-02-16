@@ -1,8 +1,7 @@
 ---@diagnostic disable: undefined-field
 
-local wezterm = require("wezterm")
+local wezterm, module = require("wezterm"), {}
 local act = wezterm.action
-local module = {}
 
 function module.apply_to_config(config)
 	if wezterm.gui then

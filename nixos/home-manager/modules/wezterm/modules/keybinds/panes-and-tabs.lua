@@ -1,9 +1,8 @@
 ---@diagnostic disable: undefined-field
 
-local wezterm = require("wezterm")
+local wezterm, module = require("wezterm"), {}
 local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 local act = wezterm.action
-local module = {}
 
 function module.apply_to_config(config)
 	-- Set leader key
@@ -31,21 +30,21 @@ function module.apply_to_config(config)
 				pane:move_to_new_tab()
 			end),
 		},
-		{ key = "n",  action = act.SpawnTab("CurrentPaneDomain") },
-		{ key = "j",  action = act.ActivateTabRelative(-1) },
-		{ key = "ç",  action = act.ActivateTabRelative(1) },
+		{ key = "n", action = act.SpawnTab("CurrentPaneDomain") },
+		{ key = "j", action = act.ActivateTabRelative(-1) },
+		{ key = "ç", action = act.ActivateTabRelative(1) },
 
 		-- Split panes
-		{ key = "-",  action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+		{ key = "-", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 		{ key = "\\", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 
 		-- Close or maximize panes
-		{ key = "q",  action = act.CloseCurrentPane({ confirm = true }) },
-		{ key = "z",  action = act.TogglePaneZoomState },
+		{ key = "q", action = act.CloseCurrentPane({ confirm = true }) },
+		{ key = "z", action = act.TogglePaneZoomState },
 
 		-- Swap panes
-		{ key = "]",  action = act.RotatePanes("Clockwise") },
-		{ key = "[",  action = act.RotatePanes("CounterClockwise") },
+		{ key = "]", action = act.RotatePanes("Clockwise") },
+		{ key = "[", action = act.RotatePanes("CounterClockwise") },
 	}
 
 	-- Switch active tab by its index

@@ -1,9 +1,8 @@
 ---@diagnostic disable: undefined-field
 ---@diagnostic disable: undefined-global
 
-local wezterm = require("wezterm")
+local wezterm, module = require("wezterm"), {}
 local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
-local module = {}
 
 local function leader(window)
 	return window:leader_is_active() and string.format(" %s  ", wezterm.nerdfonts.md_trello) or " "
