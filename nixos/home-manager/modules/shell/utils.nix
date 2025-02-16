@@ -1,10 +1,13 @@
-# INFO: A bunch of useful terminal applications
+# INFO: A bunch of useful terminal applications without any configuration
 {pkgs, ...}: {
   home = {
     packages = with pkgs; [
       bottom # Process monitor
-      comma # Run commands without having them installed, by prefixing it with a comma. A wrapper for nix shell -c and nix-index
+      # temporarily install programs to run their commands, by prefixing the
+      # commands with a comma.  A wrapper for nix shell -c and nix-index.
+      comma
       imagemagick # Image manipulation
+      playerctl # Command-line utility to control media players
       ripgrep # search for text within various files
       tig # Visual interface for git
 
@@ -17,5 +20,4 @@
       zip
     ];
   };
-  programs.fish.shellAbbrs.bottom = "btm";
 }
