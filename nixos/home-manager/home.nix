@@ -17,10 +17,11 @@
       username = username;
       homeDirectory = "/home/${username}";
       stateVersion = "24.11";
+      
       sessionVariables = with defaultApplications; {
-        "BROWSER" = browser;
-        "EDITOR" = editor;
-        "TERM" = term;
+        BROWSER = browser;
+        EDITOR = editor;
+        TERM = term;
       };
     };
 
