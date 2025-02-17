@@ -2,15 +2,16 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: {
-  home.packages = [pkgs.playerctl]; # Command-line utility to control media players
   wayland.windowManager.hyprland = {  
     settings = with config.lib.stylix.colors; let
-      changeSubmap = name: indicator: "hyprctl keyword general:col.active_border \"rgb(${indicator})\"; hyprctl dispatch submap ${name}";
+      changeSubmap = name: indicator:
+        "hyprctl keyword general:col.active_border \"rgb(${indicator})\"; hyprctl dispatch submap ${name}";
       in {
       "$ccedilla" = "code:47"; # Map c cedilla for ABNT2 keyboards
+      "$keyboard" = "dell::kbd_backlight";
+      "$mute" = "set-mute @DEFAULT_AUDIO_SINK@";
       "$screenlock" = "playerctl pause; loginctl lock-session";
       "$toDefault" = changeSubmap "reset" base0D;
       "$toHyprmode" = changeSubmap "hyprmode" base08;
@@ -64,6 +65,11 @@
         ["" "XF86AudioPrev" "Previous media, exec, playerctl previous" "dlt"]
         ["" "XF86AudioLowerVolume" "Lower volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" "edlt"]
         ["" "XF86AudioRaiseVolume" "Raise volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+" "edlt"]
+        # Brightness controls
+        ["" "XF86MonBrightnessUp" "Increase monitor brightness, exec, brightnessctl set +10%" "edtl"]
+        ["" "XF86MonBrightnessDown" "Decrease monitor brightness, exec, brightnessctl set 10%-" "edtl"]
+        ["" "XF86KbdLightOnOff" "Toggle keyboard backlight, exec, toggle_kbd_backlight" "dlt"]
+        
         # Lid open/close
         ["" "switch:on:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, disable\"; $screenlock; $toDefault" "lt"]
         ["" "switch:off:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, 2560x1600, 0x0, 1\"" "lt"]
