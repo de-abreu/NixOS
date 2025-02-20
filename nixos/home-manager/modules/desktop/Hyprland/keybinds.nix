@@ -10,7 +10,7 @@
         "hyprctl keyword general:col.active_border \"rgb(${indicator})\"; hyprctl dispatch submap ${name}";
       in {
       "$ccedilla" = "code:47"; # Map c cedilla for ABNT2 keyboards
-      "$keyboard" = "dell::kbd_backlight";
+      "$launcher" = "rofi -show drun -theme \${XDG_CONFIG_HOME}/rofi/launcher.rasi";
       "$mute" = "set-mute @DEFAULT_AUDIO_SINK@";
       "$screenlock" = "playerctl pause; loginctl lock-session";
       "$toDefault" = changeSubmap "reset" base0D;
@@ -43,12 +43,13 @@
         [ "t" "Open Terminal, exec, $term" "d"]
         [ "f" "Open File Manager, exec, $file" "d"]
         [ "b" "Open Clearnet Broswer, exec, $browser" "d"]
+        [ "space" "Launcher, exec, $launcher" "d"]
       ];
       window_session_shortcuts = [
         [ "q" "Close Window, killactive" "d"]
         [ "y" "Toogle floating window, togglefloating" "d"]
         [ "z" "Toggle maximize window, fullscreen" "d"]
-        [ "c" "Lock session, exec, $screenlock; $toDefault" "d"]
+        [ "Caps_Lock" "Lock session, exec, $screenlock; $toDefault" "d"]
 
         [ "j" "Focus left window, movefocus, l" "d"]
         [ "k" "Focus window below, movefocus, d" "d"]
@@ -65,14 +66,16 @@
         ["" "XF86AudioPrev" "Previous media, exec, playerctl previous" "dlt"]
         ["" "XF86AudioLowerVolume" "Lower volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" "edlt"]
         ["" "XF86AudioRaiseVolume" "Raise volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+" "edlt"]
+      
         # Brightness controls
         ["" "XF86MonBrightnessUp" "Increase monitor brightness, exec, brightnessctl set +10%" "edtl"]
         ["" "XF86MonBrightnessDown" "Decrease monitor brightness, exec, brightnessctl set 10%-" "edtl"]
-        ["" "XF86KbdLightOnOff" "Toggle keyboard backlight, exec, toggle_kbd_backlight" "dlt"]
+        ["" "XF86KbdLightOnOff" "Toggle keyboard backlight, exec, adjust_kbd_backlight" "dlt"]
         
         # Lid open/close
         ["" "switch:on:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, disable\"; $screenlock; $toDefault" "lt"]
         ["" "switch:off:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, 2560x1600, 0x0, 1\"" "lt"]
+      
         # Power button
         ["" "XF86PowerOff" "exec, $toDefault; $screenlock; systemctl suspend" "lt"]    
       ];
