@@ -30,6 +30,7 @@
       fish.enable = false; # Set with fish_theme
       neovim.enable = false; # Managed in astroui.lua
       wezterm.enable = false; # Managed in appearance.lua
+      rofi.enable = false;
       hyprlock.enable = false;
     };
 
