@@ -20,6 +20,7 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
+@import                          "theme"
 
 * {
     border-colour:               var(selected);
@@ -159,7 +160,7 @@ listview {
     lines:                       8;
     cycle:                       true;
     dynamic:                     true;
-    scrollbar:                   true;
+    scrollbar:                   false;
     layout:                      vertical;
     reverse:                     false;
     fixed-height:                true;
@@ -220,8 +221,8 @@ element selected.active {
     text-color:                  var(selected-active-foreground);
 }
 element alternate.normal {
-    background-color:            var(alternate-normal-background);
-    text-color:                  var(alternate-normal-foreground);
+    background-color:            var(normal-background);
+    text-color:                  var(normal-foreground);
 }
 element alternate.urgent {
     background-color:            var(alternate-urgent-background);

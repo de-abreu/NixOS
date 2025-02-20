@@ -10,8 +10,9 @@
         "hyprctl keyword general:col.active_border \"rgb(${indicator})\"; hyprctl dispatch submap ${name}";
       in {
       "$ccedilla" = "code:47"; # Map c cedilla for ABNT2 keyboards
+      "$apostrophe" = "code:49"; # Map apostrophe
       "$launcher" = "rofi -show drun -theme \${XDG_CONFIG_HOME}/rofi/launcher.rasi";
-      "$mute" = "set-mute @DEFAULT_AUDIO_SINK@";
+      "$mute" = "playerctl set-mute @DEFAULT_AUDIO_SINK@";
       "$screenlock" = "playerctl pause; loginctl lock-session";
       "$toDefault" = changeSubmap "reset" base0D;
       "$toHyprmode" = changeSubmap "hyprmode" base08;
@@ -22,6 +23,7 @@
     # █░█ ██▄ ░█░ █▄█ █ █░▀█ █▄▀ █ █░▀█ █▄█ ▄█
     
     extraConfig = with lib; let
+      launcher = opt: "rofi -show ${opt} -theme \${XDG_CONFIG_HOME}/rofi/launcher.rasi";
       bind = set: "bind${elemAt set 3} = ${elemAt set 0}, ${elemAt set 1}, ${elemAt set 2}\n";
       submap = {
         name ? "reset",
@@ -40,16 +42,17 @@
           ["" "$ccedilla" "Move window to next workspace, movetoworkspace, +1" "ed"]
         ];
       application_shortcuts = [
-        [ "t" "Open Terminal, exec, $term" "d"]
-        [ "f" "Open File Manager, exec, $file" "d"]
-        [ "b" "Open Clearnet Broswer, exec, $browser" "d"]
-        [ "space" "Launcher, exec, $launcher" "d"]
+        [ "t" "Open Terminal, exec, $term; $toDefault" "d"]
+        [ "f" "Open File Manager, exec, $file; $toDefault" "d"]
+        [ "b" "Open Clearnet Broswer, exec, $browser; $toDefault" "d"]
+        [ "space" "Applications, exec, ${launcher "drun"}; $toDefault" "d"]
+        [ "Tab" "Windows, exec, ${launcher "window"}; $toDefault" "d"]
       ];
       window_session_shortcuts = [
         [ "q" "Close Window, killactive" "d"]
         [ "y" "Toogle floating window, togglefloating" "d"]
         [ "z" "Toggle maximize window, fullscreen" "d"]
-        [ "Caps_Lock" "Lock session, exec, $screenlock; $toDefault" "d"]
+        [ "$apostrophe" "Lock session, exec, $screenlock; $toDefault" "d"]
 
         [ "j" "Focus left window, movefocus, l" "d"]
         [ "k" "Focus window below, movefocus, d" "d"]
