@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   "toppair/peek.nvim",
   dependencies = {
@@ -10,8 +11,17 @@ return {
         local prefix = "<Leader>M"
 
         maps.n[prefix] = { desc = require("astroui").get_icon("Markdown", 1, true) .. "Markdown" }
-        maps.n[prefix .. "p"] = { require("peek").open, desc = "Preview" }
-        maps.n[prefix .. "s"] = { require("peek").close, desc = "Stop preview" }
+        maps.n[prefix .. "p"] = {
+          function()
+            local peek = require "peek"
+            if peek.is_open() then
+              peek.close()
+            else
+              peek.open()
+            end
+          end,
+          desc = "Toggle preview",
+        }
       end,
     },
   },
