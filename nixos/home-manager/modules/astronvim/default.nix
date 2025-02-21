@@ -14,6 +14,7 @@
       extraPackages =
         (with pkgs; [
           tree-sitter # required to parse text (hence a bunch of stuff)
+          deno # required by peek.nvim
 
           R # R support
           cargo # Rust support
@@ -63,7 +64,6 @@
           kaleido
           pyperclip
           nbformat
-          pillow
           pandas
           numpy
           matplotlib

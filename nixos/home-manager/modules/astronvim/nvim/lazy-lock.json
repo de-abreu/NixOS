@@ -90,6 +90,7 @@
   "oil.nvim": { "branch": "master", "commit": "7cde5aab10f564408e9ac349d457d755422d58cd" },
   "otter.nvim": { "branch": "main", "commit": "21f042f4d1a9ff4788634ad76a10033eed13c7f2" },
   "package-info.nvim": { "branch": "master", "commit": "3de4f3569ce60e248707df042b72769b3ec343b8" },
+  "peek.nvim": { "branch": "master", "commit": "5820d937d5414baea5f586dc2a3d912a74636e5b" },
   "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },
   "promise-async": { "branch": "main", "commit": "38a4575da9497326badd3995e768b4ccf0bb153e" },
   "quarto-nvim": { "branch": "main", "commit": "abc417c7e7422033f1090c0da5f30ef3ecb0c7ca" },
