@@ -3,12 +3,12 @@
   userPrefs,
   ...
 }: with userPrefs; {
-  imports = map (module: ./modules/ + module) [
-    "desktop"
-    "terminal"
-    "browsers"
-    "media"
-    "study"
+  imports = map (module: ./modules + module) [
+    "/desktop"
+    "/terminal"
+    "/browsers.nix"
+    "/media.nix"
+    "/study.nix"
   ];
 
   options = {

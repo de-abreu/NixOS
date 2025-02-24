@@ -1,3 +1,3 @@
-{..., filter } : {
+{filter, ...} : {
     imports = filter ./modules; 
 }

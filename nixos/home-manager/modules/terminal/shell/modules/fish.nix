@@ -1,6 +1,11 @@
 # INFO: Smart and user-friendly command line shell. Includes features like syntax highlighting, autosuggest-as-you-type, and fancy tab completions.
 {lib, pkgs, ...}: {
-  programs = {
+  programs = lib.foldl (acc: program: {
+    "${program}" = {
+      enable = true;
+      enableFishIntegration = true;
+    };    
+  } // acc) {
     bash = {
       # INFO: Retain Bash as the default shell, but switch to fish when in an interactive shell session. See: https://nixos.wiki/wiki/Fish
       enable = true;
@@ -52,21 +57,16 @@
     }
   
     # INFO: Additional programs that enhance the experience of using fish
-  |> lib.fold (program: acc: {
-    "${program}" = {
-      enable = true;
-      enableFishIntegration = true;
-    };    
-  } // acc) [
-    "navi" # Interactive cheatsheet tool for the command line
-    "fzf" # Command line fuzzy finder
-    "nix-index" # nix-index, somewhat similar to apt search. INFO: the index needs to be initially built by running "nix-index" with no arguments.
-  ]
-  |> (a: a // {
-      macfly = { # Command history browser
-        enable = true;
-        enableFishIntegration = true;
-        fzf.enable = true;
-      };
-    });
+    [
+      "navi" # Interactive cheatsheet tool for the command line
+      "fzf" # Command line fuzzy finder
+      "nix-index" # nix-index, somewhat similar to apt search. INFO: the index needs to be initially built by running "nix-index" with no arguments.
+    ]
+    |> (a: a // {
+        mcfly = { # Command history browser
+          enable = true;
+          enableFishIntegration = true;
+          fzf.enable = true;
+        };
+      });
 }

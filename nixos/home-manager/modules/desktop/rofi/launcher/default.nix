@@ -1,6 +1,6 @@
 {config, pkgs, ...}: let
     launcher = pkgs.writeShellScriptBin "launcher" ''
-        theme = $XDG_CONFIG_HOME/rofi/launcher.rasi
+        theme="$XDG_CONFIG_HOME/rofi/launcher.rasi"
         if [ $# -gt 0 ]; then
             rofi -show $1 -theme $theme
         else

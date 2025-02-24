@@ -1,5 +1,5 @@
 # INFO: A floating menu
-{ config, pkgs, userPrefs, ...}: {
+{config, pkgs, ...}: {
 
   imports = [ ./launcher ./powermenu ];
 
@@ -12,7 +12,6 @@
         enable = true;
         package = pkgs.rofi-pass-wayland;
       };
-      terminal = userPrefs.defaultApplications.term;
     };
     xdg.configFile."rofi/theme.rasi".text =
       with config.lib.stylix.colors; ''      

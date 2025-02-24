@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  imports = [ ./keybinds ];
+  imports = [ ./keybinds.nix ];
   
   config = { 
     wayland.windowManager.hyprland = {

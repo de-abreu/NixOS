@@ -26,11 +26,11 @@
         return config
       '';
   };
-  xdg = with config; {
+  xdg = {
     configFile = {
       "wezterm/appearance.lua".text =
-        with lib.stylix.colors;
-        with stylix.fonts; 
+        with config.lib.stylix.colors;
+        with config.stylix.fonts; 
         # lua
         ''
           local wezterm = require("wezterm")
@@ -59,7 +59,7 @@
               "${monospace.name}",
               "${emoji.name}",
             }
-            config.font_size = ${lib.toString sizes.terminal}
+            config.font_size = ${builtins.toString sizes.terminal}
             config.line_height = 1.2
 
             -- Windows and tabs
@@ -72,8 +72,8 @@
           return module
         '';
       
-        "wezterm/modules".source = lib.mkOutofStoreSymlink
-          "${pathToModules}/terminal/wezterm/modules";
+        "wezterm/modules".source = config.lib.file.mkOutOfStoreSymlink 
+          "${config.pathToModules}/terminal/wezterm/modules";
     };
     mimeApps.defaultApplications."application/x-terminal-emulator" = "wezterm.desktop";
   };

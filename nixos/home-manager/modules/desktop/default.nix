@@ -2,15 +2,12 @@
     imports = [
         ./Hypr
         ./rofi
-        ./chiphist
-        ./dunst
-        ./gtk
-        ./hyprpaper
-        ./screenlock
-        ./screenshot
-        ./swww
-        ./waybar
-        ./wlogout
+        ./cliphist.nix
+        ./dunst.nix
+        ./gtk.nix
+        ./screenshot.nix
+        ./waybar.nix
+        ./wlogout.nix
     ];
 
     options = with pkgs; with lib; {

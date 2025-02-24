@@ -2,6 +2,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   wayland.windowManager.hyprland = {  
@@ -61,7 +62,7 @@
         ];
         shared = let
           device = "dell::kbd_backlight";
-          adjust_kbd_backlight = writers.writeLuaBin "adjust_kbd_backlight" {} 
+          adjust_kbd_backlight = pkgs.writers.writeLuaBin "adjust_kbd_backlight" {} 
             # Lua
             ''
             local bctl = "${config.bctl}"

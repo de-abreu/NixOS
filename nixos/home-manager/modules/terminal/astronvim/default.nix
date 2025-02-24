@@ -77,8 +77,8 @@
   };
 
   xdg = {
-    configFile."nvim".source = with config; lib.mkOutofStoreSymlink
-      "${pathToModules}/terminal/astrovim/nvim";
+    configFile."nvim".source = with config; lib.file.mkOutOfStoreSymlink
+      "${pathToModules}/terminal/astronvim/nvim";
     mimeApps.defaultApplications."text/plain" = "nvim.desktop";
   };
 }

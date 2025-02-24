@@ -1,9 +1,8 @@
 {config, pkgs, ...} : let 
-    rasi = "rofi/powermenu.rasi";
     powermenu = pkgs.writeShellScriptBin "powermenu" ''
         uptime="$(uptime | sed 's/.* \([0-9]\{1,2\}:[0-9]\{1,2\}\),.*/\1/')"
         host=$(hostname)
-        theme="$XDG_CONFIG_HOME/${rasi}"
+        theme="$XDG_CONFIG_HOME/rofi/powermenu.rasi"
 
         # Options
         shutdown=' Shutdown'
@@ -87,6 +86,6 @@
     '';
 in {
     home.packages = [powermenu];
-    xdg.configFile."${rasi}".source = config.lib.file.mkOutOfStoreSymlink
-        "${config.pathToModules}/desktop/${rasi}";
+    xdg.configFile."rofi/powermenu.rasi".source = config.lib.file.mkOutOfStoreSymlink
+        "${config.pathToModules}/desktop/rofi/powermenu/powermenu.rasi";
 }
