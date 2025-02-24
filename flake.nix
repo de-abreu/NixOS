@@ -39,16 +39,11 @@
           LC_TIME = "en_US.UTF-8";
         };
       };
-      defaultApplications = {
-          term = "wezterm";
-          browser = "mullvad-browser";
-          file_browser = "nautilus";
-          editor = "nvim";          
-      };
       flakePath = "/home/user/.config/NixOS";
     };
-    filter = with nixpkgs.lib;
-        folder: fileset.fileFilter (file: hasSuffix "nix" file.name) folder |> fileset.toList;
+    filter = with nixpkgs.lib; folder:
+        fileset.fileFilter (file: hasSuffix "nix" file.name) folder
+        |> fileset.toList;
   in {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem rec {

@@ -1,0 +1,3 @@
+{..., filter } : {
+    imports = filter ./modules; 
+}

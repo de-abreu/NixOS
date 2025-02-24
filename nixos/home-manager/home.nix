@@ -1,28 +1,28 @@
 {
   lib,
-  filter,
   userPrefs,
   ...
-}: {
-  imports = filter ./modules;
+}: with userPrefs; {
+  imports = map (module: ./modules/ + module) [
+    "desktop"
+    "terminal"
+    "browsers"
+    "media"
+    "study"
+  ];
 
   options = {
-    "pathToModules" = lib.mkOption {
-      type = lib.types.str;      
+    pathToModules = lib.mkOption {
+      type = lib.types.str;
+      default = "${flakePath}/nixos/home-manager/modules/";
     };
   };
 
-  config = with userPrefs; {
+  config = {
     home = {
       username = username;
       homeDirectory = "/home/${username}";
-      stateVersion = "24.11";
-      
-      sessionVariables = with defaultApplications; {
-        BROWSER = browser;
-        EDITOR = editor;
-        TERM = term;
-      };
+      stateVersion = "24.11";   
     };
 
     # WARN: Color scheme overrides
@@ -30,36 +30,15 @@
       fish.enable = false; # Set with fish_theme
       neovim.enable = false; # Managed in astroui.lua
       wezterm.enable = false; # Managed in appearance.lua
-      rofi.enable = false;
+      rofi.enable = false; # Managed in theme.rasi
       hyprlock.enable = false;
+      waybar.enable = false;
     };
 
     xdg = {
       enable = true;
-      mimeApps = {
-        enable = true;
-        defaultApplications = with defaultApplications; {
-          "application/pdf" = "evince.desktop";
-          "application/x-terminal-emulator" = term + ".desktop"; 
-          "text/plain" = editor + ".desktop";
-        } // (map (mime: {name = mime; value = browser + ".desktop";}) [
-          "text/html"
-          "x-scheme-handler/http"
-          "x-scheme-handler/https"
-          "x-scheme-handler/chrome"
-          "application/x-extension-htm"
-          "application/x-extension-html"
-          "application/x-extension-shtml"
-          "application/xhtml+xml"
-          "application/x-extension-xhtml"
-          "application/x-extension-xht"
-        ]
-        |> lib.listToAttrs );
-      };
+      mimeApps.enable = true;
     };
-    
-    pathToModules = "${flakePath}/nixos/home-manager/modules/";
-    
     programs.home-manager.enable = true;
   };
 }

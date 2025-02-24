@@ -3,9 +3,6 @@
   pkgs,
   ...
 }: {
-  # TODO: Configure lock screen to be less lame.
-  # Documentation: https://github.com/danth/stylix/blob/master/modules/hyprlock/hm.nix
-
   home.packages = [pkgs.brightnessctl];
   wayland.windowManager.hyprland.settings.exec-once = ["systemctl --user enable --now hypridle.service"];
 
@@ -35,12 +32,11 @@
         dots_size = 0.1;
         dots_spacing = 0.3;
         dots_center = true;
-        outer_color = "rgb(${base03})";
-        inner_color = "$label_color";
-        font_color = "rgb(${base03})";
+        inner_color = "rgba(0, 0, 0, 0.2)";
+        font_color = "$label_color";
         check_color = "rgb(${base0B})";
         fail_color = "rgb(${base08})";
-        outline_thickness = 2;
+        outline_thickness = 0;
         fade_on_empty = true;
         halign = "center";
         valign = "center";

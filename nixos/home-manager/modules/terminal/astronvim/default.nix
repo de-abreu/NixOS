@@ -21,7 +21,7 @@
           gcc # C support
           gnumake # Make support
           hyprls # Hypr support
-          swi-prolog # Prolog compiler and interpreter
+          swi-prolog # Prolog support
           tinyxxd # Binary support
           vhdl-ls # VHDL language server
 
@@ -52,10 +52,11 @@
       # NOTE: Dependencies to enable the image-nvim plugin
       extraLuaPackages = ps: with ps; [luarocks magick];
 
-      # NOTE: If not for `wheel`, these are dependencies of the "Molten" plugin
       extraPython3Packages = ps:
         with ps; [
+          # NOTE: Dependency of the python language package
           wheel
+          # NOTE: Dependencies of the Molten plugin
           pynvim
           jupyter-client
           cairosvg
@@ -75,6 +76,9 @@
     };
   };
 
-  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink
-    "${config.pathToModules}/astronvim/nvim";
+  xdg = {
+    configFile."nvim".source = with config; lib.mkOutofStoreSymlink
+      "${pathToModules}/terminal/astrovim/nvim";
+    mimeApps.defaultApplications."text/plain" = "nvim.desktop";
+  };
 }

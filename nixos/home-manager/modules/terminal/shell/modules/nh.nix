@@ -5,6 +5,6 @@
       enable = true;
       flake = userPrefs.flakePath;
     };
-    fish.shellAbbrs.nos = "nh os switch";
+    fish.shellAbbrs.nos = "nh os switch -- --show-trace";
   };
 }

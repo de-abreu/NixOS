@@ -1,8 +1,8 @@
 # INFO: Smart and user-friendly command line shell. Includes features like syntax highlighting, autosuggest-as-you-type, and fancy tab completions.
-{pkgs, ...}: {
+{lib, pkgs, ...}: {
   programs = {
-    # INFO: Retain Bash as the default shell, but switch to fish when in an interactive shell session. See: https://nixos.wiki/wiki/Fish
     bash = {
+      # INFO: Retain Bash as the default shell, but switch to fish when in an interactive shell session. See: https://nixos.wiki/wiki/Fish
       enable = true;
       initExtra =
         # bash
@@ -17,16 +17,11 @@
     fish = {
       enable = true;
       shellAbbrs.cl = "clear";
-      plugins = let
-        fromRepo = plugins:
-          map
+      plugins = ( map
           (plugin: {
             name = "${plugin}";
             inherit (pkgs.fishPlugins."${plugin}") src;
-          })
-          plugins;
-      in
-        (fromRepo [
+          }) [
           "autopair"
           "bang-bang"
           "colored-man-pages"
@@ -53,33 +48,25 @@
           set --universal pure_color_success green
           set --universal pure_enable_nixdevshell true
         '';
-    };
-
+      };
+    }
+  
     # INFO: Additional programs that enhance the experience of using fish
-
-    # Interractive cheatsheet tool for the command line
-    navi = {
+  |> lib.fold (program: acc: {
+    "${program}" = {
       enable = true;
       enableFishIntegration = true;
-    };
-
-    # Command line fuzzy finder
-    fzf = {
-      enable = true;
-      enableFishIntegration = true;
-    };
-
-    # History browser
-    mcfly = {
-      enable = true;
-      enableFishIntegration = true;
-      fzf.enable = true;
-    };
-
-    # nix-index, somewhat similar to apt search. INFO: the index needs to be initially built by running "nix-index" with no arguments.
-    nix-index = {
-      enable = true;
-      enableFishIntegration = true;
-    };
-  };
+    };    
+  } // acc) [
+    "navi" # Interactive cheatsheet tool for the command line
+    "fzf" # Command line fuzzy finder
+    "nix-index" # nix-index, somewhat similar to apt search. INFO: the index needs to be initially built by running "nix-index" with no arguments.
+  ]
+  |> (a: a // {
+      macfly = { # Command history browser
+        enable = true;
+        enableFishIntegration = true;
+        fzf.enable = true;
+      };
+    });
 }
