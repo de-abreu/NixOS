@@ -8,6 +8,7 @@
       comma
       imagemagick # Image manipulation
       playerctl # Command-line utility to control media players
+      renameutils # Batch file renaming utility
       ripgrep # search for text within various files
       tig # Visual interface for git
 
