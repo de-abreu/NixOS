@@ -26,7 +26,6 @@ local opts = {
       clipboard = "unnamedplus", -- Enable clipboard access
 
       -- Localization and spell check options
-      langmap = "jklç;hjkl,JKLÇ;HJKL", -- Remappping of the right hand home row to that of the ABNT2 keyboard
       spell = true, -- sets vim.opt.spell
       spelllang = { "en_us", "pt_br" },
       -- rtp:append("~/.config/nvim/")
@@ -60,28 +59,6 @@ local no_operation = {
   ["<Up>"] = nop,
 }
 
-local vertical_movement = {
-  k = { "gk", desc = "Move down a visual line", expr = false },
-  l = { "gl", desc = "Move up a visual line" },
-  gg = { "gg^", desc = "Move to the beggining of the buffer" },
-  G = { "GG$", desc = "Move to the end of the buffer" },
-}
-
-local buffer_controls = {
-  ["<Leader>h"] = {
-    function()
-      require("astrocore.buffer").nav(-vim.v.count1)
-    end,
-    desc = "Previous buffer",
-  },
-  ["<Leader>ç"] = {
-    function()
-      require("astrocore.buffer").nav(vim.v.count1)
-    end,
-    desc = "Next buffer",
-  },
-}
-
 local window_controls = {
   ["<C-W>-"] = { "<C-w>t<C-w>K", desc = "Rearrange windows horizontally" },
   ["<C-W>i"] = { "<C-w>t<C-w>H", desc = "Rearrange windows vertically" },
@@ -92,10 +69,9 @@ local window_controls = {
 -- Define the mappings and modes
 local custom_mappings = {
   { modes = { "n", "v", "i", "o" }, mappings = { no_operation } },
-  { modes = { "n", "v" }, mappings = { vertical_movement } },
   {
     modes = { "n" },
-    mappings = { window_controls, buffer_controls, { gx = { desc = "Open URL" } } },
+    mappings = { window_controls, { gx = { desc = "Open URL" } } },
   },
 }
 
