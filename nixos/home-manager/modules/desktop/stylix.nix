@@ -1,3 +1,4 @@
+# INFO: Using stylix to set the system's icon theme
 {pkgs, ...}: {
   stylix = {
     polarity = "dark";
