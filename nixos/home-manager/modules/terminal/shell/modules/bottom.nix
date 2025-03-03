@@ -1,6 +1,7 @@
 # INFO: A process monitor
-
-{pkgs, ...} : {
-    home.packages = [pkgs.bottom];
-    programs.fish.shellAbbrs.bottom = "btm";
+{...}: {
+  programs = {
+    bottom.enable = true;
+    fish.shellAbbrs.bottom = "btm";
+  };
 }
