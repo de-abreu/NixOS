@@ -39,7 +39,7 @@ function module.apply_to_config(config)
     { key = "\\", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
 
     -- Close or maximize panes
-    { key = "q", action = act.CloseCurrentPane { confirm = true } },
+    { key = "q", action = act.CloseCurrentPane { confirm = false } },
     { key = "z", action = act.TogglePaneZoomState },
 
     -- Swap panes
@@ -69,7 +69,8 @@ function module.apply_to_config(config)
     config.keys = {}
   end
   for _, m in ipairs(mappings) do
-    table.insert(config.keys, { mods = "LEADER", key = m.key, action = m.action })
+    m.mods = "LEADER"
+    table.insert(config.keys, m)
   end
 end
 

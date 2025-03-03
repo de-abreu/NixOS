@@ -28,10 +28,9 @@
   };
   xdg = {
     configFile = {
-      "wezterm/appearance.lua".text =
-        with config.lib.stylix.colors;
-        with config.stylix.fonts; 
-        # lua
+      "wezterm/appearance.lua".text = with config.lib.stylix.colors;
+      with config.stylix.fonts;
+      # lua
         ''
           local wezterm = require("wezterm")
           local module = {}
@@ -71,11 +70,13 @@
 
           return module
         '';
-      
-        "wezterm/modules".source = config.lib.file.mkOutOfStoreSymlink 
-          "${config.pathToModules}/terminal/wezterm/modules";
+
+      "wezterm/modules".source =
+        config.lib.file.mkOutOfStoreSymlink
+        "${config.pathToModules}/terminal/wezterm/modules";
     };
     mimeApps.defaultApplications."application/x-terminal-emulator" = "wezterm.desktop";
   };
+  wayland.windowManager.hyprland.settings.windowrule = ["opacity 0.8, wezterm"];
   home.sessionVariables.TERMINAL = "wezterm";
 }
