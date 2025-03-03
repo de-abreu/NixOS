@@ -12,8 +12,8 @@
 
 ---@type LazySpec
 return {
-    "akinsho/git-conflict.nvim",
-    event = "BufEnter",
-    version = "*",
-    config = true,
+  "akinsho/git-conflict.nvim",
+  event = "BufRead",
+  version = "*",
+  config = true,
 }

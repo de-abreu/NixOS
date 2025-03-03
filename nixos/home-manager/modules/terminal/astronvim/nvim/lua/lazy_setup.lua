@@ -15,6 +15,9 @@ require("lazy").setup({
   { import = "plugins" },
 } --[[@as LazySpec]], {
   -- Configure any other `lazy.nvim` configuration options here
+  defaults = {
+    lazy = true,
+  },
   install = { colorscheme = { "astrotheme", "habamax" } },
   ui = { backdrop = 100 },
   performance = {
@@ -28,5 +31,10 @@ require("lazy").setup({
         "zipPlugin",
       },
     },
+  },
+
+  -- Do not install Lua modules ("rocks") locally using Lazy.
+  rocks = {
+    hererocks = false,
   },
 } --[[@as LazyConfig]])

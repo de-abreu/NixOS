@@ -2,6 +2,6 @@
 
 ---@type LazySpec
 return {
-	"danilamihailov/beacon.nvim",
-	event = "VeryLazy",
+  "danilamihailov/beacon.nvim",
+  event = "VeryLazy",
 }

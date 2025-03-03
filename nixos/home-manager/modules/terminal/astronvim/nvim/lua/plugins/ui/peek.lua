@@ -1,3 +1,5 @@
+--INFO: Markdown previewer
+
 ---@type LazySpec
 return {
   "toppair/peek.nvim",

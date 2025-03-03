@@ -2,6 +2,6 @@
 
 ---@type LazySpec
 return {
-    "godlygeek/tabular",
-    event = "VeryLazy",
+  "godlygeek/tabular",
+  event = "BufNew",
 }
