@@ -2,7 +2,8 @@
   lib,
   userPrefs,
   ...
-}: with userPrefs; {
+}:
+with userPrefs; {
   imports = map (module: ./modules + module) [
     "/desktop"
     "/terminal"
@@ -22,7 +23,7 @@
     home = {
       username = username;
       homeDirectory = "/home/${username}";
-      stateVersion = "24.11";   
+      stateVersion = "24.11";
     };
 
     # WARN: Color scheme overrides
@@ -37,6 +38,7 @@
 
     xdg = {
       enable = true;
+      configFile."mimeapps.list".force = true;
       mimeApps.enable = true;
     };
     programs.home-manager.enable = true;
