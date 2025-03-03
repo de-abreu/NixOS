@@ -1,3 +1,5 @@
+if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
 -- INFO: Customize None-ls sources
 -- Check supported formatters and linters
 -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/formatting
