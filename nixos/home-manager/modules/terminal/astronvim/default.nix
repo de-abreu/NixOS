@@ -1,7 +1,6 @@
 # INFO: Astronvim, an aesthetically pleasing and feature-rich neovim config that
 # is extensible and easy to use with a great set of plugins. More languages for
 # spellcheck can be found at https://ftp.nluug.nl/pub/vim/runtime/spell/
-
 {
   config,
   pkgs,
@@ -13,8 +12,8 @@
       defaultEditor = true;
       extraPackages =
         (with pkgs; [
-          tree-sitter # required to parse text (hence a bunch of stuff)
           deno # required by peek.nvim
+          tree-sitter # required to parse text (hence a bunch of stuff)
 
           R # R support
           cargo # Rust support
@@ -23,7 +22,12 @@
           hyprls # Hypr support
           swi-prolog # Prolog support
           tinyxxd # Binary support
-          vhdl-ls # VHDL language server
+          vhdl-ls # VHDL support
+
+          # Latex support
+          texlab # Language server
+          texliveMedium # Various latex utilities
+          texlivePackages.mathtools # Mathematical symbols
 
           # Nix support
           nixd # Language server
@@ -50,7 +54,12 @@
       withNodeJs = true;
 
       # NOTE: Dependencies to enable the image-nvim plugin
-      extraLuaPackages = ps: with ps; [luarocks magick];
+      extraLuaPackages = ps:
+        with ps; [
+          luarocks
+          neorg
+          magick
+        ];
 
       extraPython3Packages = ps:
         with ps; [
@@ -76,8 +85,14 @@
     };
   };
 
+  home.sessionVariables = {
+    # Fix the libsqlite.so not found issue for https://github.com/kkharji/sqlite.lua.
+    LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath (with pkgs; [sqlite])}:$LD_LIBRARY_PATH";
+  };
+
   xdg = {
-    configFile."nvim".source = with config; lib.file.mkOutOfStoreSymlink
+    configFile."nvim".source = with config;
+      lib.file.mkOutOfStoreSymlink
       "${pathToModules}/terminal/astronvim/nvim";
     mimeApps.defaultApplications."text/plain" = "nvim.desktop";
   };
