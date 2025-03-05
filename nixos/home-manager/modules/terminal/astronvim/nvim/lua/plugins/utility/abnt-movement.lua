@@ -1,7 +1,7 @@
--- INFO: Configure plugins to use the keys jklç instead of hjkl for movement.
+-- INFO: Configure plugins to use or reserve the keys jklç, instead of the
+-- default hjkl, for movement.
 
----@type LazySpec
-return {
+local configurations = {
   ---@type LazyPluginSpec
   {
     "AstroNvim/astrocore",
@@ -39,7 +39,6 @@ return {
   ---@type LazyPluginSpec
   {
     "nvim-telescope/telescope.nvim",
-    optional = true,
     opts = function(_, opts)
       local actions = require "telescope.actions"
       local maps = opts.defaults.mappings.n
@@ -51,7 +50,6 @@ return {
   ---@type LazyPluginSpec
   {
     "hrsh7th/nvim-cmp",
-    optional = true,
     opts = function(_, opts)
       local cmp = require "cmp"
       local maps = opts.mapping
@@ -63,7 +61,6 @@ return {
   ---@type LazyPluginSpec
   {
     "mrjones2014/smart-splits.nvim",
-    optional = true,
     keys = function()
       local plugin = require "smart-splits"
       return {
@@ -89,4 +86,26 @@ return {
       }
     end,
   },
+  ---@type LazyPluginSpec
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      window = {
+        mappings = {
+          -- Remapped keys previously associated with hjkl.
+          ["ç"] = "open_with_window_picker",
+          j = "close_node",
+          l = false,
+          u = "toggle_hidden",
+        },
+      },
+    },
+  },
 }
+
+for _, module in ipairs(configurations) do
+  module.optional = true
+end
+
+---@type LazySpec
+return configurations

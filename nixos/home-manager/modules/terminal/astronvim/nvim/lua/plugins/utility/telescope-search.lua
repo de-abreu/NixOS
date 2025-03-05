@@ -23,6 +23,7 @@ end
 
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  optsional = true,
   opts = {
     commands = {
       telescope_find = function(state)

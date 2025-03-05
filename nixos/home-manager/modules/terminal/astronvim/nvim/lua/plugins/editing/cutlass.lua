@@ -3,6 +3,7 @@
 ---@type LazySpec
 return {
   "gbprod/cutlass.nvim",
+  event = "BufEnter",
   opts = {
     cut_key = "m",
   },

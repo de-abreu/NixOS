@@ -32,18 +32,14 @@ return {
       "git_status",
       "document_symbols",
     },
-    window = {
-      mappings = {
-        ["ç"] = "open_with_window_picker",
-        j = "close_node",
-        l = false,
-        u = "toggle_hidden",
-        P = {
-          "toggle_preview",
-          config = { use_image_nvim = true },
-        },
-      },
-    },
+    -- window = {
+    --   mappings = {
+    --     ["ç"] = "open_with_window_picker",
+    --     j = "close_node",
+    --     l = false,
+    --     u = "toggle_hidden",
+    --   },
+    -- },
     buffers = {
       follow_current_file = { enabled = true },
     },

@@ -2,6 +2,7 @@ local inputs = require "neo-tree.ui.inputs"
 
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  optional = true,
   opts = {
     commands = {
       trash = function(state)
