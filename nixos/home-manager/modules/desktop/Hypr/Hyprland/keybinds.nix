@@ -52,7 +52,7 @@
           [ "q" "Close Window, killactive" "d"]
           [ "y" "Toogle floating window, togglefloating" "d"]
           [ "z" "Toggle maximize window, fullscreen" "d"]
-          [ "mouse:272" "Move Window, movewindow" "d"]
+          [ "mouse:272" "Move Window, movewindow" "md"]
 
           [ "j" "Focus left window, movefocus, l" "d"]
           [ "k" "Focus window below, movefocus, d" "d"]
