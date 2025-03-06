@@ -11,7 +11,7 @@
     ./nautilus.nix
     ./screenshot.nix
     ./stylix.nix
-    ./waybar.nix
+    # ./waybar.nix
     ./wlogout.nix
   ];
 
