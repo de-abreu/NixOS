@@ -52,6 +52,7 @@
           [ "q" "Close Window, killactive" "d"]
           [ "y" "Toogle floating window, togglefloating" "d"]
           [ "z" "Toggle maximize window, fullscreen" "d"]
+          [ "mouse:272" "Move Window, movewindow" "d"]
 
           [ "j" "Focus left window, movefocus, l" "d"]
           [ "k" "Focus window below, movefocus, d" "d"]
@@ -113,7 +114,7 @@
               ["ALT" "$ccedilla" "Resize right, resizeactive, 30 0" "d"]
 
               ["SHIFT" "j" "Swap with left window, swapwindow, l" "d"]
-              ["SHIFT" "k" "Swap with window below, swapwindow, k" "d"]
+              ["SHIFT" "k" "Swap with window below, swapwindow, d" "d"]
               ["SHIFT" "l" "Swap with window above, swapwindow, u" "d"]
               ["SHIFT" "$ccedilla" "Swap with right window, swapwindow, r" "d"]
             ]
