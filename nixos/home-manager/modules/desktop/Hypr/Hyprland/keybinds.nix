@@ -1,4 +1,3 @@
-# TODO: Enable notifications, screenshots and screencaptures
 {
   config,
   lib,
@@ -80,8 +79,8 @@
           ["" "XF86AudioNext" "Next media, exec, ${config.pctl} next" "dlt"]
           ["" "XF86AudioPlay" "Toggle play media, exec, ${config.pctl} play-pause" "dlt"]
           ["" "XF86AudioPrev" "Previous media, exec, ${config.pctl} previous" "dlt"]
-          ["" "XF86AudioLowerVolume" "Lower volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" "edlt"]
-          ["" "XF86AudioRaiseVolume" "Raise volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+" "edlt"]
+          ["" "XF86AudioLowerVolume" "Lower volume, exec, $mute 0; ${config.actl} set-volume @DEFAULT_AUDIO_SINK@ 5%-" "edlt"]
+          ["" "XF86AudioRaiseVolume" "Raise volume, exec, $mute 0; ${config.actl} set-volume @DEFAULT_AUDIO_SINK@ 5%+" "edlt"]
         
           # Brightness controls
           ["" "XF86MonBrightnessUp" "Increase monitor brightness, exec, ${config.bctl} set +10%" "edtl"]

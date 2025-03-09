@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  config,
+  ...
+}: {
   imports = [inputs.hyprpanel.homeManagerModules.hyprpanel];
 
   programs.hyprpanel = {
@@ -9,6 +13,457 @@
     hyprland.enable = true;
     # See this option description at
     # https://hyprpanel.com/getting_started/installation.html#home-manager-module
-    overwrite.enable = true;
+    # overwrite.enable = true;
+
+    layout = {
+      "bar.layouts" = {
+        "0" = {
+          left = [
+            "dashboard"
+            "workspaces"
+            "windowtitle"
+          ];
+          middle = ["media"];
+          right = [
+            "volume"
+            "network"
+            "bluetooth"
+            "systray"
+            "battery"
+            "hypridle"
+            "clock"
+            "notifications"
+          ];
+        };
+      };
+    };
+    settings = {
+      bar = {
+        battery.hideLabelWhenFull = true;
+        bluetooth.label = false;
+        clock = {
+          format = "%a %b %d  %H:%M";
+          showIcon = false;
+        };
+        launcher.icon = "";
+        media = {
+          show_active_only = true;
+          rightClick = "${config.pctl} play-pause";
+        };
+        customModules.hypridle.label = false;
+      };
+      menus = {
+        dashboard.shortcuts.left = {
+          shortcut1 = {
+            icon = "";
+            tooltip = "Wezterm";
+            command = "wezterm";
+          };
+          shortcut2 = {
+            icon = "";
+            tooltip = "Chromium";
+            command = "chromium";
+          };
+          shortcut3 = {
+            icon = "";
+            tooltip = "Celluloid";
+            command = "celluloid";
+          };
+          shortcut4 = {
+            icon = "";
+            tooltip = "Launcher";
+            command = "launcher";
+          };
+        };
+        clock = {
+          time.military = true;
+          weather.enabled = false;
+        };
+      };
+      theme = {
+        bar = {
+          floating = true;
+          transparent = true;
+          margin_sides = "0px";
+        };
+        font = with config.stylix.fonts; {
+          name = monospace.name;
+          size = "${builtins.toString sizes.applications}px";
+        };
+      };
+      terminal = "$TERMINAL";
+    };
+
+    # INFO: Applying the Stylix theme
+    override = with config.lib.stylix.colors.withHashtag; {
+      theme.bar.menus.menu.notifications.scrollbar.color = base0D;
+      theme.bar.menus.menu.notifications.pager.label = base04;
+      theme.bar.menus.menu.notifications.pager.button = base0D;
+      theme.bar.menus.menu.notifications.pager.background = base00;
+      theme.bar.menus.menu.notifications.switch.puck = base04;
+      theme.bar.menus.menu.notifications.switch.disabled = base03;
+      theme.bar.menus.menu.notifications.switch.enabled = base0D;
+      theme.bar.menus.menu.notifications.clear = base08;
+      theme.bar.menus.menu.notifications.switch_divider = base03;
+      theme.bar.menus.menu.notifications.border = base02;
+      theme.bar.menus.menu.notifications.card = base01;
+      theme.bar.menus.menu.notifications.background = base00;
+      theme.bar.menus.menu.notifications.no_notifications_label = base02;
+      theme.bar.menus.menu.notifications.label = base0D;
+      theme.bar.menus.menu.power.buttons.sleep.icon = base00;
+      theme.bar.menus.menu.power.buttons.sleep.text = base0C;
+      theme.bar.menus.menu.power.buttons.sleep.icon_background = base0C;
+      theme.bar.menus.menu.power.buttons.sleep.background = base01;
+      theme.bar.menus.menu.power.buttons.logout.icon = base00;
+      theme.bar.menus.menu.power.buttons.logout.text = base0C;
+      theme.bar.menus.menu.power.buttons.logout.icon_background = base0C;
+      theme.bar.menus.menu.power.buttons.logout.background = base01;
+      theme.bar.menus.menu.power.buttons.restart.icon = base00;
+      theme.bar.menus.menu.power.buttons.restart.text = base09;
+      theme.bar.menus.menu.power.buttons.restart.icon_background = base09;
+      theme.bar.menus.menu.power.buttons.restart.background = base01;
+      theme.bar.menus.menu.power.buttons.shutdown.icon = base00;
+      theme.bar.menus.menu.power.buttons.shutdown.text = base08;
+      theme.bar.menus.menu.power.buttons.shutdown.icon_background = base08;
+      theme.bar.menus.menu.power.buttons.shutdown.background = base01;
+      theme.bar.menus.menu.power.border.color = base02;
+      theme.bar.menus.menu.power.background.color = base00;
+      theme.bar.menus.menu.dashboard.monitors.disk.label = base05;
+      theme.bar.menus.menu.dashboard.monitors.disk.bar = base06;
+      theme.bar.menus.menu.dashboard.monitors.disk.icon = base05;
+      theme.bar.menus.menu.dashboard.monitors.gpu.label = base0C;
+      theme.bar.menus.menu.dashboard.monitors.gpu.bar = base0B;
+      theme.bar.menus.menu.dashboard.monitors.gpu.icon = base0C;
+      theme.bar.menus.menu.dashboard.monitors.ram.label = base0A;
+      theme.bar.menus.menu.dashboard.monitors.ram.bar = base0A;
+      theme.bar.menus.menu.dashboard.monitors.ram.icon = base0A;
+      theme.bar.menus.menu.dashboard.monitors.cpu.label = base0F;
+      theme.bar.menus.menu.dashboard.monitors.cpu.bar = base08;
+      theme.bar.menus.menu.dashboard.monitors.cpu.icon = base0F;
+      theme.bar.menus.menu.dashboard.monitors.bar_background = base03;
+      theme.bar.menus.menu.dashboard.directories.right.bottom.color = base0D;
+      theme.bar.menus.menu.dashboard.directories.right.middle.color = base0E;
+      theme.bar.menus.menu.dashboard.directories.right.top.color = base0C;
+      theme.bar.menus.menu.dashboard.directories.left.bottom.color = base0F;
+      theme.bar.menus.menu.dashboard.directories.left.middle.color = base0A;
+      theme.bar.menus.menu.dashboard.directories.left.top.color = base05;
+      theme.bar.menus.menu.dashboard.controls.input.text = base00;
+      theme.bar.menus.menu.dashboard.controls.input.background = base05;
+      theme.bar.menus.menu.dashboard.controls.volume.text = base00;
+      theme.bar.menus.menu.dashboard.controls.volume.background = base0F;
+      theme.bar.menus.menu.dashboard.controls.notifications.text = base00;
+      theme.bar.menus.menu.dashboard.controls.notifications.background = base0A;
+      theme.bar.menus.menu.dashboard.controls.bluetooth.text = base00;
+      theme.bar.menus.menu.dashboard.controls.bluetooth.background = base0C;
+      theme.bar.menus.menu.dashboard.controls.wifi.text = base00;
+      theme.bar.menus.menu.dashboard.controls.wifi.background = base0E;
+      theme.bar.menus.menu.dashboard.controls.disabled = base05;
+      theme.bar.menus.menu.dashboard.shortcuts.recording = base0C;
+      theme.bar.menus.menu.dashboard.shortcuts.text = base00;
+      theme.bar.menus.menu.dashboard.shortcuts.background = base0D;
+      theme.bar.menus.menu.dashboard.powermenu.confirmation.button_text = base00;
+      theme.bar.menus.menu.dashboard.powermenu.confirmation.deny = base08;
+      theme.bar.menus.menu.dashboard.powermenu.confirmation.confirm = base0C;
+      theme.bar.menus.menu.dashboard.powermenu.confirmation.body = base05;
+      theme.bar.menus.menu.dashboard.powermenu.confirmation.label = base0D;
+      theme.bar.menus.menu.dashboard.powermenu.confirmation.border = base02;
+      theme.bar.menus.menu.dashboard.powermenu.confirmation.background = base00;
+      theme.bar.menus.menu.dashboard.powermenu.confirmation.card = base01;
+      theme.bar.menus.menu.dashboard.powermenu.sleep = base0C;
+      theme.bar.menus.menu.dashboard.powermenu.logout = base0C;
+      theme.bar.menus.menu.dashboard.powermenu.restart = base09;
+      theme.bar.menus.menu.dashboard.powermenu.shutdown = base08;
+      theme.bar.menus.menu.dashboard.profile.name = base05;
+      theme.bar.menus.menu.dashboard.border.color = base02;
+      theme.bar.menus.menu.dashboard.background.color = base00;
+      theme.bar.menus.menu.dashboard.card.color = base01;
+      theme.bar.menus.menu.clock.weather.hourly.temperature = base05;
+      theme.bar.menus.menu.clock.weather.hourly.icon = base05;
+      theme.bar.menus.menu.clock.weather.hourly.time = base05;
+      theme.bar.menus.menu.clock.weather.thermometer.extremelycold = base0C;
+      theme.bar.menus.menu.clock.weather.thermometer.cold = base0D;
+      theme.bar.menus.menu.clock.weather.thermometer.moderate = base0D;
+      theme.bar.menus.menu.clock.weather.thermometer.hot = base09;
+      theme.bar.menus.menu.clock.weather.thermometer.extremelyhot = base08;
+      theme.bar.menus.menu.clock.weather.stats = base05;
+      theme.bar.menus.menu.clock.weather.status = base0C;
+      theme.bar.menus.menu.clock.weather.temperature = base05;
+      theme.bar.menus.menu.clock.weather.icon = base05;
+      theme.bar.menus.menu.clock.calendar.contextdays = base05;
+      theme.bar.menus.menu.clock.calendar.days = base05;
+      theme.bar.menus.menu.clock.calendar.currentday = base05;
+      theme.bar.menus.menu.clock.calendar.paginator = base0F;
+      theme.bar.menus.menu.clock.calendar.weekdays = base05;
+      theme.bar.menus.menu.clock.calendar.yearmonth = base0C;
+      theme.bar.menus.menu.clock.time.timeperiod = base0C;
+      theme.bar.menus.menu.clock.time.time = base05;
+      theme.bar.menus.menu.clock.text = base05;
+      theme.bar.menus.menu.clock.border.color = base02;
+      theme.bar.menus.menu.clock.background.color = base00;
+      theme.bar.menus.menu.clock.card.color = base01;
+      theme.bar.menus.menu.battery.slider.puck = base04;
+      theme.bar.menus.menu.battery.slider.backgroundhover = base03;
+      theme.bar.menus.menu.battery.slider.background = base05;
+      theme.bar.menus.menu.battery.slider.primary = base0A;
+      theme.bar.menus.menu.battery.icons.active = base0A;
+      theme.bar.menus.menu.battery.icons.passive = base04;
+      theme.bar.menus.menu.battery.listitems.active = base0A;
+      theme.bar.menus.menu.battery.listitems.passive = base05;
+      theme.bar.menus.menu.battery.text = base05;
+      theme.bar.menus.menu.battery.label.color = base0A;
+      theme.bar.menus.menu.battery.border.color = base02;
+      theme.bar.menus.menu.battery.background.color = base00;
+      theme.bar.menus.menu.battery.card.color = base01;
+      theme.bar.menus.menu.systray.dropdownmenu.divider = base01;
+      theme.bar.menus.menu.systray.dropdownmenu.text = base05;
+      theme.bar.menus.menu.systray.dropdownmenu.background = base00;
+      theme.bar.menus.menu.bluetooth.iconbutton.active = base0C;
+      theme.bar.menus.menu.bluetooth.iconbutton.passive = base05;
+      theme.bar.menus.menu.bluetooth.icons.active = base0C;
+      theme.bar.menus.menu.bluetooth.icons.passive = base04;
+      theme.bar.menus.menu.bluetooth.listitems.active = base0C;
+      theme.bar.menus.menu.bluetooth.listitems.passive = base05;
+      theme.bar.menus.menu.bluetooth.switch.puck = base04;
+      theme.bar.menus.menu.bluetooth.switch.disabled = base03;
+      theme.bar.menus.menu.bluetooth.switch.enabled = base0C;
+      theme.bar.menus.menu.bluetooth.switch_divider = base03;
+      theme.bar.menus.menu.bluetooth.status = base04;
+      theme.bar.menus.menu.bluetooth.text = base05;
+      theme.bar.menus.menu.bluetooth.label.color = base0C;
+      theme.bar.menus.menu.bluetooth.scroller.color = base0C;
+      theme.bar.menus.menu.bluetooth.border.color = base02;
+      theme.bar.menus.menu.bluetooth.background.color = base00;
+      theme.bar.menus.menu.bluetooth.card.color = base01;
+      theme.bar.menus.menu.network.iconbuttons.active = base0E;
+      theme.bar.menus.menu.network.iconbuttons.passive = base05;
+      theme.bar.menus.menu.network.icons.active = base0E;
+      theme.bar.menus.menu.network.icons.passive = base04;
+      theme.bar.menus.menu.network.listitems.active = base0E;
+      theme.bar.menus.menu.network.listitems.passive = base05;
+      theme.bar.menus.menu.network.status.color = base04;
+      theme.bar.menus.menu.network.text = base05;
+      theme.bar.menus.menu.network.label.color = base0E;
+      theme.bar.menus.menu.network.scroller.color = base0E;
+      theme.bar.menus.menu.network.border.color = base02;
+      theme.bar.menus.menu.network.background.color = base00;
+      theme.bar.menus.menu.network.card.color = base01;
+      theme.bar.menus.menu.volume.input_slider.puck = base05;
+      theme.bar.menus.menu.volume.input_slider.backgroundhover = base03;
+      theme.bar.menus.menu.volume.input_slider.background = base05;
+      theme.bar.menus.menu.volume.input_slider.primary = base0F;
+      theme.bar.menus.menu.volume.audio_slider.puck = base05;
+      theme.bar.menus.menu.volume.audio_slider.backgroundhover = base03;
+      theme.bar.menus.menu.volume.audio_slider.background = base05;
+      theme.bar.menus.menu.volume.audio_slider.primary = base0F;
+      theme.bar.menus.menu.volume.icons.active = base0F;
+      theme.bar.menus.menu.volume.icons.passive = base04;
+      theme.bar.menus.menu.volume.iconbutton.active = base0F;
+      theme.bar.menus.menu.volume.iconbutton.passive = base05;
+      theme.bar.menus.menu.volume.listitems.active = base0F;
+      theme.bar.menus.menu.volume.listitems.passive = base05;
+      theme.bar.menus.menu.volume.text = base05;
+      theme.bar.menus.menu.volume.label.color = base0F;
+      theme.bar.menus.menu.volume.border.color = base02;
+      theme.bar.menus.menu.volume.background.color = base00;
+      theme.bar.menus.menu.volume.card.color = base01;
+      theme.bar.menus.menu.media.slider.puck = base04;
+      theme.bar.menus.menu.media.slider.backgroundhover = base03;
+      theme.bar.menus.menu.media.slider.background = base05;
+      theme.bar.menus.menu.media.slider.primary = base05;
+      theme.bar.menus.menu.media.buttons.text = base00;
+      theme.bar.menus.menu.media.buttons.background = base0D;
+      theme.bar.menus.menu.media.buttons.enabled = base0C;
+      theme.bar.menus.menu.media.buttons.inactive = base05;
+      theme.bar.menus.menu.media.border.color = base02;
+      theme.bar.menus.menu.media.card.color = base01;
+      theme.bar.menus.menu.media.background.color = base00;
+      theme.bar.menus.menu.media.album = base06;
+      theme.bar.menus.menu.media.timestamp = base05;
+      theme.bar.menus.menu.media.artist = base0C;
+      theme.bar.menus.menu.media.song = base0D;
+      theme.bar.menus.tooltip.text = base05;
+      theme.bar.menus.tooltip.background = base00;
+      theme.bar.menus.dropdownmenu.divider = base01;
+      theme.bar.menus.dropdownmenu.text = base05;
+      theme.bar.menus.dropdownmenu.background = base00;
+      theme.bar.menus.slider.puck = base04;
+      theme.bar.menus.slider.backgroundhover = base03;
+      theme.bar.menus.slider.background = base05;
+      theme.bar.menus.slider.primary = base0D;
+      theme.bar.menus.progressbar.background = base03;
+      theme.bar.menus.progressbar.foreground = base0D;
+      theme.bar.menus.iconbuttons.active = base0D;
+      theme.bar.menus.iconbuttons.passive = base05;
+      theme.bar.menus.buttons.text = base00;
+      theme.bar.menus.buttons.disabled = base05;
+      theme.bar.menus.buttons.active = base0F;
+      theme.bar.menus.buttons.default = base0D;
+      theme.bar.menus.check_radio_button.active = base0D;
+      theme.bar.menus.check_radio_button.background = base03;
+      theme.bar.menus.switch.puck = base04;
+      theme.bar.menus.switch.disabled = base03;
+      theme.bar.menus.switch.enabled = base0D;
+      theme.bar.menus.icons.active = base0D;
+      theme.bar.menus.icons.passive = base05;
+      theme.bar.menus.listitems.active = base0D;
+      theme.bar.menus.listitems.passive = base05;
+      theme.bar.menus.popover.border = base00;
+      theme.bar.menus.popover.background = base00;
+      theme.bar.menus.popover.text = base0D;
+      theme.bar.menus.label = base0D;
+      theme.bar.menus.feinttext = base02;
+      theme.bar.menus.dimtext = base05;
+      theme.bar.menus.text = base05;
+      theme.bar.menus.border.color = base02;
+      theme.bar.menus.cards = base01;
+      theme.bar.menus.background = base00;
+      theme.bar.buttons.modules.power.icon_background = base08;
+      theme.bar.buttons.modules.power.icon = base08;
+      theme.bar.buttons.modules.power.background = base02;
+      theme.bar.buttons.modules.power.border = base08;
+      theme.bar.buttons.modules.weather.icon_background = base0D;
+      theme.bar.buttons.modules.weather.icon = base0D;
+      theme.bar.buttons.modules.weather.text = base0D;
+      theme.bar.buttons.modules.weather.background = base02;
+      theme.bar.buttons.modules.weather.border = base0D;
+      theme.bar.buttons.modules.updates.icon_background = base0E;
+      theme.bar.buttons.modules.updates.icon = base0E;
+      theme.bar.buttons.modules.updates.text = base0E;
+      theme.bar.buttons.modules.updates.background = base02;
+      theme.bar.buttons.modules.updates.border = base0E;
+      theme.bar.buttons.modules.kbLayout.icon_background = base0C;
+      theme.bar.buttons.modules.kbLayout.icon = base0C;
+      theme.bar.buttons.modules.kbLayout.text = base0C;
+      theme.bar.buttons.modules.kbLayout.background = base02;
+      theme.bar.buttons.modules.kbLayout.border = base0C;
+      theme.bar.buttons.modules.netstat.icon_background = base0C;
+      theme.bar.buttons.modules.netstat.icon = base0C;
+      theme.bar.buttons.modules.netstat.text = base0C;
+      theme.bar.buttons.modules.netstat.background = base02;
+      theme.bar.buttons.modules.netstat.border = base0C;
+      theme.bar.buttons.modules.storage.icon_background = base05;
+      theme.bar.buttons.modules.storage.icon = base05;
+      theme.bar.buttons.modules.storage.text = base05;
+      theme.bar.buttons.modules.storage.background = base02;
+      theme.bar.buttons.modules.storage.border = base05;
+      theme.bar.buttons.modules.cpu.icon_background = base08;
+      theme.bar.buttons.modules.cpu.icon = base08;
+      theme.bar.buttons.modules.cpu.text = base08;
+      theme.bar.buttons.modules.cpu.background = base02;
+      theme.bar.buttons.modules.cpu.border = base08;
+      theme.bar.buttons.modules.ram.icon_background = base0A;
+      theme.bar.buttons.modules.ram.icon = base0A;
+      theme.bar.buttons.modules.ram.text = base0A;
+      theme.bar.buttons.modules.ram.background = base02;
+      theme.bar.buttons.modules.ram.border = base0A;
+      theme.bar.buttons.notifications.total = base0D;
+      theme.bar.buttons.notifications.icon_background = base0D;
+      theme.bar.buttons.notifications.icon = base0D;
+      theme.bar.buttons.notifications.background = base02;
+      theme.bar.buttons.notifications.border = base0D;
+      theme.bar.buttons.clock.icon_background = base05;
+      theme.bar.buttons.clock.icon = base05;
+      theme.bar.buttons.clock.text = base05;
+      theme.bar.buttons.clock.background = base02;
+      theme.bar.buttons.clock.border = base05;
+      theme.bar.buttons.battery.icon_background = base0A;
+      theme.bar.buttons.battery.icon = base0A;
+      theme.bar.buttons.battery.text = base0A;
+      theme.bar.buttons.battery.background = base02;
+      theme.bar.buttons.battery.border = base0A;
+      theme.bar.buttons.systray.background = base02;
+      theme.bar.buttons.systray.border = base0D;
+      theme.bar.buttons.systray.customIcon = base05;
+      theme.bar.buttons.bluetooth.icon_background = base0C;
+      theme.bar.buttons.bluetooth.icon = base0C;
+      theme.bar.buttons.bluetooth.text = base0C;
+      theme.bar.buttons.bluetooth.background = base02;
+      theme.bar.buttons.bluetooth.border = base0C;
+      theme.bar.buttons.network.icon_background = base0E;
+      theme.bar.buttons.network.icon = base0E;
+      theme.bar.buttons.network.text = base0E;
+      theme.bar.buttons.network.background = base02;
+      theme.bar.buttons.network.border = base0E;
+      theme.bar.buttons.volume.icon_background = base0F;
+      theme.bar.buttons.volume.icon = base0F;
+      theme.bar.buttons.volume.text = base0F;
+      theme.bar.buttons.volume.background = base02;
+      theme.bar.buttons.volume.border = base0F;
+      theme.bar.buttons.media.icon_background = base0D;
+      theme.bar.buttons.media.icon = base0D;
+      theme.bar.buttons.media.text = base0D;
+      theme.bar.buttons.media.background = base02;
+      theme.bar.buttons.media.border = base0D;
+      theme.bar.buttons.windowtitle.icon_background = base05;
+      theme.bar.buttons.windowtitle.icon = base05;
+      theme.bar.buttons.windowtitle.text = base05;
+      theme.bar.buttons.windowtitle.border = base05;
+      theme.bar.buttons.windowtitle.background = base02;
+      theme.bar.buttons.workspaces.numbered_active_underline_color = base05;
+      theme.bar.buttons.workspaces.numbered_active_highlighted_text_color = base01;
+      theme.bar.buttons.workspaces.hover = base05;
+      theme.bar.buttons.workspaces.active = base05;
+      theme.bar.buttons.workspaces.occupied = base06;
+      theme.bar.buttons.workspaces.available = base0C;
+      theme.bar.buttons.workspaces.border = base05;
+      theme.bar.buttons.workspaces.background = base02;
+      theme.bar.buttons.dashboard.icon = base0D;
+      theme.bar.buttons.dashboard.border = base0D;
+      theme.bar.buttons.dashboard.background = base02;
+      theme.bar.buttons.icon = base0D;
+      theme.bar.buttons.text = base0D;
+      theme.bar.buttons.hover = base03;
+      theme.bar.buttons.icon_background = base02;
+      theme.bar.buttons.background = base02;
+      theme.bar.buttons.borderColor = base0D;
+      theme.bar.buttons.style = "default";
+      theme.bar.background = base00;
+      theme.osd.label = base0D;
+      theme.osd.icon = base00;
+      theme.osd.bar_overflow_color = base08;
+      theme.osd.bar_empty_color = base02;
+      theme.osd.bar_color = base0D;
+      theme.osd.icon_container = base0D;
+      theme.osd.bar_container = base00;
+      theme.notification.close_button.label = base00;
+      theme.notification.close_button.background = base08;
+      theme.notification.labelicon = base0D;
+      theme.notification.text = base05;
+      theme.notification.time = base03;
+      theme.notification.border = base03;
+      theme.notification.label = base0D;
+      theme.notification.actions.text = base01;
+      theme.notification.actions.background = base0D;
+      theme.notification.background = base00;
+      theme.bar.buttons.modules.submap.icon = base0C;
+      theme.bar.buttons.modules.submap.background = base02;
+      theme.bar.buttons.modules.submap.icon_background = base02;
+      theme.bar.buttons.modules.submap.text = base0C;
+      theme.bar.buttons.modules.submap.border = base0C;
+      theme.bar.menus.menu.network.switch.enabled = base0E;
+      theme.bar.menus.menu.network.switch.disabled = base03;
+      theme.bar.menus.menu.network.switch.puck = base04;
+      theme.bar.border.color = base0D;
+      theme.bar.buttons.modules.hyprsunset.icon = base09;
+      theme.bar.buttons.modules.hyprsunset.background = base02;
+      theme.bar.buttons.modules.hyprsunset.icon_background = base02;
+      theme.bar.buttons.modules.hyprsunset.text = base09;
+      theme.bar.buttons.modules.hyprsunset.border = base05;
+      theme.bar.buttons.modules.hypridle.icon = base05;
+      theme.bar.buttons.modules.hypridle.background = base02;
+      theme.bar.buttons.modules.hypridle.icon_background = base05;
+      theme.bar.buttons.modules.hypridle.text = base05;
+      theme.bar.buttons.modules.hypridle.border = base05;
+      theme.bar.buttons.modules.cava.text = base0C;
+      theme.bar.buttons.modules.cava.background = base02;
+      theme.bar.buttons.modules.cava.icon_background = base02;
+      theme.bar.buttons.modules.cava.icon = base0C;
+      theme.bar.buttons.modules.cava.border = base0C;
+      theme.bar.buttons.modules.microphone.border = base0C;
+      theme.bar.buttons.modules.microphone.background = base02;
+      theme.bar.buttons.modules.microphone.text = base0C;
+      theme.bar.buttons.modules.microphone.icon = base0C;
+      theme.bar.buttons.modules.microphone.icon_background = base02;
+    };
   };
 }

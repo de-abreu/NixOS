@@ -19,7 +19,7 @@
     enable = true;
     settings = with config.lib.stylix.colors; {
       "$label_color" = "rgb(${base06})";
-      "$font" = "JetBrainsMono Nerd Font";
+      "$font" = "${config.stylix.fonts.monospace.name}";
 
       background = {
         path = "${config.stylix.image}";

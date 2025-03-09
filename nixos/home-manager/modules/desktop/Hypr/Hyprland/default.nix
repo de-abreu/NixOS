@@ -3,9 +3,9 @@
   pkgs,
   ...
 }: {
-  imports = [ ./keybinds.nix ];
-  
-  config = { 
+  imports = [./keybinds.nix];
+
+  config = {
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = false;
@@ -56,7 +56,6 @@
     home.packages = with pkgs; [
       hyprpolkitagent # A polkit authentication daemon. It is required for GUI applications to be able to request elevated privileges.
       hyprcursor # Cursor rendering
-      hyprpicker # Color picker
       libnotify # Send desktop notifications to the notification daemon
     ];
   };

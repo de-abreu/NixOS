@@ -7,11 +7,8 @@
     ./Hypr
     ./rofi
     ./cliphist.nix
-    ./dunst.nix
     ./nautilus.nix
-    ./screenshot.nix
     ./stylix.nix
-    # ./waybar.nix
     ./wlogout.nix
   ];
 
