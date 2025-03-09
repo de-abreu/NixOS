@@ -5,9 +5,9 @@
 }: {
   imports = [
     ./Hypr
-    ./rofi
-    ./cliphist.nix
-    ./nautilus.nix
+    ./Rofi
+    ./feh.nix
+    ./file-roller.nix
     ./stylix.nix
     ./wlogout.nix
   ];

@@ -87,5 +87,5 @@
 in {
     home.packages = [powermenu];
     xdg.configFile."rofi/powermenu.rasi".source = config.lib.file.mkOutOfStoreSymlink
-        "${config.pathToModules}/desktop/rofi/powermenu/powermenu.rasi";
+        "${config.pathToModules}/desktop/Rofi/powermenu/powermenu.rasi";
 }
