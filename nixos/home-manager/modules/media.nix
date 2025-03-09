@@ -1,3 +1,3 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [celluloid kdePackages.kdenlive];
+  home.packages = [pkgs.celluloid];
 }

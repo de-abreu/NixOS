@@ -5,7 +5,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    ags.url = "github:Aylur/ags";
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+    hyprpanel.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix/release-24.11";
   };
 
@@ -42,14 +43,21 @@
       };
       flakePath = "/home/user/.config/NixOS";
     };
+    system = "x86_64-linux";
+    inheritance = {inherit inputs userPrefs filter;};
     filter = with nixpkgs.lib; folder:
         fileset.fileFilter (file: hasSuffix "nix" file.name) folder
         |> fileset.toList;
   in {
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs userPrefs filter;};
+      nixos = nixpkgs.lib.nixosSystem {
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            inputs.hyprpanel.overlay
+          ];
+        };
+        specialArgs = inheritance;
         modules = [
           ./nixos/system/configuration.nix
           stylix.nixosModules.stylix
@@ -60,7 +68,7 @@
               useUserPackages = true;
               verbose = true;
               users.user = import ./nixos/home-manager/home.nix;
-              extraSpecialArgs = specialArgs;
+              extraSpecialArgs = inheritance;
             };
           }
         ];

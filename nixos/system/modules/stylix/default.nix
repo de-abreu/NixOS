@@ -4,6 +4,7 @@ with pkgs; {
     enable = true;
     image = ./wallpapers/old.png;
     base16Scheme = "${base16-schemes}/share/themes/ayu-mirage.yaml";
+    polarity = "dark";
     fonts = {
       serif = {
         package = libre-baskerville;
