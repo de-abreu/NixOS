@@ -33,7 +33,6 @@
           "done"
           "fzf-fish" # TODO: List fzf keybindings into a cheatsheet solution for the terminal
           "pure"
-          "z"
         ])
         ++ [
           {
@@ -61,6 +60,7 @@
       "navi" # Interactive cheatsheet tool for the command line
       "fzf" # Command line fuzzy finder
       "nix-index" # nix-index, somewhat similar to apt search. INFO: the index needs to be initially built by running "nix-index" with no arguments.
+      "zoxide" # Shell agnostic Z directory jumping
     ]
     |> (a: a // {
         mcfly = { # Command history browser

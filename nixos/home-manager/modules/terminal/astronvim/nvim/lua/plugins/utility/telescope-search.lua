@@ -1,4 +1,5 @@
--- Allow to search for a filename or string contained in a file using telescope
+-- Allow to search for a filename or string contained in a file, as seen
+-- with yazi.
 local function getTelescopeOpts(state, path)
   return {
     cwd = path,
@@ -40,8 +41,8 @@ return {
     filesystem = {
       window = {
         mappings = {
-          ["tf"] = "telescope_find",
-          ["tg"] = "telescope_grep",
+          ["s"] = "telescope_find",
+          ["S"] = "telescope_grep",
         },
       },
     },

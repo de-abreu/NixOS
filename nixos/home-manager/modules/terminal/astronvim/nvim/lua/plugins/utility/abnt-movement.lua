@@ -96,7 +96,7 @@ local configurations = {
           ["ç"] = "open_with_window_picker",
           j = "close_node",
           l = false,
-          u = "toggle_hidden",
+          h = "toggle_hidden",
         },
       },
     },
