@@ -1,20 +1,26 @@
 # INFO: Minimal image viewer
-{...}: {
+{lib, ...}: {
   programs.feh = {
     enable = true;
+    keybindings = {
+      prev_img = "j";
+      next_img = "ç";
+    };
   };
-  xdg.mimeApps.defaultApplications = {
-    "image/jpeg" = "feh.desktop";
-    "image/png" = "feh.desktop";
-    "image/gif" = "feh.desktop";
-    "image/bmp" = "feh.desktop";
-    "image/x-xbitmap" = "feh.desktop";
-    "image/x-xpixmap" = "feh.desktop";
-    "image/tiff" = "feh.desktop";
-    "image/x-portable-pixmap" = "feh.desktop";
-    "image/x-portable-graymap" = "feh.desktop";
-    "image/x-portable-bitmap" = "feh.desktop";
-    "image/svg+xml" = "feh.desktop";
-    "image/webp" = "feh.desktop";
-  };
+  xdg.mimeApps.defaultApplications =
+    lib.fold
+    (n: acc: {"image/${n}" = "feh.desktop";} // acc) {} [
+      "bmp"
+      "gif"
+      "jpeg"
+      "png"
+      "sxg+xml"
+      "tiff"
+      "webp"
+      "x-portable-bitmap"
+      "x-portable-graymap"
+      "x-portable-pixmap"
+      "x-xbitmap"
+      "x-xpixmap"
+    ];
 }
