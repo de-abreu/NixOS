@@ -9,6 +9,7 @@
     ./feh.nix
     ./file-roller.nix
     ./stylix.nix
+    ./thunderbird.nix
     ./wlogout.nix
   ];
 
