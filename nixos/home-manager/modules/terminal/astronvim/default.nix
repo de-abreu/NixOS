@@ -7,22 +7,36 @@
   ...
 }: {
   programs = {
-    neovim = {
+    neovim = with pkgs; {
       enable = true;
       defaultEditor = true;
-      extraPackages =
-        (with pkgs; [
+      extraPackages = let
+        R-with-packages =
+          rWrapper.override
+          {
+            packages = with rPackages; [
+              ggplot2
+              languageserver
+              languageserversetup
+              tinytex
+            ];
+          };
+      in
+        [
           deno # required by peek.nvim
           tree-sitter # required to parse text (hence a bunch of stuff)
+          emacs # Required by vhdl formatter
 
-          R # R support
-          cargo # Rust support
-          gcc # C support
-          gnumake # Make support
-          hyprls # Hypr support
-          swi-prolog # Prolog support
-          tinyxxd # Binary support
-          vhdl-ls # VHDL support
+          # Language support
+          R-with-packages # R
+          cargo # Rust
+          gcc # C
+          quarto # Quarto
+          gnumake # Make
+          hyprls # Hypr
+          swi-prolog # Prolog
+          tinyxxd # Binary
+          vhdl-ls # VHDL
 
           # Latex support
           texlab # Language server
@@ -38,17 +52,13 @@
           # Haskell support
           haskell-language-server # Language server
           ghc # Compiler
-        ])
+        ]
         ++ (with pkgs.haskellPackages; [
           hoogle # API to search for functions
           fast-tags # Incremental tags
           haskell-debug-adapter # Debug adapter
           ghci-dap
           haskell-dap
-        ])
-        ++ (with pkgs.rPackages; [
-          languageserversetup
-          languageserver
         ]);
 
       withNodeJs = true;
