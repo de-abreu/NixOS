@@ -1,373 +1,574 @@
 {config, ...}: {
   # INFO: Applying Stylix's theme
-  override = with config.lib.stylix.colors.withHashtag; {
-    theme.bar.menus.menu.notifications.scrollbar.color = base0D;
-    theme.bar.menus.menu.notifications.pager.label = base04;
-    theme.bar.menus.menu.notifications.pager.button = base0D;
-    theme.bar.menus.menu.notifications.pager.background = base00;
-    theme.bar.menus.menu.notifications.switch.puck = base04;
-    theme.bar.menus.menu.notifications.switch.disabled = base03;
-    theme.bar.menus.menu.notifications.switch.enabled = base0D;
-    theme.bar.menus.menu.notifications.clear = base08;
-    theme.bar.menus.menu.notifications.switch_divider = base03;
-    theme.bar.menus.menu.notifications.border = base02;
-    theme.bar.menus.menu.notifications.card = base01;
-    theme.bar.menus.menu.notifications.background = base00;
-    theme.bar.menus.menu.notifications.no_notifications_label = base02;
-    theme.bar.menus.menu.notifications.label = base0D;
-    theme.bar.menus.menu.power.buttons.sleep.icon = base00;
-    theme.bar.menus.menu.power.buttons.sleep.text = base0C;
-    theme.bar.menus.menu.power.buttons.sleep.icon_background = base0C;
-    theme.bar.menus.menu.power.buttons.sleep.background = base01;
-    theme.bar.menus.menu.power.buttons.logout.icon = base00;
-    theme.bar.menus.menu.power.buttons.logout.text = base0C;
-    theme.bar.menus.menu.power.buttons.logout.icon_background = base0C;
-    theme.bar.menus.menu.power.buttons.logout.background = base01;
-    theme.bar.menus.menu.power.buttons.restart.icon = base00;
-    theme.bar.menus.menu.power.buttons.restart.text = base09;
-    theme.bar.menus.menu.power.buttons.restart.icon_background = base09;
-    theme.bar.menus.menu.power.buttons.restart.background = base01;
-    theme.bar.menus.menu.power.buttons.shutdown.icon = base00;
-    theme.bar.menus.menu.power.buttons.shutdown.text = base08;
-    theme.bar.menus.menu.power.buttons.shutdown.icon_background = base08;
-    theme.bar.menus.menu.power.buttons.shutdown.background = base01;
-    theme.bar.menus.menu.power.border.color = base02;
-    theme.bar.menus.menu.power.background.color = base00;
-    theme.bar.menus.menu.dashboard.monitors.disk.label = base05;
-    theme.bar.menus.menu.dashboard.monitors.disk.bar = base06;
-    theme.bar.menus.menu.dashboard.monitors.disk.icon = base05;
-    theme.bar.menus.menu.dashboard.monitors.gpu.label = base0C;
-    theme.bar.menus.menu.dashboard.monitors.gpu.bar = base0B;
-    theme.bar.menus.menu.dashboard.monitors.gpu.icon = base0C;
-    theme.bar.menus.menu.dashboard.monitors.ram.label = base0A;
-    theme.bar.menus.menu.dashboard.monitors.ram.bar = base0A;
-    theme.bar.menus.menu.dashboard.monitors.ram.icon = base0A;
-    theme.bar.menus.menu.dashboard.monitors.cpu.label = base0F;
-    theme.bar.menus.menu.dashboard.monitors.cpu.bar = base08;
-    theme.bar.menus.menu.dashboard.monitors.cpu.icon = base0F;
-    theme.bar.menus.menu.dashboard.monitors.bar_background = base03;
-    theme.bar.menus.menu.dashboard.directories.right.bottom.color = base0D;
-    theme.bar.menus.menu.dashboard.directories.right.middle.color = base0E;
-    theme.bar.menus.menu.dashboard.directories.right.top.color = base0C;
-    theme.bar.menus.menu.dashboard.directories.left.bottom.color = base0F;
-    theme.bar.menus.menu.dashboard.directories.left.middle.color = base0A;
-    theme.bar.menus.menu.dashboard.directories.left.top.color = base05;
-    theme.bar.menus.menu.dashboard.controls.input.text = base00;
-    theme.bar.menus.menu.dashboard.controls.input.background = base05;
-    theme.bar.menus.menu.dashboard.controls.volume.text = base00;
-    theme.bar.menus.menu.dashboard.controls.volume.background = base0F;
-    theme.bar.menus.menu.dashboard.controls.notifications.text = base00;
-    theme.bar.menus.menu.dashboard.controls.notifications.background = base0A;
-    theme.bar.menus.menu.dashboard.controls.bluetooth.text = base00;
-    theme.bar.menus.menu.dashboard.controls.bluetooth.background = base0C;
-    theme.bar.menus.menu.dashboard.controls.wifi.text = base00;
-    theme.bar.menus.menu.dashboard.controls.wifi.background = base0E;
-    theme.bar.menus.menu.dashboard.controls.disabled = base05;
-    theme.bar.menus.menu.dashboard.shortcuts.recording = base0C;
-    theme.bar.menus.menu.dashboard.shortcuts.text = base00;
-    theme.bar.menus.menu.dashboard.shortcuts.background = base0D;
-    theme.bar.menus.menu.dashboard.powermenu.confirmation.button_text = base00;
-    theme.bar.menus.menu.dashboard.powermenu.confirmation.deny = base08;
-    theme.bar.menus.menu.dashboard.powermenu.confirmation.confirm = base0C;
-    theme.bar.menus.menu.dashboard.powermenu.confirmation.body = base05;
-    theme.bar.menus.menu.dashboard.powermenu.confirmation.label = base0D;
-    theme.bar.menus.menu.dashboard.powermenu.confirmation.border = base02;
-    theme.bar.menus.menu.dashboard.powermenu.confirmation.background = base00;
-    theme.bar.menus.menu.dashboard.powermenu.confirmation.card = base01;
-    theme.bar.menus.menu.dashboard.powermenu.sleep = base0C;
-    theme.bar.menus.menu.dashboard.powermenu.logout = base0C;
-    theme.bar.menus.menu.dashboard.powermenu.restart = base09;
-    theme.bar.menus.menu.dashboard.powermenu.shutdown = base08;
-    theme.bar.menus.menu.dashboard.profile.name = base05;
-    theme.bar.menus.menu.dashboard.border.color = base02;
-    theme.bar.menus.menu.dashboard.background.color = base00;
-    theme.bar.menus.menu.dashboard.card.color = base01;
-    theme.bar.menus.menu.clock.weather.hourly.temperature = base05;
-    theme.bar.menus.menu.clock.weather.hourly.icon = base05;
-    theme.bar.menus.menu.clock.weather.hourly.time = base05;
-    theme.bar.menus.menu.clock.weather.thermometer.extremelycold = base0C;
-    theme.bar.menus.menu.clock.weather.thermometer.cold = base0D;
-    theme.bar.menus.menu.clock.weather.thermometer.moderate = base0D;
-    theme.bar.menus.menu.clock.weather.thermometer.hot = base09;
-    theme.bar.menus.menu.clock.weather.thermometer.extremelyhot = base08;
-    theme.bar.menus.menu.clock.weather.stats = base05;
-    theme.bar.menus.menu.clock.weather.status = base0C;
-    theme.bar.menus.menu.clock.weather.temperature = base05;
-    theme.bar.menus.menu.clock.weather.icon = base05;
-    theme.bar.menus.menu.clock.calendar.contextdays = base05;
-    theme.bar.menus.menu.clock.calendar.days = base05;
-    theme.bar.menus.menu.clock.calendar.currentday = base05;
-    theme.bar.menus.menu.clock.calendar.paginator = base0F;
-    theme.bar.menus.menu.clock.calendar.weekdays = base05;
-    theme.bar.menus.menu.clock.calendar.yearmonth = base0C;
-    theme.bar.menus.menu.clock.time.timeperiod = base0C;
-    theme.bar.menus.menu.clock.time.time = base05;
-    theme.bar.menus.menu.clock.text = base05;
-    theme.bar.menus.menu.clock.border.color = base02;
-    theme.bar.menus.menu.clock.background.color = base00;
-    theme.bar.menus.menu.clock.card.color = base01;
-    theme.bar.menus.menu.battery.slider.puck = base04;
-    theme.bar.menus.menu.battery.slider.backgroundhover = base03;
-    theme.bar.menus.menu.battery.slider.background = base05;
-    theme.bar.menus.menu.battery.slider.primary = base0A;
-    theme.bar.menus.menu.battery.icons.active = base0A;
-    theme.bar.menus.menu.battery.icons.passive = base04;
-    theme.bar.menus.menu.battery.listitems.active = base0A;
-    theme.bar.menus.menu.battery.listitems.passive = base05;
-    theme.bar.menus.menu.battery.text = base05;
-    theme.bar.menus.menu.battery.label.color = base0A;
-    theme.bar.menus.menu.battery.border.color = base02;
-    theme.bar.menus.menu.battery.background.color = base00;
-    theme.bar.menus.menu.battery.card.color = base01;
-    theme.bar.menus.menu.systray.dropdownmenu.divider = base01;
-    theme.bar.menus.menu.systray.dropdownmenu.text = base05;
-    theme.bar.menus.menu.systray.dropdownmenu.background = base00;
-    theme.bar.menus.menu.bluetooth.iconbutton.active = base0C;
-    theme.bar.menus.menu.bluetooth.iconbutton.passive = base05;
-    theme.bar.menus.menu.bluetooth.icons.active = base0C;
-    theme.bar.menus.menu.bluetooth.icons.passive = base04;
-    theme.bar.menus.menu.bluetooth.listitems.active = base0C;
-    theme.bar.menus.menu.bluetooth.listitems.passive = base05;
-    theme.bar.menus.menu.bluetooth.switch.puck = base04;
-    theme.bar.menus.menu.bluetooth.switch.disabled = base03;
-    theme.bar.menus.menu.bluetooth.switch.enabled = base0C;
-    theme.bar.menus.menu.bluetooth.switch_divider = base03;
-    theme.bar.menus.menu.bluetooth.status = base04;
-    theme.bar.menus.menu.bluetooth.text = base05;
-    theme.bar.menus.menu.bluetooth.label.color = base0C;
-    theme.bar.menus.menu.bluetooth.scroller.color = base0C;
-    theme.bar.menus.menu.bluetooth.border.color = base02;
-    theme.bar.menus.menu.bluetooth.background.color = base00;
-    theme.bar.menus.menu.bluetooth.card.color = base01;
-    theme.bar.menus.menu.network.iconbuttons.active = base0E;
-    theme.bar.menus.menu.network.iconbuttons.passive = base05;
-    theme.bar.menus.menu.network.icons.active = base0E;
-    theme.bar.menus.menu.network.icons.passive = base04;
-    theme.bar.menus.menu.network.listitems.active = base0E;
-    theme.bar.menus.menu.network.listitems.passive = base05;
-    theme.bar.menus.menu.network.status.color = base04;
-    theme.bar.menus.menu.network.text = base05;
-    theme.bar.menus.menu.network.label.color = base0E;
-    theme.bar.menus.menu.network.scroller.color = base0E;
-    theme.bar.menus.menu.network.border.color = base02;
-    theme.bar.menus.menu.network.background.color = base00;
-    theme.bar.menus.menu.network.card.color = base01;
-    theme.bar.menus.menu.volume.input_slider.puck = base05;
-    theme.bar.menus.menu.volume.input_slider.backgroundhover = base03;
-    theme.bar.menus.menu.volume.input_slider.background = base05;
-    theme.bar.menus.menu.volume.input_slider.primary = base0F;
-    theme.bar.menus.menu.volume.audio_slider.puck = base05;
-    theme.bar.menus.menu.volume.audio_slider.backgroundhover = base03;
-    theme.bar.menus.menu.volume.audio_slider.background = base05;
-    theme.bar.menus.menu.volume.audio_slider.primary = base0F;
-    theme.bar.menus.menu.volume.icons.active = base0F;
-    theme.bar.menus.menu.volume.icons.passive = base04;
-    theme.bar.menus.menu.volume.iconbutton.active = base0F;
-    theme.bar.menus.menu.volume.iconbutton.passive = base05;
-    theme.bar.menus.menu.volume.listitems.active = base0F;
-    theme.bar.menus.menu.volume.listitems.passive = base05;
-    theme.bar.menus.menu.volume.text = base05;
-    theme.bar.menus.menu.volume.label.color = base0F;
-    theme.bar.menus.menu.volume.border.color = base02;
-    theme.bar.menus.menu.volume.background.color = base00;
-    theme.bar.menus.menu.volume.card.color = base01;
-    theme.bar.menus.menu.media.slider.puck = base04;
-    theme.bar.menus.menu.media.slider.backgroundhover = base03;
-    theme.bar.menus.menu.media.slider.background = base05;
-    theme.bar.menus.menu.media.slider.primary = base05;
-    theme.bar.menus.menu.media.buttons.text = base00;
-    theme.bar.menus.menu.media.buttons.background = base0D;
-    theme.bar.menus.menu.media.buttons.enabled = base0C;
-    theme.bar.menus.menu.media.buttons.inactive = base05;
-    theme.bar.menus.menu.media.border.color = base02;
-    theme.bar.menus.menu.media.card.color = base01;
-    theme.bar.menus.menu.media.background.color = base00;
-    theme.bar.menus.menu.media.album = base06;
-    theme.bar.menus.menu.media.timestamp = base05;
-    theme.bar.menus.menu.media.artist = base0C;
-    theme.bar.menus.menu.media.song = base0D;
-    theme.bar.menus.tooltip.text = base05;
-    theme.bar.menus.tooltip.background = base00;
-    theme.bar.menus.dropdownmenu.divider = base01;
-    theme.bar.menus.dropdownmenu.text = base05;
-    theme.bar.menus.dropdownmenu.background = base00;
-    theme.bar.menus.slider.puck = base04;
-    theme.bar.menus.slider.backgroundhover = base03;
-    theme.bar.menus.slider.background = base05;
-    theme.bar.menus.slider.primary = base0D;
-    theme.bar.menus.progressbar.background = base03;
-    theme.bar.menus.progressbar.foreground = base0D;
-    theme.bar.menus.iconbuttons.active = base0D;
-    theme.bar.menus.iconbuttons.passive = base05;
-    theme.bar.menus.buttons.text = base00;
-    theme.bar.menus.buttons.disabled = base05;
-    theme.bar.menus.buttons.active = base0F;
-    theme.bar.menus.buttons.default = base0D;
-    theme.bar.menus.check_radio_button.active = base0D;
-    theme.bar.menus.check_radio_button.background = base03;
-    theme.bar.menus.switch.puck = base04;
-    theme.bar.menus.switch.disabled = base03;
-    theme.bar.menus.switch.enabled = base0D;
-    theme.bar.menus.icons.active = base0D;
-    theme.bar.menus.icons.passive = base05;
-    theme.bar.menus.listitems.active = base0D;
-    theme.bar.menus.listitems.passive = base05;
-    theme.bar.menus.popover.border = base00;
-    theme.bar.menus.popover.background = base00;
-    theme.bar.menus.popover.text = base0D;
-    theme.bar.menus.label = base0D;
-    theme.bar.menus.feinttext = base02;
-    theme.bar.menus.dimtext = base05;
-    theme.bar.menus.text = base05;
-    theme.bar.menus.border.color = base02;
-    theme.bar.menus.cards = base01;
-    theme.bar.menus.background = base00;
-    theme.bar.buttons.modules.power.icon_background = base08;
-    theme.bar.buttons.modules.power.icon = base08;
-    theme.bar.buttons.modules.power.background = base02;
-    theme.bar.buttons.modules.power.border = base08;
-    theme.bar.buttons.modules.weather.icon_background = base0D;
-    theme.bar.buttons.modules.weather.icon = base0D;
-    theme.bar.buttons.modules.weather.text = base0D;
-    theme.bar.buttons.modules.weather.background = base02;
-    theme.bar.buttons.modules.weather.border = base0D;
-    theme.bar.buttons.modules.updates.icon_background = base0E;
-    theme.bar.buttons.modules.updates.icon = base0E;
-    theme.bar.buttons.modules.updates.text = base0E;
-    theme.bar.buttons.modules.updates.background = base02;
-    theme.bar.buttons.modules.updates.border = base0E;
-    theme.bar.buttons.modules.kbLayout.icon_background = base0C;
-    theme.bar.buttons.modules.kbLayout.icon = base0C;
-    theme.bar.buttons.modules.kbLayout.text = base0C;
-    theme.bar.buttons.modules.kbLayout.background = base02;
-    theme.bar.buttons.modules.kbLayout.border = base0C;
-    theme.bar.buttons.modules.netstat.icon_background = base0C;
-    theme.bar.buttons.modules.netstat.icon = base0C;
-    theme.bar.buttons.modules.netstat.text = base0C;
-    theme.bar.buttons.modules.netstat.background = base02;
-    theme.bar.buttons.modules.netstat.border = base0C;
-    theme.bar.buttons.modules.storage.icon_background = base05;
-    theme.bar.buttons.modules.storage.icon = base05;
-    theme.bar.buttons.modules.storage.text = base05;
-    theme.bar.buttons.modules.storage.background = base02;
-    theme.bar.buttons.modules.storage.border = base05;
-    theme.bar.buttons.modules.cpu.icon_background = base08;
-    theme.bar.buttons.modules.cpu.icon = base08;
-    theme.bar.buttons.modules.cpu.text = base08;
-    theme.bar.buttons.modules.cpu.background = base02;
-    theme.bar.buttons.modules.cpu.border = base08;
-    theme.bar.buttons.modules.ram.icon_background = base0A;
-    theme.bar.buttons.modules.ram.icon = base0A;
-    theme.bar.buttons.modules.ram.text = base0A;
-    theme.bar.buttons.modules.ram.background = base02;
-    theme.bar.buttons.modules.ram.border = base0A;
-    theme.bar.buttons.notifications.total = base0D;
-    theme.bar.buttons.notifications.icon_background = base0D;
-    theme.bar.buttons.notifications.icon = base0D;
-    theme.bar.buttons.notifications.background = base02;
-    theme.bar.buttons.notifications.border = base0D;
-    theme.bar.buttons.clock.icon_background = base05;
-    theme.bar.buttons.clock.icon = base05;
-    theme.bar.buttons.clock.text = base05;
-    theme.bar.buttons.clock.background = base02;
-    theme.bar.buttons.clock.border = base05;
-    theme.bar.buttons.battery.icon_background = base0A;
-    theme.bar.buttons.battery.icon = base0A;
-    theme.bar.buttons.battery.text = base0A;
-    theme.bar.buttons.battery.background = base02;
-    theme.bar.buttons.battery.border = base0A;
-    theme.bar.buttons.systray.background = base02;
-    theme.bar.buttons.systray.border = base0D;
-    theme.bar.buttons.systray.customIcon = base05;
-    theme.bar.buttons.bluetooth.icon_background = base0C;
-    theme.bar.buttons.bluetooth.icon = base0C;
-    theme.bar.buttons.bluetooth.text = base0C;
-    theme.bar.buttons.bluetooth.background = base02;
-    theme.bar.buttons.bluetooth.border = base0C;
-    theme.bar.buttons.network.icon_background = base0E;
-    theme.bar.buttons.network.icon = base0E;
-    theme.bar.buttons.network.text = base0E;
-    theme.bar.buttons.network.background = base02;
-    theme.bar.buttons.network.border = base0E;
-    theme.bar.buttons.volume.icon_background = base0F;
-    theme.bar.buttons.volume.icon = base0F;
-    theme.bar.buttons.volume.text = base0F;
-    theme.bar.buttons.volume.background = base02;
-    theme.bar.buttons.volume.border = base0F;
-    theme.bar.buttons.media.icon_background = base0D;
-    theme.bar.buttons.media.icon = base0D;
-    theme.bar.buttons.media.text = base0D;
-    theme.bar.buttons.media.background = base02;
-    theme.bar.buttons.media.border = base0D;
-    theme.bar.buttons.windowtitle.icon_background = base05;
-    theme.bar.buttons.windowtitle.icon = base05;
-    theme.bar.buttons.windowtitle.text = base05;
-    theme.bar.buttons.windowtitle.border = base05;
-    theme.bar.buttons.windowtitle.background = base02;
-    theme.bar.buttons.workspaces.numbered_active_underline_color = base05;
-    theme.bar.buttons.workspaces.numbered_active_highlighted_text_color = base01;
-    theme.bar.buttons.workspaces.hover = base05;
-    theme.bar.buttons.workspaces.active = base05;
-    theme.bar.buttons.workspaces.occupied = base06;
-    theme.bar.buttons.workspaces.available = base0C;
-    theme.bar.buttons.workspaces.border = base05;
-    theme.bar.buttons.workspaces.background = base02;
-    theme.bar.buttons.dashboard.icon = base0D;
-    theme.bar.buttons.dashboard.border = base0D;
-    theme.bar.buttons.dashboard.background = base02;
-    theme.bar.buttons.icon = base0D;
-    theme.bar.buttons.text = base0D;
-    theme.bar.buttons.hover = base03;
-    theme.bar.buttons.icon_background = base02;
-    theme.bar.buttons.background = base02;
-    theme.bar.buttons.borderColor = base0D;
-    theme.bar.buttons.style = "default";
-    theme.bar.background = base00;
-    theme.osd.label = base0D;
-    theme.osd.icon = base00;
-    theme.osd.bar_overflow_color = base08;
-    theme.osd.bar_empty_color = base02;
-    theme.osd.bar_color = base0D;
-    theme.osd.icon_container = base0D;
-    theme.osd.bar_container = base00;
-    theme.notification.close_button.label = base00;
-    theme.notification.close_button.background = base08;
-    theme.notification.labelicon = base0D;
-    theme.notification.text = base05;
-    theme.notification.time = base03;
-    theme.notification.border = base03;
-    theme.notification.label = base0D;
-    theme.notification.actions.text = base01;
-    theme.notification.actions.background = base0D;
-    theme.notification.background = base00;
-    theme.bar.buttons.modules.submap.icon = base0C;
-    theme.bar.buttons.modules.submap.background = base02;
-    theme.bar.buttons.modules.submap.icon_background = base02;
-    theme.bar.buttons.modules.submap.text = base0C;
-    theme.bar.buttons.modules.submap.border = base0C;
-    theme.bar.menus.menu.network.switch.enabled = base0E;
-    theme.bar.menus.menu.network.switch.disabled = base03;
-    theme.bar.menus.menu.network.switch.puck = base04;
-    theme.bar.border.color = base0D;
-    theme.bar.buttons.modules.hyprsunset.icon = base09;
-    theme.bar.buttons.modules.hyprsunset.background = base02;
-    theme.bar.buttons.modules.hyprsunset.icon_background = base02;
-    theme.bar.buttons.modules.hyprsunset.text = base09;
-    theme.bar.buttons.modules.hyprsunset.border = base05;
-    theme.bar.buttons.modules.hypridle.icon = base05;
-    theme.bar.buttons.modules.hypridle.background = base02;
-    theme.bar.buttons.modules.hypridle.icon_background = base05;
-    theme.bar.buttons.modules.hypridle.text = base05;
-    theme.bar.buttons.modules.hypridle.border = base05;
-    theme.bar.buttons.modules.cava.text = base0C;
-    theme.bar.buttons.modules.cava.background = base02;
-    theme.bar.buttons.modules.cava.icon_background = base02;
-    theme.bar.buttons.modules.cava.icon = base0C;
-    theme.bar.buttons.modules.cava.border = base0C;
-    theme.bar.buttons.modules.microphone.border = base0C;
-    theme.bar.buttons.modules.microphone.background = base02;
-    theme.bar.buttons.modules.microphone.text = base0C;
-    theme.bar.buttons.modules.microphone.icon = base0C;
-    theme.bar.buttons.modules.microphone.icon_background = base02;
+  programs.hyprpanel.override.theme = with config.lib.stylix.colors.withHashtag; {
+    bar = {
+      background = base00;
+      border.color = base0D;
+      hover = base03;
+      icon = base0D;
+      icon_background = base02;
+      style = "default";
+      text = base0D;
+      buttons = {
+        background = base02;
+        borderColor = base0D;
+        battery = {
+          background = base02;
+          border = base0A;
+          icon = base0A;
+          icon_background = base0A;
+          text = base0A;
+        };
+        bluetooth = {
+          background = base02;
+          border = base0C;
+          icon = base0C;
+          icon_background = base0C;
+          text = base0C;
+        };
+        clock = {
+          background = base02;
+          border = base05;
+          icon = base05;
+          icon_background = base05;
+          text = base05;
+        };
+        dashboard = {
+          background = base02;
+          border = base0D;
+          icon = base0D;
+        };
+        media = {
+          background = base02;
+          border = base0D;
+          icon = base0D;
+          icon_background = base0D;
+          text = base0D;
+        };
+        network = {
+          background = base02;
+          border = base0E;
+          icon = base0E;
+          icon_background = base0E;
+          text = base0E;
+        };
+        notifications = {
+          background = base02;
+          border = base0D;
+          icon = base0D;
+          icon_background = base0D;
+          total = base0D;
+        };
+        systray = {
+          background = base02;
+          border = base0D;
+          customIcon = base05;
+        };
+        volume = {
+          background = base02;
+          border = base0F;
+          icon = base0F;
+          icon_background = base0F;
+          text = base0F;
+        };
+        windowtitle = {
+          background = base02;
+          border = base05;
+          icon = base05;
+          icon_background = base05;
+          text = base05;
+        };
+        workspace = {
+          active = base05;
+          available = base0C;
+          background = base02;
+          border = base05;
+          hover = base05;
+          numbered_active_highlighted_text_color = base01;
+          numbered_active_underline_color = base05;
+          occupied = base06;
+        };
+        modules = {
+          cava = {
+            background = base02;
+            border = base0C;
+            icon = base0C;
+            icon_background = base02;
+            text = base0C;
+          };
+          cpu = {
+            background = base02;
+            border = base08;
+            icon = base08;
+            icon_background = base08;
+            text = base08;
+          };
+          hypridle = {
+            background = base02;
+            border = base05;
+            icon = base05;
+            icon_background = base05;
+            text = base05;
+          };
+          hyprsunset = {
+            background = base02;
+            border = base05;
+            icon = base09;
+            icon_background = base02;
+            text = base09;
+          };
+          kbLayout = {
+            background = base02;
+            border = base0C;
+            icon = base0C;
+            icon_background = base0C;
+            text = base0C;
+          };
+          microphone = {
+            background = base02;
+            border = base0C;
+            icon = base0C;
+            icon_background = base02;
+            text = base0C;
+          };
+          netstat = {
+            background = base02;
+            border = base0C;
+            icon = base0C;
+            icon_background = base0C;
+            text = base0C;
+          };
+          power = {
+            background = base02;
+            border = base08;
+            icon = base08;
+            icon_background = base08;
+          };
+          ram = {
+            background = base02;
+            border = base0A;
+            icon = base0A;
+            icon_background = base0A;
+            text = base0A;
+          };
+          storage = {
+            background = base02;
+            border = base05;
+            icon = base05;
+            icon_background = base05;
+            text = base05;
+          };
+          submap = {
+            background = base02;
+            border = base0C;
+            icon = base0C;
+            icon_background = base02;
+            text = base0C;
+          };
+          updates = {
+            background = base02;
+            border = base0E;
+            icon = base0E;
+            icon_background = base0E;
+            text = base0E;
+          };
+          weather = {
+            background = base02;
+            border = base0D;
+            icon = base0D;
+            icon_background = base0D;
+            text = base0D;
+          };
+        };
+      };
+      menus = {
+        background = base00;
+        border.color = base02;
+        buttons = {
+          active = base0F;
+          default = base0D;
+          disabled = base05;
+          text = base00;
+        };
+        cards = base01;
+        check_radio_button = {
+          active = base0D;
+          background = base03;
+        };
+        dimtext = base05;
+        dropdownmenu = {
+          background = base00;
+          divider = base01;
+          text = base05;
+        };
+        feinttext = base02;
+        iconbuttons = {
+          active = base0D;
+          passive = base05;
+        };
+        icons = {
+          active = base0D;
+          passive = base05;
+        };
+        label = base0D;
+        listitems = {
+          active = base0D;
+          passive = base05;
+        };
+        menu = {
+          battery = {
+            background.color = base00;
+            border.color = base02;
+            card.color = base01;
+            icons = {
+              active = base0A;
+              passive = base04;
+            };
+            label.color = base0A;
+            listitems = {
+              active = base0A;
+              passive = base05;
+            };
+            slider = {
+              background = base05;
+              backgroundhover = base03;
+              primary = base0A;
+              puck = base04;
+            };
+            text = base05;
+          };
+          bluetooth = {
+            background.color = base00;
+            border.color = base02;
+            card.color = base01;
+            iconbutton = {
+              active = base0C;
+              passive = base05;
+            };
+            icons = {
+              active = base0C;
+              passive = base04;
+            };
+            label.color = base0C;
+            listitems = {
+              active = base0C;
+              passive = base05;
+            };
+            scroller.color = base0C;
+            status = base04;
+            switch = {
+              disabled = base03;
+              enabled = base0C;
+              puck = base04;
+            };
+            switch_divider = base03;
+            text = base05;
+          };
+          clock = {
+            background.color = base00;
+            border.color = base02;
+            calendar = {
+              contextdays = base05;
+              currentday = base05;
+              days = base05;
+              paginator = base0F;
+              weekdays = base05;
+              yearmonth = base0C;
+            };
+            card.color = base01;
+            text = base05;
+            time = {
+              time = base05;
+              timeperiod = base0C;
+            };
+            weather = {
+              hourly = {
+                icon = base05;
+                temperature = base05;
+                time = base05;
+              };
+              icon = base05;
+              stats = base05;
+              status = base0C;
+              temperature = base05;
+              thermometer = {
+                cold = base0D;
+                extremelycold = base0C;
+                extremelyhot = base08;
+                hot = base09;
+                moderate = base0D;
+              };
+            };
+          };
+          dashboard = {
+            background.color = base00;
+            border.color = base02;
+            card.color = base01;
+            controls = {
+              disabled = base05;
+              bluetooth = {
+                background = base0C;
+                text = base00;
+              };
+              input = {
+                background = base05;
+                text = base00;
+              };
+              notifications = {
+                background = base0A;
+                text = base00;
+              };
+              volume = {
+                background = base0F;
+                text = base00;
+              };
+              wifi = {
+                background = base0E;
+                text = base00;
+              };
+            };
+            directories = {
+              left = {
+                bottom.color = base0F;
+                middle.color = base0A;
+                top.color = base05;
+              };
+              right = {
+                bottom.color = base0D;
+                middle.color = base0E;
+                top.color = base0C;
+              };
+            };
+            monitors = {
+              bar_background = base03;
+              cpu = {
+                bar = base08;
+                icon = base0F;
+                label = base0F;
+              };
+              disk = {
+                bar = base06;
+                icon = base05;
+                label = base05;
+              };
+              gpu = {
+                bar = base0B;
+                icon = base0C;
+                label = base0C;
+              };
+              ram = {
+                bar = base0A;
+                icon = base0A;
+                label = base0A;
+              };
+            };
+            powermenu = {
+              confirmation = {
+                background = base00;
+                body = base05;
+                border = base02;
+                button_text = base00;
+                card = base01;
+                confirm = base0C;
+                deny = base08;
+                label = base0D;
+              };
+              logout = base0C;
+              restart = base09;
+              shutdown = base08;
+              sleep = base0C;
+            };
+            profile.name = base05;
+            shortcuts = {
+              background = base0D;
+              recording = base0C;
+              text = base00;
+            };
+          };
+          media = {
+            album = base06;
+            artist = base0C;
+            background.color = base00;
+            border.color = base02;
+            buttons = {
+              background = base0D;
+              enabled = base0C;
+              inactive = base05;
+              text = base00;
+            };
+            card.color = base01;
+            slider = {
+              background = base05;
+              backgroundhover = base03;
+              primary = base05;
+              puck = base04;
+            };
+            song = base0D;
+            timestamp = base05;
+          };
+          network = {
+            background.color = base00;
+            border.color = base02;
+            card.color = base01;
+            iconbuttons = {
+              active = base0E;
+              passive = base05;
+            };
+            icons = {
+              active = base0E;
+              passive = base04;
+            };
+            label.color = base0E;
+            listitems = {
+              active = base0E;
+              passive = base05;
+            };
+            scroller.color = base0E;
+            status.color = base04;
+            switch = {
+              disabled = base03;
+              enabled = base0E;
+              puck = base04;
+            };
+            text = base05;
+          };
+          notification = {
+            background = base00;
+            border = base02;
+            card = base01;
+            clear = base08;
+            label = base0D;
+            no_notifications_label = base02;
+            pager = {
+              background = base00;
+              button = base0D;
+              label = base04;
+            };
+            scrollbar.color = base0D;
+            switch = {
+              disabled = base03;
+              enabled = base0D;
+              puck = base04;
+            };
+            switch_divider = base03;
+          };
+          power = {
+            background.color = base00;
+            border.color = base02;
+            buttons = {
+              logout = {
+                background = base01;
+                icon = base00;
+                icon_background = base0C;
+                text = base0C;
+              };
+              restart = {
+                background = base01;
+                icon = base00;
+                icon_background = base09;
+                text = base09;
+              };
+              shutdown = {
+                background = base01;
+                icon = base00;
+                icon_background = base08;
+                text = base08;
+              };
+              sleep = {
+                background = base01;
+                icon = base00;
+                icon_background = base0C;
+                text = base0C;
+              };
+            };
+          };
+          systray.dropdownmenu = {
+            background = base00;
+            divider = base01;
+            text = base05;
+          };
+          volume = {
+            text = base05;
+            audio_slider = {
+              background = base05;
+              backgroundhover = base03;
+              primary = base0F;
+              puck = base05;
+            };
+            background.color = base00;
+            border.color = base02;
+            card.color = base01;
+            iconbutton = {
+              active = base0F;
+              passive = base05;
+            };
+            icons = {
+              active = base0F;
+              passive = base04;
+            };
+            input_slider = {
+              background = base05;
+              backgroundhover = base03;
+              primary = base0F;
+              puck = base05;
+            };
+            label.color = base0F;
+            listitems = {
+              active = base0F;
+              passive = base05;
+            };
+          };
+        };
+        popover = {
+          background = base00;
+          border = base00;
+          text = base0D;
+        };
+        progressbar = {
+          background = base03;
+          foreground = base0D;
+        };
+        slider = {
+          background = base05;
+          backgroundhover = base03;
+          primary = base0D;
+          puck = base04;
+        };
+        switch = {
+          disabled = base03;
+          enabled = base0D;
+          puck = base04;
+        };
+        tooltip = {
+          background = base00;
+          text = base05;
+        };
+      };
+    };
+    notification = {
+      actions = {
+        background = base0D;
+        text = base01;
+      };
+      background = base00;
+      border = base03;
+      close_button = {
+        background = base08;
+        label = base00;
+      };
+      label = base0D;
+      labelicon = base0D;
+      text = base05;
+      time = base03;
+    };
+    osd = {
+      bar_color = base0D;
+      bar_container = base00;
+      bar_empty_color = base02;
+      bar_overflow_color = base08;
+      icon = base00;
+      icon_container = base0D;
+      label = base0D;
+    };
   };
 }

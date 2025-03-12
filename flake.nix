@@ -3,11 +3,19 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
-    hyprpanel.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix/release-24.11";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprpanel = {
+      url = "github:Jas-SinghFSU/HyprPanel";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    sops-nix = {
+      url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -64,11 +72,15 @@
           home-manager.nixosModules.home-manager
           {
             home-manager = {
+              extraSpecialArgs = inheritance;
+              sharedModules = with inputs; [
+                  hyprpanel.homeManagerModules.hyprpanel
+                  sops-nix.homeManagerModules.sops
+              ];
               useGlobalPkgs = true;
               useUserPackages = true;
-              verbose = true;
               users.user = import ./nixos/home-manager/home.nix;
-              extraSpecialArgs = inheritance;
+              verbose = true;
             };
           }
         ];

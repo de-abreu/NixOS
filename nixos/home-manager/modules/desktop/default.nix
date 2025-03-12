@@ -8,8 +8,9 @@
     ./Rofi
     ./feh.nix
     ./file-roller.nix
-    ./stylix.nix
-    ./thunderbird.nix
+    ./media.nix
+    ./study.nix
+    # ./thunderbird.nix
     ./wlogout.nix
   ];
 

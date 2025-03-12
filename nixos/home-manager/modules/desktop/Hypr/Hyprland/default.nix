@@ -46,7 +46,7 @@
             enabled = true;
             passes = 2;
           };
-          rounding = 10;
+          rounding = 5;
         };
         bezier = "easeInSine, 0.12, 0, 0.39, 0";
         animation = "border, true, 5, easeInSine";

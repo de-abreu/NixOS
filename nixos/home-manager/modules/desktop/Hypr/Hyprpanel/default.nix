@@ -1,5 +1,5 @@
 {config, ...}: {
-  imports = ./theme.nix;
+  imports = [./theme.nix];
 
   programs.hyprpanel = {
     enable = true;
@@ -17,6 +17,7 @@
           left = [
             "dashboard"
             "workspaces"
+            "submap"
             "windowtitle"
           ];
           middle = ["media"];

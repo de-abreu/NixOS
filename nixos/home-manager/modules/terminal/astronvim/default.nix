@@ -85,10 +85,8 @@
     };
   };
 
-  home.sessionVariables = {
-    # Fix the libsqlite.so not found issue for https://github.com/kkharji/sqlite.lua.
-    LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath (with pkgs; [sqlite])}:$LD_LIBRARY_PATH";
-  };
+  # Fixes the libsqlite.so not found issue for https://github.com/kkharji/sqlite.lua.
+  home.sessionVariables.LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath (with pkgs; [sqlite])}:$LD_LIBRARY_PATH";
 
   xdg = {
     configFile."nvim".source = with config;

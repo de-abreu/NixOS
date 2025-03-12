@@ -4,13 +4,7 @@
   ...
 }:
 with userPrefs; {
-  imports = map (module: ./modules + module) [
-    "/desktop"
-    "/terminal"
-    "/browsers.nix"
-    "/media.nix"
-    "/study.nix"
-  ];
+  imports = [./modules];
 
   options = {
     pathToModules = lib.mkOption {
@@ -24,16 +18,6 @@ with userPrefs; {
       username = username;
       homeDirectory = "/home/${username}";
       stateVersion = "24.11";
-    };
-
-    # WARN: Color scheme overrides
-    stylix.targets = {
-      fish.enable = false; # Set with fish_theme
-      neovim.enable = false; # Managed in astroui.lua
-      wezterm.enable = false; # Managed in appearance.lua
-      rofi.enable = false; # Managed in theme.rasi
-      hyprlock.enable = false;
-      waybar.enable = false;
     };
 
     xdg = {
