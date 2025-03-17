@@ -1,5 +1,7 @@
 -- INFO: Configure plugins to use or reserve the keys jklç, instead of the
 -- default hjkl, for movement.
+-- TODO: Make this file able to assign any key combination to be the new set of
+-- movement keys, instead of just the ones asigned to ABNT.
 
 local configurations = {
   ---@type LazyPluginSpec
