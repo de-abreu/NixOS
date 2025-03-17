@@ -5,7 +5,6 @@ return {
   { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.fish" },
   { import = "astrocommunity.pack.json" },
-  { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.mdx" },
   { import = "astrocommunity.pack.python-ruff" },
   { import = "astrocommunity.pack.quarto" },
