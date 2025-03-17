@@ -1,3 +1,3 @@
 {...}: {
-  imports = [./desktop ./terminal ./sops ./stylix];
+  imports = [./desktop ./terminal ./sops.nix ./stylix.nix];
 }

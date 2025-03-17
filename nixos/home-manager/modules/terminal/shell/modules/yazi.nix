@@ -2,7 +2,7 @@
   programs = {
     yazi = {
       enable = true;
-      enableFishIntegration = true;
+      shellWrapperName = "y";
       keymap = let
         common = [
           {
@@ -118,7 +118,6 @@
           ];
       };
     };
-    fish.shellAbbrs.y = "yazi";
   };
   home.sessionVariables.FILEBROWSER = "yazi";
 }
