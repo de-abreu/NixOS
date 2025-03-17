@@ -12,32 +12,24 @@
       settings = {
         "$monitor1" = "eDP-1";
         "$monitor1specs" = "$monitor1, preferred, auto, 1";
+        exec-once = ["systemctl --user enable --now hyprpolkitagent.service"];
+        monitor = ["$monitor1specs" ",prefered, auto, 1, mirror, $monitor1"];
+        general.resize_on_border = true;
 
-        exec-once =
-          [
-            "dunst"
-            "systemctl --user enable --now hyprpolkitagent.service"
-            "waybar"
-          ]
-          ++ (map (type: "wl-paste --type ${type} --watch cliphist store") ["text" "image"]);
         input = with userPrefs.keyboard; {
           kb_layout = layout;
           kb_variant = variant;
           touchpad.natural_scroll = true;
           sensitivity = 1;
         };
-        monitor = ["$monitor1specs" ",prefered, auto, 1, mirror, $monitor1"];
-        windowrule =
-          [
-            "opacity 0.8, wezterm"
-          ]
-          ++ (map (pattern: "float, title:^${pattern}$$") [
-            "Calculator"
-            "Choose Files"
-            "Confirm to replace files"
-            "File Operation Progress"
-            "Save as"
-          ]);
+
+        windowrule = map (pattern: "float, title:^${pattern}$$") [
+          "Calculator"
+          "Choose Files"
+          "Confirm to replace files"
+          "File Operation Progress"
+          "Save as"
+        ];
         windowrulev2 = "float, class:^(xdg-desktop-portal-gtk)$$";
 
         # Aesthetics
@@ -56,7 +48,6 @@
     home.packages = with pkgs; [
       hyprpolkitagent # A polkit authentication daemon. It is required for GUI applications to be able to request elevated privileges.
       hyprcursor # Cursor rendering
-      libnotify # Send desktop notifications to the notification daemon
     ];
   };
 }
