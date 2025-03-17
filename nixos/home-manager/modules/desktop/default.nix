@@ -6,11 +6,11 @@
   imports = [
     ./Hypr
     ./Rofi
+    ./browsers.nix
     ./feh.nix
     ./file-roller.nix
     ./media.nix
     ./study.nix
-    # ./thunderbird.nix
     ./wlogout.nix
   ];
 

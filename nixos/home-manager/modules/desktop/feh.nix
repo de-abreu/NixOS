@@ -1,12 +1,6 @@
 # INFO: Minimal image viewer
 {lib, ...}: {
-  programs.feh = {
-    enable = true;
-    keybindings = {
-      prev_img = "j";
-      next_img = "ç";
-    };
-  };
+  programs.feh.enable = true;
   xdg.mimeApps.defaultApplications =
     lib.fold
     (n: acc: {"image/${n}" = "feh.desktop";} // acc) {} [
@@ -14,7 +8,7 @@
       "gif"
       "jpeg"
       "png"
-      "sxg+xml"
+      "svg+xml"
       "tiff"
       "webp"
       "x-portable-bitmap"
