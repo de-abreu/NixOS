@@ -16,6 +16,7 @@ return {
             desc = "Set a textwidth limit only for code",
             callback = function()
               local filetypes = {
+                "", -- Untitled files
                 "markdown",
                 "plaintex",
                 "quarto",
