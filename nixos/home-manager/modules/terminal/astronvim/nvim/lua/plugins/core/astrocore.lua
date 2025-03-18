@@ -66,6 +66,11 @@ local window_controls = {
   ["-"] = { ":split ", desc = "Split window horizontally" },
 }
 
+local keep_selection = {
+  [">"] = { ">gv", desc = "Indent selection" },
+  ["<"] = { "<gv", desc = "Dedent selection" },
+}
+
 -- Define the mappings and modes
 local custom_mappings = {
   { modes = { "n", "v", "i", "o" }, mappings = { no_operation } },
@@ -73,6 +78,7 @@ local custom_mappings = {
     modes = { "n" },
     mappings = { window_controls, { gx = { desc = "Open URL" } } },
   },
+  { modes = { "v" }, mappings = { keep_selection } },
 }
 
 -- Assign mappings

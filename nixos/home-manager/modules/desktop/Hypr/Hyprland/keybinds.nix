@@ -57,8 +57,8 @@
           [ "k" "Focus window below, movefocus, d" "d"]
           [ "l" "Focus window above, movefocus, u" "d"]
           [ "$ccedilla" "Focus right window, movefocus, r" "d"]
-          [ "[" "Focus previous window, cyclenext, prev" "d"]
-          [ "]" "Focus previous window, cyclenext" "d"]
+          [ "bracketleft" "Focus previous window, cyclenext, prev" "d"]
+          [ "bracketright" "Focus previous window, cyclenext" "d"]
         ];
         shared = let
           device = "dell::kbd_backlight";
@@ -116,6 +116,8 @@
               ["SHIFT" "k" "Swap with window below, swapwindow, d" "d"]
               ["SHIFT" "l" "Swap with window above, swapwindow, u" "d"]
               ["SHIFT" "$ccedilla" "Swap with right window, swapwindow, r" "d"]
+              ["SHIFT" "bracketleft" "Focus previous window, swapnext, prev" "d"]
+              ["SHIFT" "bracketright" "Focus previous window, swapnext" "d"]
             ]
             # Switch workspaces
             ++ (range 1 9 |> map (elem: toString elem) |> fold (elem: acc: [["" "${elem}" "workspace, ${elem}" ""]] ++ acc) [
