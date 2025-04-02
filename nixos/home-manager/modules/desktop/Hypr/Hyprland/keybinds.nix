@@ -48,6 +48,7 @@
           [ "$apostrophe" "Lock session, exec, powermenu & disown; $toDefault" "d"]
         ];
         window_session_shortcuts = [
+          [ "g" "Toggle grouping, togglegroup" "d"]
           [ "q" "Close Window, killactive" "d"]
           [ "y" "Toogle floating window, togglefloating" "d"]
           [ "z" "Toggle maximize window, fullscreen" "d"]

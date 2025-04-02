@@ -2,10 +2,10 @@
 {
   config,
   pkgs,
-  filter,
+  includeAll,
   ...
 }: {
-  imports = [./launcher ./powermenu] ++ (filter ./settings);
+  imports = [./launcher ./powermenu] ++ (includeAll ./settings);
 
   config = {
     programs.rofi = {
