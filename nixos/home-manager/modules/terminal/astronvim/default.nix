@@ -25,12 +25,25 @@
                 tinytex
               ];
             };
-          tex-with-packages = texliveMedium.withPackages (ps:
-            with ps; [
+          tex-with-packages = texlive.combine {
+            inherit
+              (texlive)
+              automata
               biblatex
+              chemfig
               csquotes
+              enumitem
+              forest
+              hyphenat
+              lastpage
               mathtools
-            ]);
+              pgfplots
+              placeins
+              scheme-medium
+              textpos
+              translations
+              ;
+          };
         in
           [
             deno # required by peek.nvim
@@ -43,11 +56,12 @@
             gcc # C
             gnumake # Make
             hyprls # Hypr
-            sqls # SQL language server
             sqlfluff # SQL linter and formatter
+            sqls # SQL language server
             swi-prolog # Prolog
             tinyxxd # Binary
             vhdl-ls # VHDL
+            zulu # Java
 
             # Latex support
             texlab # Language server
