@@ -13,24 +13,12 @@ return {
         auto_textwidth = {
           {
             event = "BufWinEnter",
-            desc = "Set a textwidth limit only for code",
+            desc = "Disable textwidth for plaintext",
             callback = function()
-              local filetypes = {
-                "", -- Untitled files
-                "markdown",
-                "plaintex",
-                "quarto",
-                "norg",
-                "tex",
-                "text",
-                "typst",
-              }
-              for _, ft in ipairs(filetypes) do
-                if ft == vim.bo.filetype then
-                  return
-                end
+              local ft = vim.bo.filetype
+              if not (ft == "" or ft == "text") then
+                vim.opt_local.textwidth = 80
               end
-              vim.opt_local.textwidth = 80
             end,
           },
         },
