@@ -1,6 +1,8 @@
 ---@type LazySpec
 return {
   "AstroNvim/astrocommunity",
+  -- Autocompletion and suggestions
+  { import = "astrocommunity.completion.blink-cmp" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
   -- Display a list of diagnostics and TODOs of the current file
   { import = "astrocommunity.markdown-and-latex.vimtex" },

@@ -1,5 +1,4 @@
 -- Completion suggestions
-
 return {
   "hrsh7th/nvim-cmp",
   optional = true,
