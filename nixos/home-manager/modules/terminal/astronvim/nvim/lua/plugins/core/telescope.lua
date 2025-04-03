@@ -5,6 +5,12 @@ return {
   opts = function(_, opts)
     local actions = require "telescope.actions"
     opts.defaults = {
+      layout_strategy = "flex",
+      layout_config = {
+        flex = {
+          flip_columns = 140,
+        },
+      },
       mappings = {
         i = {
           ["<C-N>"] = actions.cycle_history_next,
