@@ -60,6 +60,15 @@ local configurations = {
       maps["<CR>"] = cmp.mapping.confirm()
     end,
   },
+  {
+    "Saghen/blink.cmp",
+    opts = {
+      keymap = {
+        ["<C-K>"] = { "select_next", "fallback" },
+        ["<C-L>"] = { "select_prev", "fallback" },
+      },
+    },
+  },
   ---@type LazyPluginSpec
   {
     "mrjones2014/smart-splits.nvim",
