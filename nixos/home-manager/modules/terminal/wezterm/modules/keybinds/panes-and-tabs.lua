@@ -47,10 +47,19 @@ function module.apply_to_config(config)
     { key = "[", action = act.RotatePanes "CounterClockwise" },
   }
 
+  if not config.keys then
+    config.keys = {}
+  end
+  for _, m in ipairs(mappings) do
+    m.mods = "LEADER"
+    table.insert(config.keys, m)
+  end
+
   -- Switch active tab by its index
   local function activate_tab(index)
     return wezterm.action_callback(function(window, pane)
       local tabs = window:mux_window():tabs()
+      -- If tab of given index does not yet exist, create it.
       if not tabs[index + 1] then
         window:perform_action(act.SpawnTab "DefaultDomain", pane)
       end
@@ -59,18 +68,11 @@ function module.apply_to_config(config)
   end
 
   for i = 0, 9 do
-    table.insert(mappings, {
+    table.insert(config.keys, {
+      mods = "CTRL",
       key = tostring(i),
       action = activate_tab((i - 1) % 10),
     })
-  end
-
-  if not config.keys then
-    config.keys = {}
-  end
-  for _, m in ipairs(mappings) do
-    m.mods = "LEADER"
-    table.insert(config.keys, m)
   end
 end
 

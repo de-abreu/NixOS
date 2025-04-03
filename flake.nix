@@ -52,10 +52,10 @@
       flakePath = "/home/user/.config/NixOS";
     };
     system = "x86_64-linux";
-    inheritance = {inherit inputs userPrefs filter;};
-    filter = with nixpkgs.lib; folder:
+    includeAll = with nixpkgs.lib; folder:
         fileset.fileFilter (file: hasSuffix "nix" file.name) folder
         |> fileset.toList;
+    inheritance = {inherit inputs userPrefs includeAll;};
   in {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
@@ -75,7 +75,7 @@
               extraSpecialArgs = inheritance;
               sharedModules = with inputs; [
                   hyprpanel.homeManagerModules.hyprpanel
-                  sops-nix.homeManagerModules.sops
+                  inputs.sops-nix.homeManagerModules.sops
               ];
               useGlobalPkgs = true;
               useUserPackages = true;

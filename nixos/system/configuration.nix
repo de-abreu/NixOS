@@ -3,12 +3,12 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   userPrefs,
-  filter,
+  includeAll,
   ...
 }:
 with userPrefs; {
   imports = let
-    modules = filter ./modules;
+    modules = includeAll ./modules;
   in
     [
       # Include the results of the hardware scan.

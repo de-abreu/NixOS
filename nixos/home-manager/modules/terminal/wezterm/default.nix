@@ -79,4 +79,5 @@
   };
   wayland.windowManager.hyprland.settings.windowrule = ["opacity 0.8, wezterm"];
   home.sessionVariables.TERMINAL = "wezterm";
+  dconf.settings."org/gnome/desktop/default-applications/terminal".exec = "wezterm";
 }
