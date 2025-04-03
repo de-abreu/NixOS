@@ -44,19 +44,4 @@ return {
       })
     end,
   },
-  {
-    "AstroNvim/astrocore",
-    opts = {
-      autocmds = {
-        lua_shiftwidth = {
-          event = "FileType",
-          pattern = "nix",
-          desc = "Set shiftwidth locally for nix files",
-          callaback = function()
-            vim.opt_local.shiftwidth = 2
-          end,
-        },
-      },
-    },
-  },
 }
