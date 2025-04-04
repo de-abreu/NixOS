@@ -61,6 +61,12 @@
           [ "bracketleft" "Focus previous window, cyclenext, prev" "d"]
           [ "bracketright" "Focus previous window, cyclenext" "d"]
         ];
+        workspace_shortcuts = range 1 9
+          |> map (elem: toString elem)
+          |> fold (elem: acc: [[ "${elem}" "workspace, ${elem}" ""]] ++ acc) [
+          [ "0" "workspace, 10" "" ]
+        ];
+
         shared = let
           device = "dell::kbd_backlight";
           adjust_kbd_backlight = pkgs.writers.writeLuaBin "adjust_kbd_backlight" {} 
@@ -98,14 +104,19 @@
       in
         # Default mode keybindings
         (submap {
-          binds = application_shortcuts ++ window_session_shortcuts ++ [ ["Super_L" "Enter Hyprmode, exec,  $toHyprmode" "d"] ]
+          binds = application_shortcuts
+            ++ window_session_shortcuts
+            ++ workspace_shortcuts
+            ++ [ ["Super_L" "Enter Hyprmode, exec,  $toHyprmode" "d"] ]
             |> map (bind: ["SUPER"] ++ bind)
             |> (binds : binds ++ shared);
         })
         # Hyprmode keybindings
         + (submap {
           name = "hyprmode";
-          binds = application_shortcuts ++ window_session_shortcuts
+          binds = application_shortcuts
+            ++ window_session_shortcuts
+            ++ workspace_shortcuts
             |> map (bind: [""] ++ bind)
             |> (binds: binds ++ [
               ["ALT" "j" "Resize left, resizeactive, -30 0" "d"]
@@ -119,13 +130,10 @@
               ["SHIFT" "$ccedilla" "Swap with right window, swapwindow, r" "d"]
               ["SHIFT" "bracketleft" "Focus previous window, swapnext, prev" "d"]
               ["SHIFT" "bracketright" "Focus previous window, swapnext" "d"]
-            ]
-            # Switch workspaces
-            ++ (range 1 9 |> map (elem: toString elem) |> fold (elem: acc: [["" "${elem}" "workspace, ${elem}" ""]] ++ acc) [
+
               ["CTRL" "j" "Go one workspace left, workspace, -1" "d"]
               ["CTRL" "$ccedilla" "Go one workspace right, workspace, +1" "d"]
-              ["" "0" "workspace, 10" ""]
-            ])
+            ]
             # Exit Hyprmode
             ++ [
               ["" "m" "Move focused window to a workspace, exec, $toMWTW" "d"]
