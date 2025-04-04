@@ -1,4 +1,8 @@
-{userPrefs, ...}: {
+{
+  userPrefs,
+  pkgs,
+  ...
+}: {
   programs = {
     git = with userPrefs.git; {
       enable = true;
@@ -26,6 +30,14 @@
         };
       };
     };
-    fish.shellAbbrs.lg = "lazygit";
+    fish = {
+      shellAbbrs.lg = "lazygit";
+      plugins = [
+        {
+          name = "git-abbr";
+          inherit (pkgs.fishPlugins.git-abbr) src;
+        }
+      ];
+    };
   };
 }

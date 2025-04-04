@@ -1,5 +1,10 @@
-# INFO: Nix Helper, a reimplementation of some of Nix most used commands.
-{userPrefs, ...}: {
+# INFO: Utilities to aid manipulating Nix
+{
+  userPrefs,
+  pkgs,
+  ...
+}: {
+  home.packages = [pkgs.nix-prefetch-git];
   programs = {
     nh = {
       enable = true;
