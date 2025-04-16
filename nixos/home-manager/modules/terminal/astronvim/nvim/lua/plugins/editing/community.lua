@@ -10,8 +10,6 @@ return {
   -- An automated annotation generator
   { import = "astrocommunity.editing-support.undotree" },
   -- Makes the document history a branching tree, and enables navigating it.
-  { import = "astrocommunity.file-explorer.oil-nvim" },
-  -- Edit a filesystem like a buffer
   { import = "astrocommunity.media.img-clip-nvim" },
   -- Embed images, either from the clipboard or drag-and-dropped, into files
   -- written in a markup language
