@@ -1,7 +1,7 @@
-{ pkgs, ... }: {
-  environment.systemPackages = [ pkgs.kanata ];
+{pkgs, lib, ...}: {
+  environment.systemPackages = [pkgs.kanata];
   # Enable the uinput module
-  boot.kernelModules = [ "uinput" ];
+  boot.kernelModules = ["uinput"];
 
   # Enable uinput
   hardware.uinput.enable = true;
@@ -12,7 +12,7 @@
   '';
 
   # Ensure the uinput group exists
-  users.groups.uinput = { };
+  users.groups.uinput = {};
 
   # Add the Kanata service user to necessary groups
   systemd.services.kanata-internalKeyboard.serviceConfig = {
@@ -32,10 +32,11 @@
           "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
         ];
         extraDefCfg = "process-unmapped-keys yes";
-        config =
-          /*
-          lisp
-          */
+        config = with lib; let
+            # Disable numkeys
+            numkeys = range 0 9
+            |> foldl (acc: elem: acc + "kp${toString elem} XX\n") "";
+          in # commonlisp
           ''
             (deflocalkeys-linux
              ç 39
@@ -46,20 +47,33 @@
             )
 
             (defvar
-             tap-time 200
-             hold-time 200
+             tap-timeout 200
+             hold-timeout 200
+             tt $tap-timeout
+             ht $hold-timeout
             )
 
             (defalias
-             esctrl (tap-hold $tap-time $hold-time esc lctl)
-             tab (tap-hold $tap-time $hold-time tab (layer-toggle arrows))
-            )
-            (deflayer base
-             caps @esctrl @tab j k l ç
+             esctrl (tap-hold $tt $ht esc lctl)
+             tab (tap-hold $tt $ht tab (layer-toggle nav))
             )
 
-            (deflayer arrows
-             _ _ _ left down up right
+            (deflayermap (base)
+              esc caps
+              caps @esctrl
+              tab @tab
+              ${numkeys}
+            )
+
+            (deflayermap (nav) ;; Navigation
+              j left
+              k down
+              l up
+              ç right
+              u pgup
+              d pgdn
+              g home
+              b end ;; "bottom"
             )
           '';
       };
