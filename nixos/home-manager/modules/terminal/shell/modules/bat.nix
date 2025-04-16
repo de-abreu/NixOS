@@ -1,7 +1,7 @@
 {...}: {
   programs = {
     bat.enable = true;
-    fish.shellAbbrs.cat = "bat -p";
+    fish.shellAbbrs.cat = "bat -pP";
   };
 
   # INFO: Modify key mappings
