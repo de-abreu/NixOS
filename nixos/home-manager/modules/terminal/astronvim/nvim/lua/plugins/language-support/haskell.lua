@@ -60,7 +60,7 @@ return {
     dependencies = {
       "mrcjkb/neotest-haskell",
       ft = haskell_ft,
-      config = true,
+      config = function() end,
     },
     opts = function(_, opts)
       opts.adapters = opts.adapters or {}
