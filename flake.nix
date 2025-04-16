@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     stylix.url = "github:danth/stylix/release-24.11";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
@@ -20,10 +21,11 @@
 
   outputs = inputs @ {
     nixpkgs,
+    nixpkgs-unstable,
     home-manager,
     stylix,
     ...
-  }: let
+  }: with nixpkgs.lib; let
     userPrefs = {
       username = "user"; # As seen in the path "/home/<user>"
       git = {
@@ -37,22 +39,24 @@
       };
       locale = {
         default = "en_US.UTF-8";
-        extraSettings = {
-          LC_ADDRESS = "pt_BR.UTF-8";
-          LC_IDENTIFICATION = "pt_BR.UTF-8";
-          LC_MEASUREMENT = "pt_BR.UTF-8";
-          LC_MONETARY = "pt_BR.UTF-8";
-          LC_NAME = "pt_BR.UTF-8";
-          LC_NUMERIC = "pt_BR.UTF-8";
-          LC_PAPER = "pt_BR.UTF-8";
-          LC_TELEPHONE = "pt_BR.UTF-8";
-          LC_TIME = "en_US.UTF-8";
-        };
+        extraSettings =  map (elem: "LC_" + elem) [
+            "ADDRESS"
+            "IDENTIFICATION"
+            "MEASUREMENT"
+            "MONETARY"
+            "NAME"
+            "NUMERIC"
+            "PAPER"
+            "TELEPHONE"
+            "TIME"
+          ]
+          |> foldl (acc: elem: { ${elem} = "pt_BR.UTF-8"; } // acc)
+            { LC_TIME = "en_US.UTF-8"; };
       };
       flakePath = "/home/user/.config/NixOS";
     };
     system = "x86_64-linux";
-    includeAll = with nixpkgs.lib; folder:
+    includeAll =  folder:
         fileset.fileFilter (file: hasSuffix "nix" file.name) folder
         |> fileset.toList;
     inheritance = {inherit inputs userPrefs includeAll;};
@@ -63,6 +67,18 @@
           inherit system;
           overlays = [
             inputs.hyprpanel.overlay
+
+            /*
+              INFO: The following overlay allows for installing packages from
+              the unstable branch by prefixing the name of the package with
+              "unstable". i.e.: to install the unstable version of kanata, use:
+              pkgs.unstable.kanata
+           */
+            (final: prev: {
+              unstable = import nixpkgs-unstable {
+                system = prev.system;
+              };
+            })
           ];
         };
         specialArgs = inheritance;
