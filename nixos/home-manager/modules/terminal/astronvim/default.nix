@@ -7,7 +7,7 @@
   pkgs,
   ...
 }: {
-  imports = [./quarto-nvim.nix];
+  imports = [./quarto-nvim.nix ./prettierd.nix];
 
   config = {
     programs = {
@@ -30,6 +30,7 @@
               (texlive)
               automata
               biblatex
+              booktabs
               chemfig
               csquotes
               enumitem
@@ -111,6 +112,8 @@
             pandas
             numpy
             matplotlib
+            # NOTE: Dependency of python-neotest
+            pytest
           ];
       };
       fish.shellAbbrs = {
