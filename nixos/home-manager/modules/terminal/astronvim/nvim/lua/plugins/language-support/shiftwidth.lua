@@ -6,7 +6,7 @@ return {
         event = "FileType",
         pattern = { "lua", "nix", "markdown", "tex" },
         desc = "Set shiftwidth locally for lua files",
-        callaback = function()
+        callback = function()
           vim.opt_local.shiftwidth = 2
         end,
       },
