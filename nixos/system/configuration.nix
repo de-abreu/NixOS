@@ -18,7 +18,7 @@ with userPrefs; {
 
   nix.settings.experimental-features = ["nix-command" "flakes" "pipe-operators"];
 
-  users.users."${username}" = {
+  users.users.${username} = {
     isNormalUser = true;
     uid = 1000;
     description = "${username}";

@@ -12,6 +12,7 @@
         commit.gpgsign = true;
         tag.gpgsign = true;
         user.signingkey = signingkey;
+        push.default = "current";
       };
     };
     lazygit = {
