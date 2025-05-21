@@ -2,6 +2,7 @@ return {
   {
     "AstroNvim/astrocommunity",
     { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
+    { import = "astrocommunity.markdown-and-latex.render-markdown-nvim" },
   },
   {
     "iamcco/markdown-preview.nvim",
