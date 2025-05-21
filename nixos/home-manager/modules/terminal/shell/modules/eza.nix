@@ -6,9 +6,6 @@
       git = true;
       icons = "auto";
     };
-    fish.shellAbbrs = {
-      ls = "eza";
-      tree = "eza --tree";
-    };
+    fish.shellAbbrs.tree = "eza --tree";
   };
 }
