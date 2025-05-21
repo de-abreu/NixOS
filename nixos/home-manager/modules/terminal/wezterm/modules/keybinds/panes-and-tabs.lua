@@ -74,6 +74,14 @@ function module.apply_to_config(config)
       action = activate_tab((i - 1) % 10),
     })
   end
+
+  local move_tabs = {
+    { mods = "SHIFT | CTRL", key = "j", action = act.MoveTabRelative(-1) },
+    { mods = "SHIFT | CTRL", key = ":", action = act.MoveTabRelative(1) },
+  }
+  for _, m in ipairs(move_tabs) do
+    table.insert(config.keys, m)
+  end
 end
 
 return module
