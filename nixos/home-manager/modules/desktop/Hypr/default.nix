@@ -4,5 +4,6 @@
     ./Hyprpanel
     ./hyprpaper.nix
     ./screenlock.nix
+    ./screenshot.nix
   ];
 }

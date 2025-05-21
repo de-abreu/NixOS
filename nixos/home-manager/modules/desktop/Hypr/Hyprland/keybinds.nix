@@ -9,8 +9,9 @@
         changeSubmap = name: indicator:
           "hyprctl keyword general:col.active_border \"rgb(${indicator})\"; hyprctl dispatch submap ${name}";
       in {
-        "$ccedilla" = "code:47"; # Map c cedilla for ABNT2 keyboards
-        "$apostrophe" = "code:49"; # Map apostrophe
+        "$apostrophe" = "code:49";
+        "$ccedilla" = "code:47";
+        "$printScreen" = "code:107"; 
         "$mute" = "${config.actl} set-mute @DEFAULT_AUDIO_SINK@";
         "$screenlock" = "${config.pctl} pause; loginctl lock-session";
         "$toDefault" = changeSubmap "reset" base0D;
@@ -42,7 +43,7 @@
         application_shortcuts = [
           [ "b" "Open Clearnet Broswer, exec, $BROWSER; $toDefault" "d"]
           [ "f" "Open File Manager, exec, $FILEBROWSER; $toDefault" "d"]
-          [ "t" "Open Terminal, exec, $TERMINAL; $toDefault" "d"]
+          [ "w" "Open Terminal, exec, $TERMINAL; $toDefault" "d"]
           [ "space" "Applications, exec, launcher & disown; $toDefault" "d"]
           [ "Tab" "Windows, exec, launcher window & disown; $toDefault" "d"]
           [ "$apostrophe" "Lock session, exec, powermenu & disown; $toDefault" "d"]
@@ -52,8 +53,6 @@
           [ "q" "Close Window, killactive" "d"]
           [ "y" "Toogle floating window, togglefloating" "d"]
           [ "z" "Toggle maximize window, fullscreen" "d"]
-          [ "mouse:272" "Move Window, movewindow" "md"]
-
           [ "j" "Focus left window, movefocus, l" "d"]
           [ "k" "Focus window below, movefocus, d" "d"]
           [ "l" "Focus window above, movefocus, u" "d"]
@@ -80,6 +79,7 @@
 
             os.execute(bctl .. " set " .. next)
             '';
+        hyprpicker = "${pkgs.hyprpicker}/bin/hyprpicker";
         in [
           # Media controls
           ["" "XF86AudioMute" "Toggle audio mute, exec, $mute toggle" "dlt"]
@@ -89,10 +89,16 @@
           ["" "XF86AudioLowerVolume" "Lower volume, exec, $mute 0; ${config.actl} set-volume @DEFAULT_AUDIO_SINK@ 5%-" "edlt"]
           ["" "XF86AudioRaiseVolume" "Raise volume, exec, $mute 0; ${config.actl} set-volume @DEFAULT_AUDIO_SINK@ 5%+" "edlt"]
         
+          # Color picker
+          ["" "F9" "Color picker, exec, sleep 0.5 && ${hyprpicker} -a" "dt"]
+
           # Brightness controls
+          ["" "XF86KbdLightOnOff" "Toggle keyboard backlight, exec, ${adjust_kbd_backlight}" "dlt"]
           ["" "XF86MonBrightnessUp" "Increase monitor brightness, exec, ${config.bctl} set +10%" "edtl"]
           ["" "XF86MonBrightnessDown" "Decrease monitor brightness, exec, ${config.bctl} set 10%-" "edtl"]
-          ["" "XF86KbdLightOnOff" "Toggle keyboard backlight, exec, ${adjust_kbd_backlight}" "dlt"]
+          
+          # Screenshot
+          ["" "$printScreen" "Screenshot, exec, screenshot" "dt"]
           
           # Lid open/close
           ["" "switch:on:[Lid Switch]" "exec, hyprctl keyword monitor \"eDP-1, disable\"; $screenlock; $toDefault" "lt"]
@@ -107,7 +113,10 @@
           binds = application_shortcuts
             ++ window_session_shortcuts
             ++ workspace_shortcuts
-            ++ [ ["Super_L" "Enter Hyprmode, exec,  $toHyprmode" "d"] ]
+            ++ [
+              ["mouse:272" "Move Window, movewindow" "md"]
+              ["Super_L" "Enter Hyprmode, exec, $toHyprmode" "d"] 
+            ]
             |> map (bind: ["SUPER"] ++ bind)
             |> (binds : binds ++ shared);
         })
@@ -119,27 +128,29 @@
             ++ workspace_shortcuts
             |> map (bind: [""] ++ bind)
             |> (binds: binds ++ [
-              ["ALT" "j" "Resize left, resizeactive, -30 0" "d"]
-              ["ALT" "k" "Resize down, resizeactive, 0 30" "d"]
-              ["ALT" "l" "Resize up, resizeactive, 0 -30" "d"]
-              ["ALT" "$ccedilla" "Resize right, resizeactive, 30 0" "d"]
+              ["ALT" "j" "Resize left, resizeactive, -30 0" "de"]
+              ["ALT" "k" "Resize down, resizeactive, 0 30" "de"]
+              ["ALT" "l" "Resize up, resizeactive, 0 -30" "de"]
+              ["ALT" "$ccedilla" "Resize right, resizeactive, 30 0" "de"]
 
-              ["SHIFT" "j" "Swap with left window, swapwindow, l" "d"]
-              ["SHIFT" "k" "Swap with window below, swapwindow, d" "d"]
-              ["SHIFT" "l" "Swap with window above, swapwindow, u" "d"]
-              ["SHIFT" "$ccedilla" "Swap with right window, swapwindow, r" "d"]
-              ["SHIFT" "bracketleft" "Focus previous window, swapnext, prev" "d"]
-              ["SHIFT" "bracketright" "Focus previous window, swapnext" "d"]
+              ["SHIFT" "j" "Swap with left window, swapwindow, l" "de"]
+              ["SHIFT" "k" "Swap with window below, swapwindow, d" "de"]
+              ["SHIFT" "l" "Swap with window above, swapwindow, u" "de"]
+              ["SHIFT" "$ccedilla" "Swap with right window, swapwindow, r" "de"]
+              ["SHIFT" "bracketleft" "Focus previous window, swapnext, prev" "de"]
+              ["SHIFT" "bracketright" "Focus previous window, swapnext" "de"]
 
-              ["CTRL" "j" "Go one workspace left, workspace, -1" "d"]
-              ["CTRL" "$ccedilla" "Go one workspace right, workspace, +1" "d"]
+              ["CTRL" "j" "Go one workspace left, workspace, -1" "de"]
+              ["CTRL" "$ccedilla" "Go one workspace right, workspace, +1" "de"]
             ]
             # Exit Hyprmode
             ++ [
               ["" "m" "Move focused window to a workspace, exec, $toMWTW" "d"]
+              ["SHIFT" "m" "Silently Move focused window to a workspace, submap, SilentlyMoveWindowToWorkspace" "d"]
+              ["SUPER" "mouse:272" "Move Window, movewindow" "md"]
               ["SUPER" "Super_L" "Exit Hyprmode, exec, $toDefault" "d"]
               ["" "catchall" "exec" ""]
-            ]);
+            ] ++ shared);
           })
         # Move window keybindings
         + (submap {
