@@ -5,7 +5,7 @@ return {
   -- NOTE: build is set to false cause we won't use Lazy's installation of the
   -- lua rock magick. Instead we use the cli tool to manipulate images
   build = false,
-  ft = { "markdown", "tex", "norg", "ipynb", "quarto" },
+  ft = { "markdown", "tex", "norg", "ipynb", "quarto", "neo-tree" },
   processor = "magick_cli",
   specs = {
     {

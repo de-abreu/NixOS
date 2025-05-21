@@ -12,7 +12,7 @@ return {
     },
     window = {
       mappings = {
-        o = "system_open",
+        O = "system_open",
       },
     },
   },
