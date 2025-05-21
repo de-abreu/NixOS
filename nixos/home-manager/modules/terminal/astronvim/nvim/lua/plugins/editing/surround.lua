@@ -12,21 +12,24 @@ return {
     dependencies = {
       {
         "AstroNvim/astrocore",
-        opts = function(_, opts)
-          local map = opts.mappings.n
-          map["zc"] = {
-            function()
-              vim.cmd("spellgood " .. vim.fn.expand "<cword>")
-            end,
-            desc = "Add word under cursor to dictionary",
-          }
-          map["zr"] = {
-            function()
-              vim.cmd("spellwrong " .. vim.fn.expand "<cword>")
-            end,
-            desc = "Remove word under cursor from dictionary",
-          }
-        end,
+        opts = {
+          mappings = {
+            n = {
+              ["zc"] = {
+                function()
+                  vim.cmd("spellgood " .. vim.fn.expand "<cword>")
+                end,
+                desc = "Add word under cursor to dictionary",
+              },
+              ["zr"] = {
+                function()
+                  vim.cmd("spellwrong " .. vim.fn.expand "<cword>")
+                end,
+                desc = "Remove word under cursor from dictionary",
+              },
+            },
+          },
+        },
       },
     },
     opts = {

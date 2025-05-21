@@ -8,7 +8,7 @@ local configurations = {
   {
     "AstroNvim/astrocore",
     opts = function(_, opts)
-      local maps = opts.mappings
+      local map = opts.mappings
       local movement = {
         j = { "h", desc = "Move cursor left", expr = false },
         k = { "j", desc = "Move cursor down", expr = false },
@@ -19,21 +19,17 @@ local configurations = {
         gg = { "gg^", desc = "Move to the beggining of the buffer" },
         G = { "GG$", desc = "Move to the end of the buffer" },
       }
-      maps.n["<Leader>j"] = {
+      map.n.h = {
         function()
-          require("astrocore.buffer").nav(-vim.v.count1)
+          require("astroui.status.heirline").buffer_picker(function(bufnr)
+            vim.api.nvim_win_set_buf(0, bufnr)
+          end)
         end,
-        desc = "Previous buffer",
-      }
-      maps.n["<Leader>ç"] = {
-        function()
-          require("astrocore.buffer").nav(vim.v.count1)
-        end,
-        desc = "Next buffer",
+        desc = "Select buffer from tabline",
       }
       for _, mode in ipairs { "n", "v", "o", "x" } do
         for key, value in pairs(movement) do
-          maps[mode][key] = value
+          map[mode][key] = value
         end
       end
     end,
@@ -43,10 +39,10 @@ local configurations = {
     "nvim-telescope/telescope.nvim",
     opts = function(_, opts)
       local actions = require "telescope.actions"
-      local maps = opts.defaults.mappings.n
-      maps.k = actions.move_selection_next
-      maps.l = actions.move_selection_previous
-      maps["ç"] = actions.select_default
+      local map = opts.defaults.mappings.n
+      map.k = actions.move_selection_next
+      map.l = actions.move_selection_previous
+      map["ç"] = actions.select_default
     end,
   },
   ---@type LazyPluginSpec
@@ -54,10 +50,10 @@ local configurations = {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
       local cmp = require "cmp"
-      local maps = opts.mapping
-      maps["<C-K>"] = cmp.mapping.select_next_item()
-      maps["<C-L>"] = cmp.mapping.select_prev_item()
-      maps["<CR>"] = cmp.mapping.confirm()
+      local map = opts.mapping
+      map["<C-K>"] = cmp.mapping.select_next_item()
+      map["<C-L>"] = cmp.mapping.select_prev_item()
+      map["<CR>"] = cmp.mapping.confirm()
     end,
   },
   {
@@ -103,12 +99,31 @@ local configurations = {
     opts = {
       window = {
         mappings = {
-          -- Remapped keys previously associated with hjkl.
           ["ç"] = "open_with_window_picker",
-          j = "close_node",
+          ["<Right>"] = "focus_preview",
+          j = "parent_or_close",
           l = false,
-          h = "toggle_hidden",
         },
+      },
+      filesystem = {
+        window = {
+          mappings = {
+            h = "toggle_hidden",
+          },
+        },
+      },
+    },
+  },
+  ---@type LazyPluginSpec
+  {
+    "stevearc/aerial.nvim",
+    opts = {
+      keymaps = {
+        l = false,
+        ["<C-j>"] = false,
+        ["ç"] = "actions.tree_open",
+        ["<C-k>"] = "actions.down_and_scroll",
+        ["<C-l>"] = "actions.up_and_scroll",
       },
     },
   },

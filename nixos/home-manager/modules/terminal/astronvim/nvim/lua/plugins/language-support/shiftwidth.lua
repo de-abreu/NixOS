@@ -2,10 +2,10 @@ return {
   "AstroNvim/astrocore",
   opts = {
     autocmds = {
-      lua_shiftwidth = {
-        event = "FileType",
-        pattern = { "lua", "nix", "markdown", "tex" },
-        desc = "Set shiftwidth locally for lua files",
+      shiftwidth = {
+        event = { "AstroFile" },
+        pattern = { "*.lua", "*.nix", "*.md", "*.tex" },
+        desc = "Set shiftwidth locally",
         callback = function()
           vim.opt_local.shiftwidth = 2
         end,

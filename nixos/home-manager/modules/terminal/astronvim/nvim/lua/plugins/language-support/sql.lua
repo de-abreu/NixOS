@@ -1,3 +1,5 @@
+local unique = require("astrocore").list_insert_unique
+
 return {
   {
     {
@@ -15,7 +17,7 @@ return {
       optional = true,
       opts = function(_, opts)
         if opts.ensure_installed ~= "all" then
-          opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "sql" })
+          opts.ensure_installed = unique(opts.ensure_installed, { "sql" })
         end
       end,
     },
@@ -33,8 +35,6 @@ return {
     "AstroNvim/astrolsp",
     optional = true,
     opts = function(_, opts)
-      local unique = require("astrocore").list_insert_unique
-
       opts.servers = unique(opts.servers, { "sqls" })
       opts.config = {
         sqls = {

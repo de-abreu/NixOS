@@ -5,7 +5,7 @@ return {
     "AstroNvim/astrolsp",
     opts = function(_, opts)
       local unique = require("astrocore").list_insert_unique
-      opts.servers = unique(opts.sources, { "texlab" })
+      opts.servers = unique(opts.servers, { "texlab" })
     end,
   },
   ---@type LazyPluginSpec
