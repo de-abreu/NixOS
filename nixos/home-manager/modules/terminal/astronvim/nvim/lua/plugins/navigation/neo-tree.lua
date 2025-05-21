@@ -30,7 +30,6 @@ return {
       "filesystem",
       "buffers",
       "git_status",
-      "document_symbols",
     },
     buffers = {
       follow_current_file = { enabled = true },
