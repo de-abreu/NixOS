@@ -28,11 +28,14 @@
           tex-with-packages = texlive.combine {
             inherit
               (texlive)
+              abntex2
               automata
+              beamer
               biblatex
               booktabs
               chemfig
               csquotes
+              twemojis
               enumitem
               forest
               hyphenat
@@ -45,8 +48,10 @@
               translations
               ;
           };
+          python-with-packages = pkgs.python3.withPackages (ps: with ps; [bpython mypy]);
         in
           [
+            python-with-packages
             deno # required by peek.nvim
             tree-sitter # required to parse text (hence a bunch of stuff)
             emacs # Required by vhdl formatter
@@ -54,7 +59,8 @@
             # Language support
             R-with-packages # R
             cargo # Rust
-            gcc # C
+            gcc # C compiler
+            clang-tools # C language server and formatter
             gnumake # Make
             hyprls # Hypr
             sqlfluff # SQL linter and formatter
@@ -62,7 +68,7 @@
             swi-prolog # Prolog
             tinyxxd # Binary
             vhdl-ls # VHDL
-            zulu # Java
+            jdk # Java
 
             # Latex support
             texlab # Language server
@@ -98,6 +104,8 @@
 
         extraPython3Packages = ps:
           with ps; [
+            bpython
+            mypy
             # NOTE: Dependency of the python language package
             wheel
             # NOTE: Dependencies of the Molten plugin
