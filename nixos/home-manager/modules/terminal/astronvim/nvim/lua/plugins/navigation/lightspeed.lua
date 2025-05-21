@@ -10,17 +10,6 @@ return {
   },
   specs = {
     {
-      "nvim-neo-tree/neo-tree.nvim",
-      opts = function(_, opts)
-        opts.window.mappings = {
-          ["s"] = false,
-          ["S"] = false,
-          ["-"] = "open_split",
-          ["\\"] = "open_vsplit",
-        }
-      end,
-    },
-    {
       "gbprod/cutlass.nvim",
       opts = function(_, opts)
         opts.exclude = { "ns", "nS" }
