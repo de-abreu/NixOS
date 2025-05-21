@@ -18,7 +18,6 @@
             "dashboard"
             "workspaces"
             "submap"
-            "windowtitle"
           ];
           middle = ["media"];
           right = [
@@ -42,12 +41,18 @@
           format = "%a %b %d  %H:%M";
           showIcon = false;
         };
-        launcher.icon = "";
+        launcher = {
+          rightClick = "powermenu";
+          icon = "";
+        };
         media = {
           show_active_only = true;
           rightClick = "${config.pctl} play-pause";
         };
-        customModules.hypridle.label = false;
+        customModules.hypridle = {
+          label = false;
+          rightClick = "screenshot";
+        };
       };
       menus = {
         dashboard.shortcuts.left = {

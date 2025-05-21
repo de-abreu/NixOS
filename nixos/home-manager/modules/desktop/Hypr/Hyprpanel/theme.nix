@@ -10,170 +10,170 @@
       style = "default";
       text = base0D;
       buttons = {
-        background = base02;
+        background = base01;
         borderColor = base0D;
         battery = {
-          background = base02;
+          background = base01;
           border = base0A;
           icon = base0A;
           icon_background = base0A;
           text = base0A;
         };
         bluetooth = {
-          background = base02;
+          background = base01;
           border = base0C;
           icon = base0C;
           icon_background = base0C;
           text = base0C;
         };
         clock = {
-          background = base02;
+          background = base01;
           border = base05;
           icon = base05;
           icon_background = base05;
           text = base05;
         };
         dashboard = {
-          background = base02;
+          background = base01;
           border = base0D;
           icon = base0D;
         };
         media = {
-          background = base02;
+          background = base01;
           border = base0D;
           icon = base0D;
           icon_background = base0D;
           text = base0D;
         };
         network = {
-          background = base02;
+          background = base01;
           border = base0E;
           icon = base0E;
           icon_background = base0E;
           text = base0E;
         };
         notifications = {
-          background = base02;
+          background = base01;
           border = base0D;
           icon = base0D;
           icon_background = base0D;
           total = base0D;
         };
         systray = {
-          background = base02;
+          background = base01;
           border = base0D;
           customIcon = base05;
         };
         volume = {
-          background = base02;
+          background = base01;
           border = base0F;
           icon = base0F;
           icon_background = base0F;
           text = base0F;
         };
         windowtitle = {
-          background = base02;
+          background = base01;
           border = base05;
           icon = base05;
           icon_background = base05;
           text = base05;
         };
-        workspace = {
-          active = base05;
-          available = base0C;
-          background = base02;
-          border = base05;
-          hover = base05;
-          numbered_active_highlighted_text_color = base01;
-          numbered_active_underline_color = base05;
-          occupied = base06;
+        workspaces = {
+          active = base0D;
+          available = base07;
+          background = base01;
+          border = base0D;
+          hover = base0D;
+          numbered_active_highlighted_text_color = base0D;
+          numbered_active_underline_color = base0D;
+          occupied = base07;
         };
         modules = {
           cava = {
-            background = base02;
+            background = base01;
             border = base0C;
             icon = base0C;
             icon_background = base02;
             text = base0C;
           };
           cpu = {
-            background = base02;
+            background = base01;
             border = base08;
             icon = base08;
             icon_background = base08;
             text = base08;
           };
           hypridle = {
-            background = base02;
+            background = base01;
             border = base05;
             icon = base05;
             icon_background = base05;
             text = base05;
           };
           hyprsunset = {
-            background = base02;
+            background = base01;
             border = base05;
             icon = base09;
             icon_background = base02;
             text = base09;
           };
           kbLayout = {
-            background = base02;
+            background = base01;
             border = base0C;
             icon = base0C;
             icon_background = base0C;
             text = base0C;
           };
           microphone = {
-            background = base02;
+            background = base01;
             border = base0C;
             icon = base0C;
             icon_background = base02;
             text = base0C;
           };
           netstat = {
-            background = base02;
+            background = base01;
             border = base0C;
             icon = base0C;
             icon_background = base0C;
             text = base0C;
           };
           power = {
-            background = base02;
+            background = base01;
             border = base08;
             icon = base08;
             icon_background = base08;
           };
           ram = {
-            background = base02;
+            background = base01;
             border = base0A;
             icon = base0A;
             icon_background = base0A;
             text = base0A;
           };
           storage = {
-            background = base02;
+            background = base01;
             border = base05;
             icon = base05;
             icon_background = base05;
             text = base05;
           };
           submap = {
-            background = base02;
+            background = base01;
             border = base0C;
             icon = base0C;
             icon_background = base02;
             text = base0C;
           };
           updates = {
-            background = base02;
+            background = base01;
             border = base0E;
             icon = base0E;
             icon_background = base0E;
             text = base0E;
           };
           weather = {
-            background = base02;
+            background = base01;
             border = base0D;
             icon = base0D;
             icon_background = base0D;
