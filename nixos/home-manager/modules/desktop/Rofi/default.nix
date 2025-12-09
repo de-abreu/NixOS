@@ -27,5 +27,6 @@
         urgent:         #${base08}ff;
       }
     '';
+    stylix.targets.rofi.enable = false;
   };
 }
