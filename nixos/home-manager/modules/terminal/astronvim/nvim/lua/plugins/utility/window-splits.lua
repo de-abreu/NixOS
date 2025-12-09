@@ -30,8 +30,6 @@ return {
         n = {
           ["<C-W>-"] = { "<C-w>t<C-w>K", desc = "Rearrange windows horizontally" },
           ["<C-W>i"] = { "<C-w>t<C-w>H", desc = "Rearrange windows vertically" },
-          ["\\"] = { ":vsplit ", desc = "Split window vertically" },
-          ["-"] = { ":split ", desc = "Split window horizontally" },
         },
       },
     },
