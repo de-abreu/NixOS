@@ -11,6 +11,7 @@
     ./file-roller.nix
     ./media.nix
     ./study.nix
+    ./stylix.nix
     ./wlogout.nix
   ];
 
