@@ -13,7 +13,7 @@
       }
     ];
   in {
-    manager.prepend_keymap =
+    mgr.prepend_keymap =
       common
       ++ [
         # Navigation
