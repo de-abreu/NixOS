@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./Hyprland
-    ./Hyprpanel
+    # ./Hyprpanel
     ./hyprpaper.nix
     ./screenlock.nix
     ./screenshot.nix
