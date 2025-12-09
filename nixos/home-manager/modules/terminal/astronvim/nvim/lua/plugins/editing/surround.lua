@@ -1,8 +1,6 @@
 -- INFO: Add symbols surrounding a selection. AS mapping surround to "z" collids
 -- with options for spellcheck and folding, these are dealt with here as well.
 
--- TODO: Reassign mappings to folding
-
 ---@type LazySpec
 return {
   {
@@ -26,6 +24,14 @@ return {
                   vim.cmd("spellwrong " .. vim.fn.expand "<cword>")
                 end,
                 desc = "Remove word under cursor from dictionary",
+              },
+              ["zaf"] = {
+                "za",
+                desc = "Toogle fold under the cursor",
+              },
+              ["zar"] = {
+                "zA",
+                desc = "Recursively toggle fold under the cursor",
               },
             },
           },

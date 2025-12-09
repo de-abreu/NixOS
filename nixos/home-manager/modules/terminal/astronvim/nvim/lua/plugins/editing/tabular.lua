@@ -4,4 +4,14 @@
 return {
   "godlygeek/tabular",
   event = "BufNew",
+  specs = {
+    "AstroNvim/astrocore",
+    opts = {
+      mappings = {
+        v = {
+          ["<Leader>t"] = { ":Tabularize /", desc = "Tabularize" },
+        },
+      },
+    },
+  },
 }
