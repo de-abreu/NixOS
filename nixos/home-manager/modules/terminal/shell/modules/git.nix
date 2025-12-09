@@ -1,6 +1,6 @@
 {
-  userPrefs,
   pkgs,
+  userPrefs,
   ...
 }: {
   programs = {
@@ -14,6 +14,7 @@
         user.signingkey = signingkey;
         push.default = "current";
       };
+      lfs.enable = true; # Large file storage
     };
     lazygit = {
       enable = true;

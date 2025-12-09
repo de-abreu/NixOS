@@ -11,8 +11,8 @@
       comma # temporarily install programs to run commands
       gdu # disk usage analyzer
       imagemagick # Image manipulation
-      lynx # terminal based browser
       pb_cli # Output to a pastebin
+      pdftk # Manipulate pdf files
       ripgrep # search for text within various files
 
       # Requirements to fetch, compress, and uncompress files

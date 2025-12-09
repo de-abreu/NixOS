@@ -77,7 +77,11 @@
     };
     mimeApps.defaultApplications."application/x-terminal-emulator" = "wezterm.desktop";
   };
-  wayland.windowManager.hyprland.settings.windowrule = ["opacity 0.8, wezterm"];
+  wayland.windowManager.hyprland.settings = {
+    "$terminal" = "wezterm";
+    windowrule = ["opacity 0.8, class:org.wezfurlong.wezterm"];
+  };
   home.sessionVariables.TERMINAL = "wezterm";
   dconf.settings."org/gnome/desktop/default-applications/terminal".exec = "wezterm";
+  stylix.targets.wezterm.enable = false; # Managed in appearance.lua
 }
