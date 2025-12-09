@@ -1,8 +1,7 @@
 local prefix = "<Leader>a"
 return {
   "yetone/avante.nvim",
-  build = vim.fn.has "win32" == 1 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-    or "make",
+  build = "make",
   event = "User AstroFile", -- load on file open because Avante manages it's own bindings
   cmd = {
     "AvanteAsk",
@@ -26,19 +25,33 @@ return {
       "AstroNvim/astrocore",
       opts = function(_, opts)
         opts.mappings.n[prefix] = { desc = " Avante" }
-        opts.mappings.n[prefix .. "x"] = { ":AvanteClear<cr>", desc = "Clear chat" }
+        opts.mappings.n[prefix .. "a"] = {
+          function()
+            vim.cmd "AvanteToggle"
+            vim.cmd "wincmd ="
+          end,
+          desc = "avante: toggle",
+        }
+        opts.mappings.n[prefix .. "x"] = {
+          ":AvanteClear<cr>",
+          desc = "Clear chat",
+        }
       end,
     },
   },
+  ---@class avante.Config
   opts = {
+    -- mode = "legacy", -- NOTE: Uncomment to turn off agentic mode
     provider = "deepseek",
-    vendors = {
+    providers = {
       deepseek = {
         __inherited_from = "openai",
         api_key_name = "DEEPSEEK_API_KEY",
         endpoint = "https://api.deepseek.com",
         model = "deepseek-coder",
-        max_tokens = 8192,
+        extra_request_body = {
+          max_tokens = 8192,
+        },
       },
     },
     mappings = {
@@ -50,7 +63,6 @@ return {
       stop = prefix .. "s",
       select_history = prefix .. "h",
       toggle = {
-        default = prefix .. "a",
         debug = prefix .. "d",
         hint = prefix .. "H",
         suggestion = prefix .. "S",
