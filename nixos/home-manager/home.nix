@@ -4,7 +4,9 @@
   ...
 }:
 with userPrefs; {
-  imports = [./modules];
+  imports = [
+    ./modules
+  ];
 
   options = {
     pathToModules = lib.mkOption {
@@ -17,7 +19,7 @@ with userPrefs; {
     home = {
       username = username;
       homeDirectory = "/home/${username}";
-      stateVersion = "24.11";
+      stateVersion = "25.05";
     };
 
     xdg = {

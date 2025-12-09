@@ -16,7 +16,12 @@ with userPrefs; {
     ]
     ++ modules;
 
-  nix.settings.experimental-features = ["nix-command" "flakes" "pipe-operators"];
+  nix.settings = {
+    experimental-features = ["nix-command" "flakes" "pipe-operators"];
+    # INFO: This next line was added so that devenv could automatically build is
+    # cache
+    trusted-users = ["root" "user"];
+  };
 
   users.users.${username} = {
     isNormalUser = true;
@@ -78,8 +83,8 @@ with userPrefs; {
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
