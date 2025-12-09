@@ -48,10 +48,8 @@
               translations
               ;
           };
-          python-with-packages = pkgs.python3.withPackages (ps: with ps; [bpython mypy]);
         in
           [
-            python-with-packages
             deno # required by peek.nvim
             tree-sitter # required to parse text (hence a bunch of stuff)
             emacs # Required by vhdl formatter
@@ -139,5 +137,6 @@
         "${pathToModules}/terminal/astronvim/nvim";
       mimeApps.defaultApplications."text/plain" = "nvim.desktop";
     };
+    stylix.targets.neovim.enable = false; # Managed by astroui.lua
   };
 }
