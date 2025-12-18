@@ -1,0 +1,7 @@
+{
+  imports = [
+    ./astronvim
+    ./wezterm
+    ./shell
+  ];
+}
