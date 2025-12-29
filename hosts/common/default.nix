@@ -6,8 +6,9 @@
   ...
 }: {
   imports = [
-    ./users
     ./global
+    ./optional
+    ./users
     inputs.home-manager.nixosModules.home-manager
   ];
 
@@ -15,6 +16,7 @@
 
   home-manager = {
     useUserPackages = true;
+    useGlobalPkgs = true;
     extraSpecialArgs = {inherit inputs outputs experimentalFeatures;};
   };
 
@@ -38,7 +40,7 @@
     # the NIX_PATH mechanism. Setting this option ensures that our NixOS
     # configuration is compatible with code that uses the older <name> syntax
     # (e.g., import <nixpkgs> {}).
-    nixPath = ["etc/nix/path"];
+    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
   };
   users.mutableUsers = false;
 }

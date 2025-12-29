@@ -16,9 +16,8 @@ with builtins; let
   experimentalFeatures = ["nix-command" "flakes" "pipe-operators"];
 in {
   inherit lib;
-  nixosModules = import ./modules/nixos;
   overlays = import ./overlays {inherit inputs;};
-  packages =
+  devShells =
     import systems
     |> lib.foldl' (
       acc: system:
@@ -28,31 +27,12 @@ in {
         }
     ) {};
 
-  nixosConfigurations = with lib;
-  with builtins;
-    readDir ./hosts
-    |> filterAttrs (key: value: key != "common" && value == "directory")
-    |> attrNames
-    |> foldl' (
-      acc: hostname:
-        acc
-        // {
-          "${hostname}" = nixosSystem {
-            modules = [(./hosts + "/${hostname}")];
-            specialArgs = {
-              inherit inputs outputs experimentalFeatures;
-            };
-          };
-        }
-    ) {};
-
-  homeConfigurations = {
-    "user@nixos" = lib.homeManagerConfiguration {
-      modules = [./home/user/nixos.nix];
+  nixosConfigurations.argo = with lib;
+    nixosSystem {
       pkgs = pkgsFor.x86_64-linux;
-      extraSpecialArgs = {
+      modules = [./hosts/argo];
+      specialArgs = {
         inherit inputs outputs experimentalFeatures;
       };
     };
-  };
 }
