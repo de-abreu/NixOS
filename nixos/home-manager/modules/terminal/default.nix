@@ -1,3 +1,0 @@
-{...} : {
-    imports = [ ./astronvim ./shell ./wezterm ];
-}
