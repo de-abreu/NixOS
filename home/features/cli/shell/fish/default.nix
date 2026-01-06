@@ -4,7 +4,6 @@
 
   programs = {
     fish = {
-      enable = true;
       shellInit = let
         secrets = config.sops.secrets;
       in
@@ -14,11 +13,10 @@
           export TAVILY_API_KEY=(cat ${secrets."api-keys/tavily".path})
         '';
       shellAbbrs = {
-        cl = "clear";
         md = "mkdir -p";
         ":q" = "exit";
 
-        fc = "nix flake check";
+        fc = "nix flake check --show-trace";
         nd = "nix develop";
         ng = "nix-collect-garbage";
         nos = "nh os switch -- --show-trace";

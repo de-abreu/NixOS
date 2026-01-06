@@ -16,7 +16,7 @@
     } [
       "navi" # Interactive cheatsheet tool for the command line
       "fzf" # Command line fuzzy finder
-      "nix-index" # nix-index, somewhat similar to apt search. INFO: the index needs to be initially built by running "nix-index" with no arguments.
       "zoxide" # Shell agnostic Z directory jumping
+      "nix-your-shell" # Allow for nix shell environments be created using the shell currently used, instead of － only －with bash.
     ];
 }

@@ -1,7 +1,7 @@
 {
   imports = [
+    ./abnt2-keyboard
     ./cli
     ./gui
-    ./abnt2-keyboard
   ];
 }

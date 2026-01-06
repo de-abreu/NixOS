@@ -1,5 +1,4 @@
 inputs @ {
-  home-manager,
   nixpkgs,
   self,
   systems,
@@ -7,15 +6,21 @@ inputs @ {
 }:
 with builtins; let
   inherit (self) outputs;
-  lib = nixpkgs.lib // home-manager.lib;
-
+  lib = nixpkgs.lib;
+  importAll = with lib;
+    dir:
+      builtins.readDir dir
+      |> filterAttrs (name: type:
+        type
+        == "directory"
+        || (hasSuffix ".nix" name && name != "default.nix"))
+      |> attrNames
+      |> map (name: dir + "/${name}");
   pkgsFor = lib.genAttrs (import systems) (
     system: import nixpkgs {inherit system;}
   );
-
   experimentalFeatures = ["nix-command" "flakes" "pipe-operators"];
 in {
-  inherit lib;
   overlays = import ./overlays {inherit inputs;};
   devShells =
     import systems
@@ -27,12 +32,10 @@ in {
         }
     ) {};
 
-  nixosConfigurations.argo = with lib;
-    nixosSystem {
-      pkgs = pkgsFor.x86_64-linux;
-      modules = [./hosts/argo];
-      specialArgs = {
-        inherit inputs outputs experimentalFeatures;
-      };
+  nixosConfigurations.argo = lib.nixosSystem {
+    modules = [./hosts/argo];
+    specialArgs = {
+      inherit inputs outputs importAll experimentalFeatures;
     };
+  };
 }

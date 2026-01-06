@@ -1,40 +1,27 @@
-{pkgs, ...}: {
-  imports = [
-    ./fish
-    ./lynx
-    ./bat.nix
-    ./bottom.nix
-    ./eza.nix
-    ./fastfetch.nix
-    ./fd.nix
-    ./gpg.nix
-    ./nh.nix
-    ./nix-index-database.nix
-    ./tealdeer.nix
-    ./trashy.nix
-    ./wl-clipboard.nix
-    ./yazi.nix
-  ];
+{
+  importAll,
+  pkgs,
+  ...
+}: {
+  imports = importAll ./.;
 
   # General utility programs
-  config = {
-    home.packages = with pkgs; [
-      coreutils # GNU Core utilities
-      gdu # disk usage analyzer
-      imagemagick # Image manipulation
-      pb_cli # Output to a pastebin
-      pdftk # Manipulate pdf files
-      ripgrep # search for text within various files
-      devenv # create development environments tailored to specific projects.
-      nix-prefetch-git # prefetch git repository data (to then add to nix configs)
+  config.home.packages = with pkgs; [
+    coreutils # GNU Core utilities
+    gdu # disk usage analyzer
+    imagemagick # Image manipulation
+    pb_cli # Output to a pastebin
+    pdftk # Manipulate pdf files
+    ripgrep # search for text within various files
+    devenv # create development environments tailored to specific projects.
+    nix-prefetch-git # prefetch git repository data (to then add to nix configs)
 
-      # Requirements to fetch, compress, and uncompress files
-      wget
-      curl
-      gnutar
-      gzip
-      unzip
-      zip
-    ];
-  };
+    # Requirements to fetch, compress, and uncompress files
+    wget
+    curl
+    gnutar
+    gzip
+    unzip
+    zip
+  ];
 }

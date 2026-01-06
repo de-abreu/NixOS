@@ -1,6 +1,1 @@
-{
-  imports = [
-    ./astronvim
-    ./shell
-  ];
-}
+{importAll, ...}: {imports = importAll ./.;}

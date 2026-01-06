@@ -1,3 +1,3 @@
 {
-  imports = [./bash.nix ./devenv.nix ./nix-your-shell.nix ./others.nix];
+  imports = [./bash.nix ./devenv.nix ./others.nix];
 }

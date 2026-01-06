@@ -1,6 +1,6 @@
 {inputs, ...}: {
-  unstable-packages = final: _prev: {
-    unstable = import inputs.nixpkgs-unstable {
+  stable-packages = final: _prev: {
+    stable = import inputs.nixpkgs-stable {
       system = final.system;
     };
   };

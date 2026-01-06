@@ -1,1 +1,1 @@
-{imports = [./abreu.nix];}
+{importAll, ...}: {imports = importAll ./.;}

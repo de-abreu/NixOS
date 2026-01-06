@@ -9,23 +9,16 @@
     ./global
     ./optional
     ./users
-    inputs.home-manager.nixosModules.home-manager
   ];
 
-  nixpkgs.overlays = [outputs.overlays.unstable-packages];
-
-  home-manager = {
-    useUserPackages = true;
-    useGlobalPkgs = true;
-    extraSpecialArgs = {inherit inputs outputs experimentalFeatures;};
-  };
+  nixpkgs.overlays = [outputs.overlays.stable-packages];
 
   nix = {
     settings = {
       experimental-features = experimentalFeatures;
 
       # NOTE: This sets the users that are allowed to use the flake command
-      trusted-users = lib.mkForce ["root" "@wheel"];
+      trusted-users = ["root" "@wheel"];
     };
 
     # NOTE: The following takes flakes described as input parameters and makes
