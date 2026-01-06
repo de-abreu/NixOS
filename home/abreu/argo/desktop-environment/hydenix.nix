@@ -21,5 +21,9 @@
     social.enable = false;
     spotify.enable = false;
     terminals.enable = false;
+    hyprland = {
+      # See https://wiki.hyprland.org/Configuring/Monitors/
+      monitors.overideConfig = "monitor=, prefered, auto, 1";
+    };
   };
 }
