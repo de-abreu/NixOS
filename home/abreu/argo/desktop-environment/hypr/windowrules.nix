@@ -37,8 +37,6 @@ in {
       cp ${./default-window-rules.conf} $out/windowrules.conf
     '';
   };
-  hydenix.hm.hyprland.windowrules = {
-    overrideConfig = readFile ./application-window-rules.conf;
-    extraConfig = transparent + floating;
-  };
+  hydenix.hm.hyprland.windowrules.overrideConfig =
+    (readFile ./application-window-rules.conf) + transparent + floating;
 }

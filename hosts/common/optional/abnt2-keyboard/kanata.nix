@@ -50,7 +50,7 @@
             )
 
             (defsrc
-             esc caps tab j k l ç
+             esc caps tab lmet j k l ç
             )
 
             (defvar
@@ -61,14 +61,30 @@
             )
 
             (defalias
-             esctrl (tap-hold $tt $ht esc lctl)
-             tab (tap-hold $tt $ht tab (layer-toggle nav))
+              esctrl (tap-hold $tt $ht esc lctl)
+              tab (tap-hold $tt $ht tab (layer-toggle nav))
+
+              ;; 1. Lock alias: switch layer and hold the Super virtual key
+              slock (multi (layer-switch super-locked) (on-press press-vkey lmet))
+
+              ;; 2. Unlock alias: Switch back to base and release Super virtual key
+              sunlock (multi (layer-switch base) (on-press release-vkey lmet))
+
+              tap-super (tap-hold $tt $ht @slock lmet)
             )
 
             (deflayermap (base)
               esc caps
               caps @esctrl
               tab @tab
+              ${numkeys}
+            )
+
+            (deflayermap (super-locked)
+              lmet @sunlock
+              caps @esctrl
+              tab @tab
+              lmet @tap-super
               ${numkeys}
             )
 
