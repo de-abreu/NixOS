@@ -17,13 +17,15 @@
       zsh.enable = false;
       bash.enable = true;
       fish.enable = true;
+      starship.enable = false;
+      pokego.enable = false;
     };
     social.enable = false;
     spotify.enable = false;
     terminals.enable = false;
     hyprland = {
       # See https://wiki.hyprland.org/Configuring/Monitors/
-      monitors.overideConfig = "monitor=, prefered, auto, 1";
+      monitors.overrideConfig = "monitor=, prefered, auto, 1";
     };
   };
 }

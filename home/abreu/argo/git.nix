@@ -17,6 +17,7 @@ in {
         name = "Abreu";
         email = "87032834+de-abreu@users.noreply.github.com";
       };
+      init.defaultBranch = "main";
       push.autoSetupRemote = true;
     };
     signing = {

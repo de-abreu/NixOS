@@ -38,7 +38,6 @@ in {
     useUserPackages = true;
     useGlobalPkgs = true;
     extraSpecialArgs = {inherit inputs outputs importAll experimentalFeatures;};
-    backupFileExtension = "bak";
     users.${username} =
       import
       "${inputs.self}/home/${username}/${config.networking.hostName}";

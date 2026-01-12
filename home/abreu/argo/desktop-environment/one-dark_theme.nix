@@ -1,12 +1,12 @@
 {pkgs, ...}: {
   hydenix.hm.theme = {
     active = "One Dark";
-    themes = ["One Dark"];
+    themes = ["One Dark" "Gruvbox Retro"];
   };
-
+  #
   stylix = with pkgs; {
     enable = true;
-    base16Scheme = "${base16-schemes}/share/themes/onedark.yaml";
+    base16Scheme = "${base16-schemes}/share/themes/ayu-mirage.yaml";
     polarity = "dark";
 
     fonts = {
@@ -26,12 +26,16 @@
         package = noto-fonts-color-emoji;
         name = "Noto Color Emoji";
       };
-      sizes.terminal = 10;
+      sizes = {
+        terminal = 10;
+        desktop = 12;
+      };
     };
 
     # INFO: Remove items set using HyDE theming
     targets = {
       qt.enable = false;
+      kde.enable = false;
       gtk.enable = false;
       hyprland.enable = false;
       hyprpaper.enable = false;
